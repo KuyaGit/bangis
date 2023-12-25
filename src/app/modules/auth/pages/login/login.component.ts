@@ -19,7 +19,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
       <div class="basis-3/4">
         <img src="assets/bg.png" class="image-bg" alt="">
       </div>
-      <div class="basis-1/4 flex align-middle items-center content-center flex-wrap">
+      <div class="basis-1/4 flex align-middle items-center content-center justify-center flex-wrap">
           <div div class="flex items-center content-center flex-col">
             <form [formGroup]="loginForm" (ngSubmit)="login()">
               <label class="form-control w-full max-w-xs">
@@ -57,7 +57,7 @@ export class LoginComponent {
     });
   }
   login() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['home']);
     console.log(this.loginForm.value)
   }
 }
