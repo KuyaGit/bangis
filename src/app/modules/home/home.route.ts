@@ -15,6 +15,11 @@ export const homeRoute: Route[] = [
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
+      },
+      {
+        path: 'usermanagement',
+        title: 'Accounts',
+        loadComponent: () => import('../usermanagement/pages/usermanagement/usermanagement.component').then(m => m.UsermanagementComponent),
       }
     ]
   },

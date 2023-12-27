@@ -25,27 +25,30 @@ import { navbarData } from './navbarData';
           </li>
         </ul>
       </div>
-      <div class="right-content">
-        <div class="topbar flex m-1 items-center justify-between">
-          <div class="sidebar-buttons">
-            <button class="btn-close" *ngIf="collapsed" (click)="closeMenu()">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-            <button class="btn-close" *ngIf="!collapsed" (click)="openMenu()">
-              <i class="fal fa-bars"></i>
-            </button>
-          </div>
-          <div class="avatar-container">
-            <div class="avatar-info">
-              <img src="" alt="">
-              <span class="name">Mark Lowel</span>
+      <div class="right-container w-full">
+        <div class="right-content">
+          <div class="topbar flex items-center justify-between">
+            <div class="sidebar-buttons">
+              <button class="btn-close" *ngIf="collapsed" (click)="closeMenu()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+              <button class="btn-close" *ngIf="!collapsed" (click)="openMenu()">
+                <i class="fal fa-bars"></i>
+              </button>
+            </div>
+            <div class="avatar-container items-center flex align-middle justify-center">
+              <div class="avatar-info">
+                <img src="" alt="">
+                <span class="name">Mark Lowel</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="content">
-          <router-outlet></router-outlet>
+          <div class="content w-full">
+            <router-outlet></router-outlet>
+          </div>
         </div>
       </div>
+
     </div>
 
   `,

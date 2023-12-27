@@ -21,7 +21,6 @@ body {
     border-radius: .5rem;
     background-color: #fff;
     margin: 1.25rem 0 1.25rem 0;
-    box-shadow: 0 .25rem .5rem #e6edef;
 
     .card-head {
         padding: 1rem 1.5rem;
@@ -33,4 +32,11 @@ body {
     .card-body {
         padding: 1rem 1.5rem;
     }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --background-color: #99999
 }

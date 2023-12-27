@@ -105,12 +105,14 @@
 
 
 .right-content{
-  height: 19vh;
+  height: 4rem;
   background-color: #ffffff;
   width: 100%;
 }
 .topbar {
-  height: 3rem;
+  height: 4rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   .fa-xmark, .fa-bars {
     color: #0c0c0c;
     font-size: 24px;
@@ -121,4 +123,14 @@
 .avatar-container {
   border: black solid;
   border-radius: .5rem;
+  width: 10rem;
+  height: 3rem;
+}
+
+.right-container{
+  background-color: #999999;
+}
+
+.content{
+  width: 100%;
 }
