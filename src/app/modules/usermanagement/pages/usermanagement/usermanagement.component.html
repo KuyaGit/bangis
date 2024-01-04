@@ -1,9 +1,16 @@
 
+@if (modalAdd) {
+  <app-add-user (modalEvent)="this.closemodalAdd($event)"/>
+} @else if (modalView) {
+  <app-view-user (modalEvent)="this.closemodalView($event)"/>
+} @else if (modalEdit) {
+  <app-edit-user (modalEvent)="this.closemodalEdit($event)"/>
+}
 
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <input type="text" placeholder="Search for an Event" class="input input-bordered w-full max-w-xs" />
-    <button class="btn btn-primary">
+    <button class="btn bg-green-600  border-none hover:bg-green-700 text-white" (click)="this.modalAdd = true">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
       </svg>
@@ -15,10 +22,11 @@
       <table class="table">
           <thead>
               <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Date</th>
-                  <th>Active</th>
+                  <th>UserID</th>
+                  <th>Email Address</th>
+                  <th>Username</th>
+                  <th>Address</th>
+                  <th>Role</th>
                   <th>Action</th>
               </tr>
           </thead>
@@ -39,6 +47,9 @@
                           </div>
                       </td>
                       <td>
+                        {{ user.address }}
+                      </td>
+                      <td>
                           {{ user.description }}
                       </td>
                       <td>{{user.date}}</td>
@@ -53,8 +64,8 @@
                         <div class="dropdown dropdown-left 2xl:dropdown-right">
                           <div tabindex="0" role="button" class="btn m-1">Action</div>
                           <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24">
-                            <li><a>View</a></li>
-                            <li><a>Edit</a></li>
+                            <li><a (click)="openViewModal()">View</a></li>
+                            <li><a (click)="openEditModal()">Edit</a></li>
                             <li><a>Delete</a></li>
                           </ul>
                         </div>

@@ -83,7 +83,7 @@
     }
 
     .sidenav-link-text{
-      margin-left: 1.5rem;
+      margin-left: .5rem;
     }
   }
 
@@ -91,14 +91,14 @@
 
 .sidenav-nav-item:hover{
   .sidenav-nav-link{
-    background-color: #008000;
+    background-color: #16a34a;
     color: #fff;
     border-radius: 0.5rem;
   }
 }
 
 .sidenav-nav-item a.active {
-  background-color: #008000;
+  background-color: #16a34a;
   color: #fff;
   border-radius: 0.5rem;
 }
@@ -121,7 +121,6 @@
 
 
 .avatar-container {
-  border: black solid;
   border-radius: .5rem;
   width: 10rem;
   height: 3rem;
@@ -133,4 +132,8 @@
 
 .content{
   width: 100%;
+}
+
+span.avatar-name{
+  margin-left: .5rem
 }

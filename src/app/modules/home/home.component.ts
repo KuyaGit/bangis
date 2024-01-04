@@ -36,10 +36,17 @@ import { navbarData } from './navbarData';
                 <i class="fal fa-bars"></i>
               </button>
             </div>
-            <div class="avatar-container items-center flex align-middle justify-center">
-              <div class="avatar-info">
-                <img src="" alt="">
-                <span class="name">Mark Lowel</span>
+            <div class="avatar-container items-center flex align-middle justify-center border-none bg-slate-200">
+              <div class="avatar-info flex items-center justify-evenly">
+                <div class="avatar">
+                  <div class="w-10 rounded-full border border-solid border-green-600">
+                    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  </div>
+                </div>
+                <div class="role-name avatar-name flex flex-col ml-2">
+                  <span class="name ">Mark Lowel</span>
+                  <span class="role text-xs">Provet</span>
+                </div>
               </div>
             </div>
           </div>
@@ -48,7 +55,6 @@ import { navbarData } from './navbarData';
           </div>
         </div>
       </div>
-
     </div>
 
   `,
