@@ -20,6 +20,11 @@ export const homeRoute: Route[] = [
         path: 'usermanagement',
         title: 'Accounts',
         loadComponent: () => import('../usermanagement/pages/usermanagement/usermanagement.component').then(m => m.UsermanagementComponent),
+      },
+      {
+        path: 'animalvaccination',
+        title: 'Animal Vaccination',
+        loadComponent: () => import('../animalvacination/pages/lists/lists.component').then(m => m.ListsComponent),
       }
     ]
   },
