@@ -1,8 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PrmBtnComponent } from '../../../../core/components/prm-btn/prm-btn.component';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../../../core/services/auth.service';
+import { AlertService } from '../../../../core/services/alert.service';
+import { LoginService } from '../../../../core/services/login.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +17,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
     PrmBtnComponent,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
   ],
   template: `
   <div class="container">
@@ -26,7 +32,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
                 <div class="label">
                   <span class="label-text">Username</span>
                 </div>
-                <input type="text" formControlName="username" placeholder="Enter Username" class="input input-bordered w-full max-w-xs" />
+                <input type="text" formControlName="email" placeholder="Enter Username" class="input input-bordered w-full max-w-xs" />
               </label>
               <label class="form-control w-full max-w-xs">
                 <div class="label">
@@ -45,19 +51,43 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-
+  loginSubscription: Subscription = new Subscription()
   loginForm : FormGroup;
   constructor (
     private router : Router,
     private fb : FormBuilder,
+    private _auth: AuthService,
+    private _alertService : AlertService
   ) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
+
   login() {
-    this.router.navigate(['home']);
-    console.log(this.loginForm.value)
-  }
+    this.loginSubscription.add(
+      this._auth.login(
+          this.loginForm.value.email,
+          this.loginForm.value.password
+        )
+        .subscribe(
+          (response) => {
+            if (response['status'] == 200) {
+              this._alertService.simpleAlert(
+                'success',
+                'Success',
+                'Login Successful'
+              )
+              this.router.navigate(['/home/dashboard']);
+              } else {
+                this._alertService.simpleAlert(
+                  'error',
+                  'Invalid Account',
+                  'Invalid Account'
+                );
+              }
+            }
+        )
+    )}
 }

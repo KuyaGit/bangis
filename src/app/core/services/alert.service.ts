@@ -37,4 +37,10 @@ export class AlertService {
       timer: 2000,
     });
   }
+  public handleSuccess(message: string) {
+    this.simpleAlert('success', 'Success', message);
+  }
+  public handleError(message: string) {
+    this.simpleAlert('error', 'Error', message);
+  }
 }

@@ -1,18 +1,43 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, inject } from '@angular/core';
+import { AlertService } from '../../../../../core/services/alert.service';
+import { UserService } from '../../../services/user.service';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
 })
 export class AddUserComponent {
   modalAdd !: boolean;
-  _alert = Inject
+  _alert = inject(AlertService);
+  _user = inject(UserService);
+  _form = inject(FormBuilder);
+  account!:FormGroup
   @Output() modalEvent = new EventEmitter<boolean>();
-
+  constructor() {
+    this.account = this._form.group({
+      name: [''],
+      email: [''],
+      password: [''],
+      address: [''],
+      accountType: [''],
+    });
+  }
   closemodaladd() {
     this.modalEvent.emit(false);
   }
+  addAccount() {
+    this._user.createUser(this.account.value).subscribe(
+      (result) => {
+        if(result){
+          this._alert.handleSuccess('Account added successfully');
+          this.closemodaladd();
+        }
+      })
+  }
+
+  
 }

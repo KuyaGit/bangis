@@ -1,9 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  Signal,
+  inject,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AddUserComponent } from '../../components/modals/add-user/add-user.component';
 import { EditUserComponent } from '../../components/modals/edit-user/edit-user.component';
 import { ViewUserComponent } from '../../components/modals/view-user/view-user.component';
+import { UserService } from '../../services/user.service';
+import { AlertService } from '../../../../core/services/alert.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-usermanagement',
@@ -12,16 +23,15 @@ import { ViewUserComponent } from '../../components/modals/view-user/view-user.c
     CommonModule,
     AddUserComponent,
     EditUserComponent,
-    ViewUserComponent
+    ViewUserComponent,
   ],
   templateUrl: './usermanagement.component.html',
-  styleUrl: './usermanagement.component.scss'
+  styleUrl: './usermanagement.component.scss',
 })
-export class UsermanagementComponent {
-  modalAdd : boolean = false;
-  modalView : boolean = false;
-  modalEdit : boolean = false;
-
+export class UsermanagementComponent implements OnInit {
+  modalAdd: boolean = false;
+  modalView: boolean = false;
+  modalEdit: boolean = false;
   openViewModal() {
     this.modalView = true;
   }
@@ -32,56 +42,63 @@ export class UsermanagementComponent {
     this.modalAdd = true;
   }
 
-  closemodalAdd($event : any) {
+  closemodalAdd($event: any) {
     this.modalAdd = $event;
+    this.getAllUsers();
   }
-  closemodalEdit($event : any) {
+  closemodalEdit($event: any) {
     this.modalEdit = $event;
   }
-  closemodalView($event : any) {
+  closemodalView($event: any) {
     this.modalView = $event;
-  }
-  eventsData = [
-    {
-      name: 'Angular Pipes',
-      image: 'https://angular.io/assets/images/logos/angular/angular.png',
-      description: 'Lorem Ipsum Dolor Sit Amet',
-      date: '2022-12-12',
-      active: true,
-      address: 'Batangas'
-    },
-    {
-      name: 'Azure Functions',
-      image: 'https://angular.io/assets/images/logos/angular/angular.png',
-      description: 'Lorem Ipsum Dolor Sit Amet',
-      date: '2022-12-22',
-      active: false,
-      address: 'Batangas'
-    },
-    {
-      name: 'Azure Functions',
-      image: 'https://angular.io/assets/images/logos/angular/angular.png',
-      description: 'Lorem Ipsum Dolor Sit Amet',
-      date: '2022-12-22',
-      active: false,
-      address: 'Batangas'
-    },
-    {
-      name: 'Azure Functions',
-      image: 'https://angular.io/assets/images/logos/angular/angular.png',
-      description: 'Lorem Ipsum Dolor Sit Amet',
-      date: '2022-12-22',
-      active: false,
-      address: 'Batangas'
-    },
-    {
-      name: 'Azure Functions',
-      image: 'https://angular.io/assets/images/logos/angular/angular.png',
-      description: 'Lorem Ipsum Dolor Sit Amet',
-      date: '2022-12-22',
-      active: false,
-      address: 'Batangas'
-    }
-  ]
 
+  }
+  UserSubscription : Subscription = new Subscription()
+  Users: any[] = [];
+  constructor(private _user: UserService, private _alert: AlertService) {}
+
+  deleteUser(id: number) {
+    this._alert.simpleAlert(
+      'warning',
+      'Warning',
+      'Are you sure you want to archived this Account User?',
+      () => {
+        this._user.deleteUser(id).subscribe(
+          (result) => {
+            if (result && result.status === '200') {
+              this._alert.handleSuccess('User deleted successfully');
+              this.getAllUsers();
+            } else {
+              this._alert.handleError('Failed to delete user profile');
+            }
+          },
+          (error) => {
+            this._alert.handleError(
+              'An error occurred while deleting the user profile'
+            );
+            console.error(error);
+          }
+        );
+      },
+    );
+  }
+  getAllUsers() {
+    this.UserSubscription.add(
+      this._user.getAllUsers().subscribe(
+        (result) => {
+          if (Array.isArray(result)) {
+            this.Users = result;
+            console.log('from function get all users');
+            console.log(this.Users);
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      )
+    )
+  }
+  ngOnInit(): void {
+    this.getAllUsers();
+  }
 }
