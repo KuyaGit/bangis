@@ -2,6 +2,7 @@ import { Component, EventEmitter, Inject, Input, Output, inject } from '@angular
 import { AlertService } from '../../../../../core/services/alert.service';
 import { UserService } from '../../../services/user.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-user',
@@ -17,6 +18,9 @@ export class AddUserComponent {
   _form = inject(FormBuilder);
   account!:FormGroup
   @Output() modalEvent = new EventEmitter<boolean>();
+  @Output() getAllUsersMethod = new EventEmitter<Subscription>();
+
+  private UserSubscription: Subscription = new Subscription();
   constructor() {
     this.account = this._form.group({
       name: [''],
@@ -25,6 +29,10 @@ export class AddUserComponent {
       address: [''],
       accountType: [''],
     });
+  }
+
+  getAllUsers() {
+    this.UserSubscription.add(this.getAllUsersMethod.emit(this.UserSubscription));
   }
   closemodaladd() {
     this.modalEvent.emit(false);
@@ -35,9 +43,10 @@ export class AddUserComponent {
         if(result){
           this._alert.handleSuccess('Account added successfully');
           this.closemodaladd();
+          this.getAllUsers();
         }
       })
   }
 
-  
+
 }

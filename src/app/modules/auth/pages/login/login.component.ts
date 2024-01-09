@@ -79,12 +79,12 @@ export class LoginComponent {
                 'Success',
                 'Login Successful'
               )
-              this.router.navigate(['/home/dashboard']);
-              } else {
+              this.router.navigate(['/home/']);
+              } else if (response['response']['statusCode'] == 400 || response['response']['statusCode'] == 401){
                 this._alertService.simpleAlert(
                   'error',
-                  'Invalid Account',
-                  'Invalid Account'
+                  'Invalid Credentials',
+                  'Invalid Credentials'
                 );
               }
             }

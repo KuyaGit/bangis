@@ -7,7 +7,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { httpBaseInterceptor } from './core/interceptor/http-base.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimations(), provideHttpClient(withInterceptors([
+  providers: [provideRouter(routes), provideAnimations(),provideHttpClient(withInterceptors([
     httpBaseInterceptor
   ]))]
 };

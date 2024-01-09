@@ -8,13 +8,13 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { AddUserComponent } from '../../components/modals/add-user/add-user.component';
 import { EditUserComponent } from '../../components/modals/edit-user/edit-user.component';
 import { ViewUserComponent } from '../../components/modals/view-user/view-user.component';
 import { UserService } from '../../services/user.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { Subscription } from 'rxjs';
+import { UserModel } from '../../models/user.interface';
 
 @Component({
   selector: 'app-usermanagement',
@@ -29,17 +29,26 @@ import { Subscription } from 'rxjs';
   styleUrl: './usermanagement.component.scss',
 })
 export class UsermanagementComponent implements OnInit {
-  modalAdd: boolean = false;
-  modalView: boolean = false;
-  modalEdit: boolean = false;
-  openViewModal() {
-    this.modalView = true;
+  modalAdd = signal<boolean>(false);
+  modalView = signal<boolean>(false);
+  modalEdit = signal<boolean>(false);
+  userDetails: undefined | UserModel;
+
+  openViewModal(id: number) {
+    console.log('Test');
+    this.UserSubscription.add(
+      this._user.getUserById(id).subscribe((response) => {
+        console.log(' Test 2');
+        this.userDetails = response;
+        this.modalView.set(true)
+      })
+    );
   }
   openEditModal() {
-    this.modalEdit = true;
+    this.modalEdit.set(true);
   }
   openAddModal() {
-    this.modalAdd = true;
+    this.modalAdd.set(true);
   }
 
   closemodalAdd($event: any) {
@@ -51,11 +60,11 @@ export class UsermanagementComponent implements OnInit {
   }
   closemodalView($event: any) {
     this.modalView = $event;
-
   }
-  UserSubscription : Subscription = new Subscription()
+  UserSubscription: Subscription = new Subscription();
   Users: any[] = [];
-  constructor(private _user: UserService, private _alert: AlertService) {}
+  _user = inject(UserService);
+  _alert = inject(AlertService);
 
   deleteUser(id: number) {
     this._alert.simpleAlert(
@@ -65,7 +74,7 @@ export class UsermanagementComponent implements OnInit {
       () => {
         this._user.deleteUser(id).subscribe(
           (result) => {
-            if (result && result.status === '200') {
+            if (result["id"] == id) {
               this._alert.handleSuccess('User deleted successfully');
               this.getAllUsers();
             } else {
@@ -79,24 +88,18 @@ export class UsermanagementComponent implements OnInit {
             console.error(error);
           }
         );
-      },
+      }
     );
   }
   getAllUsers() {
     this.UserSubscription.add(
-      this._user.getAllUsers().subscribe(
-        (result) => {
-          if (Array.isArray(result)) {
-            this.Users = result;
-            console.log('from function get all users');
-            console.log(this.Users);
-          }
-        },
-        (error) => {
-          console.error(error);
-        }
-      )
+      this._user.getAllUsers().subscribe((result) => {
+        this._user.Users.set(result);
+      })
     )
+  }
+  ngOnDestroy(): void {
+    this.UserSubscription.unsubscribe();
   }
   ngOnInit(): void {
     this.getAllUsers();

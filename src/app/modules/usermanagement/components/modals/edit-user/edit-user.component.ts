@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { UserService } from '../../../services/user.service';
@@ -16,6 +16,7 @@ export class EditUserComponent {
   _user = inject(UserService);
   _form = inject(FormBuilder);
   account!:FormGroup
+  @Input() userDetails: any [] = [];
   @Output() modalEvent = new EventEmitter<boolean>();
   constructor() {
     this.account = this._form.group({

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { UserModel } from '../models/user.interface';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +9,9 @@ import { AlertService } from '../../../core/services/alert.service';
   providedIn: 'root'
 })
 export class UserService {
+  Users = signal<UserModel[] | undefined>(undefined);
+  userInfo = signal<UserModel | undefined>(undefined);
+  
   private url = environment.baseUrl
   constructor( private http: HttpClient, private _alert : AlertService) { }
   public createUser(data: UserModel): Observable<any> {
@@ -25,5 +28,7 @@ export class UserService {
   deleteUser(id: number): Observable<any>  {
     return this.http.delete(`${this.url}/users/${id}`)
 }
-
+  getUserById(id: number): Observable<any> {
+    return this.http.get(`${this.url}/users/${id}`)
+  }
 }
