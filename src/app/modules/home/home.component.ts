@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  effect,
   inject,
 } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
@@ -11,6 +12,7 @@ import { navbarData } from './navbarData';
 import { AuthService } from '../../core/services/auth.service';
 import { HasRoleDirective } from '../../hasRole.directive';
 import { AvatarComponent } from '../../core/components/avatar/avatar.component';
+
 
 @Component({
   selector: 'app-home',
@@ -29,7 +31,7 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
           <div
             class="logo-container flex content-center justify-center items-center rounded-lg"
           >
-            <div class="logo-text flex bg-green-600 rounded-lg" *ngIf="collapsed">
+            <div class="logo-text flex text-white bg-red-600 rounded-lg" *ngIf="collapsed">
               <h1 class="text-2xl font-bold m-6" *appHasRole="'admin'">
                 ADMINISTRATOR
               </h1>
@@ -47,9 +49,19 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
         </div>
 
         <ul class="sidenav-nav">
-          <li class="sidenav-nav-item " *ngFor="let data of navData">
+          <li class="sidenav-nav-item" style="margin: 0;">
             <a
-            *appHasRole="[data.appHasRole]"
+              class="sidenav-nav-link"
+              routerLink='/home/dashboard'
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <i class="sidenav-link-icon fa-solid fa-bars-progress"></i>
+              <span class="sidenav-link-text" *ngIf="collapsed">Home</span>
+            </a>
+          <li class="sidenav-nav-item" *ngFor="let data of navData">
+            <a
+              *appHasRole="data.appHasRole"
               class="sidenav-nav-link"
               [routerLink]="[data.routerLink]"
               routerLinkActive="active"
@@ -124,7 +136,11 @@ export class HomeComponent implements OnInit {
   role?: string;
   _auth = inject(AuthService);
   username?: string;
-  // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwic3ViIjoxLCJhY2NvdW50VHlwZSI6ImFkbWluIiwiaWF0IjoxNzA0NzkwNzAwLCJleHAiOjE3MDQ4MzM5MDB9.8FsrRx8YDVXJYOVtjmIi0pqUwianLR8rDB--9H_m6J8
+  constructor(){
+    effect(() => {
+      this._auth.accountType()
+    })
+  }
   token : any;
   closeMenu() {
     this.collapsed = !this.collapsed;
@@ -133,7 +149,6 @@ export class HomeComponent implements OnInit {
   openMenu() {
     this.collapsed = true;
   }
-
   ngOnInit(): void {
   }
 }

@@ -35,7 +35,6 @@ export class UsermanagementComponent implements OnInit {
   userDetails: undefined | UserModel;
 
   openViewModal(id: number) {
-    console.log('Test');
     this.UserSubscription.add(
       this._user.getUserById(id).subscribe((response) => {
         console.log(' Test 2');
@@ -44,8 +43,14 @@ export class UsermanagementComponent implements OnInit {
       })
     );
   }
-  openEditModal() {
-    this.modalEdit.set(true);
+  openEditModal(id: number) {
+    this.UserSubscription.add(
+      this._user.getUserById(id).subscribe((response) => {
+        console.log(' Test 3');
+        this.userDetails = response;
+        this.modalEdit.set(true)
+      })
+    )
   }
   openAddModal() {
     this.modalAdd.set(true);
@@ -53,7 +58,6 @@ export class UsermanagementComponent implements OnInit {
 
   closemodalAdd($event: any) {
     this.modalAdd = $event;
-    this.getAllUsers();
   }
   closemodalEdit($event: any) {
     this.modalEdit = $event;

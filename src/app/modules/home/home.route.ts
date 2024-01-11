@@ -1,4 +1,6 @@
 import { Route } from "@angular/router";
+import { HomeComponent } from "./home.component";
+
 
 export const homeRoute: Route[] = [
   {
@@ -19,6 +21,9 @@ export const homeRoute: Route[] = [
         path: 'usermanagement',
         title: 'Accounts',
         loadComponent: () => import('../usermanagement/pages/usermanagement/usermanagement.component').then(m => m.UsermanagementComponent),
+        data : {
+          accoutType: 'abtc'
+        }
       },
       {
         path: 'animalvaccination',

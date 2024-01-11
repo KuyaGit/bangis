@@ -13,8 +13,6 @@
 
   <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-
-      <!-- @for (item of _user.userInfo(); track $index) {} -->
         <form class="w-full flex justify-center items-center" [formGroup]="account">
           <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
@@ -37,14 +35,6 @@
               <div class="sm:flex sm:items-center w-full">
                 <label class="form-control w-full">
                   <div class="label">
-                    <span class="label-text">Password</span>
-                  </div>
-                  <input type="text" formControlName="password" placeholder="Password" class="input input-bordered w-full" />
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
                     <span class="label-text">Address</span>
                   </div>
                   <input type="text" formControlName="address" placeholder="Please Select Address" class="input input-bordered w-full" />
@@ -58,7 +48,6 @@
                   <input type="text" formControlName="accountType" placeholder="" class="input input-bordered w-full" />
                 </label>
               </div>
-
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="closemodaladd()">Cancel</button>

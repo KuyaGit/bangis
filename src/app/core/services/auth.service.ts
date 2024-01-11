@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from "@angular/core";
+import { Injectable, OnInit, computed, effect, inject, signal } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, tap } from "rxjs";
@@ -18,21 +18,20 @@ export class AuthService {
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
   private readonly TOKEN_NAME = environment.tokenName;
   isLoggedIn$ = this._isLoggedIn$.asObservable();
-  user: UserModel | null;
-  userInfo = signal<UserModel | null>(null);
-  userPayload?: UserModel | null;
-
+  user =signal<UserModel | null>(null);
+  userInfo : UserModel | null = null;
+  accountType = signal<String | undefined>('');
   get token(): any {
     return localStorage.getItem(this.TOKEN_NAME);
   }
 
   constructor(private _login: LoginService, private router : Router) {
     this._isLoggedIn$.next(!!this.token);
-    this.user = this.getUser(this.token);
+    this.userInfo = this.getUser(this.token)
   }
-  acccounttype: any ;
+
   hasRole(role: string): boolean {
-    return this.user?.accountType.includes(role) || false;
+    return this.userInfo?.accountType === role;
   }
 
   login(email: string, password: string) {
@@ -43,13 +42,12 @@ export class AuthService {
         }
         this._isLoggedIn$.next(true);
         localStorage.setItem(this.TOKEN_NAME, response.access_token);
-        this.user = this.getUser(response.token);
-        this.userPayload = this.getUser(response.token);
-        this.userInfo.set(this.userPayload);
+        this.userInfo = this.getUser(response.access_token);
+        this.user.set(this.getUser(response.access_token));
+        this.accountType.set(this.userInfo?.accountType)
       })
     );
   }
-
   public getUser(token: string): UserModel | null {
     if (!token) {
       this.router.navigate([''])
@@ -58,6 +56,9 @@ export class AuthService {
     return JSON.parse(atob(token.split('.')[1])) as UserModel;
   }
 
+  isLogin() {
+    return this.isLoggedIn$
+  }
   logout() {
     this._alert.simpleAlert(
       'warning',

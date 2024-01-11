@@ -33,7 +33,6 @@ export class ViewUserComponent implements OnInit{
 
 
   ngOnInit(): void {
-
     this.account.patchValue(this.userInfo);
   }
   closemodaladd() {

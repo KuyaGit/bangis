@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { UserService } from '../../../services/user.service';
@@ -10,13 +10,13 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.scss'
 })
-export class EditUserComponent {
+export class EditUserComponent implements OnInit{
   modalEdit !: boolean;
   _alert = inject(AlertService);
   _user = inject(UserService);
   _form = inject(FormBuilder);
   account!:FormGroup
-  @Input() userDetails: any [] = [];
+  @Input() userDetails: any;
   @Output() modalEvent = new EventEmitter<boolean>();
   constructor() {
     this.account = this._form.group({
@@ -32,5 +32,8 @@ export class EditUserComponent {
   }
   closemodaledit() {
     this.modalEvent.emit(false);
+  }
+  ngOnInit(): void {
+    this.account.patchValue(this.userDetails);
   }
 }
