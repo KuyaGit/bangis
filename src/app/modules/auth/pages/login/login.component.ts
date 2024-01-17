@@ -80,7 +80,11 @@ export class LoginComponent {
                 'Success',
                 'Login Successful'
               )
-              this.router.navigate(['/home/']);
+              if(this._auth.hasRole('admin')){
+                this.router.navigate(['home/usermanagement'])
+              } else {
+                this.router.navigate(['home/'])
+              }
               } else if (response['response']['statusCode'] == 400 || response['response']['statusCode'] == 401){
                 this._alertService.simpleAlert(
                   'error',

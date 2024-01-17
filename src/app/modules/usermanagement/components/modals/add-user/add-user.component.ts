@@ -1,17 +1,20 @@
-import { Component, EventEmitter, Inject, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, inject } from '@angular/core';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { UserService } from '../../../services/user.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { MunicipalityService } from '../../../../../core/services/municipality.service';
+import { municipalityNames } from '../../../../../core/models/municipality-data.interface';
 
 @Component({
   selector: 'app-add-user',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
 })
-export class AddUserComponent {
+export class AddUserComponent implements OnInit{
   modalAdd !: boolean;
   _alert = inject(AlertService);
   _user = inject(UserService);
@@ -19,8 +22,9 @@ export class AddUserComponent {
   account!:FormGroup
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllUsersMethod = new EventEmitter<Subscription>();
-
+  _municipality = inject(MunicipalityService)
   private UserSubscription: Subscription = new Subscription();
+  municipipalities : municipalityNames[] = [];
   constructor() {
     this.account = this._form.group({
       name: [''],
@@ -46,5 +50,8 @@ export class AddUserComponent {
           this.getAllUsers();
         }
       })
+  }
+  ngOnInit(): void {
+      this.municipipalities =this._municipality.getmunicipalityNames();
   }
 }

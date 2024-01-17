@@ -21,6 +21,7 @@ export class AuthService {
   user =signal<UserModel | null>(null);
   userInfo : UserModel | null = null;
   accountType = signal<String | undefined>('');
+  updateInfo = signal<UserModel | undefined>(undefined);
   get token(): any {
     return localStorage.getItem(this.TOKEN_NAME);
   }

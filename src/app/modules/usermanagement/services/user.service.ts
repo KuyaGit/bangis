@@ -11,9 +11,9 @@ import { AlertService } from '../../../core/services/alert.service';
 export class UserService {
   Users = signal<UserModel[] | undefined>(undefined);
   userInfo = signal<UserModel | undefined>(undefined);
-  
+
   private url = environment.baseUrl
-  constructor( private http: HttpClient, private _alert : AlertService) { }
+  constructor( private http: HttpClient) { }
   public createUser(data: UserModel): Observable<any> {
     return this.http.post(`${this.url}/users`, data)
   }
@@ -27,8 +27,11 @@ export class UserService {
 
   deleteUser(id: number): Observable<any>  {
     return this.http.delete(`${this.url}/users/${id}`)
-}
+  }
   getUserById(id: number): Observable<any> {
     return this.http.get(`${this.url}/users/${id}`)
+  }
+  updateByUserId(id: number, data: UserModel) {
+    return this.http.put(`${this.url}/users/${id}`, data)
   }
 }

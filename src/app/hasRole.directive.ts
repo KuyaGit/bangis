@@ -8,8 +8,16 @@ import { UserModel } from './modules/usermanagement/models/user.interface';
 })
 export class HasRoleDirective {
   @Input()
-  set appHasRole(role: any) {
-    if (this._authService.hasRole(role)) {
+  set appHasRole(roles: any[]) {
+    let hasRole = false;
+    for (const role of roles) {
+      if (this._authService.hasRole(role)) {
+        hasRole = true;
+        break;
+      }
+    }
+
+    if (hasRole) {
       this.viewContainerRef.createEmbeddedView(this.templateRef);
     } else {
       this.viewContainerRef.clear();

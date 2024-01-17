@@ -4,7 +4,7 @@
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <input type="text" placeholder="Search for an Event" class="input input-bordered w-full max-w-xs" />
-    <button class="btn bg-red-600  border-none hover:bg-red-700 text-white" (click)="this.modalAdd.set(true)">
+    <button class="btn bg-red-600  border-none hover:bg-red-700 text-white" (click)="this.HVacAddModal.set(true)">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
       </svg>
@@ -25,30 +25,29 @@
               </tr>
           </thead>
           <tbody>
-              @for(user of _user.Users(); track $index){
+              @for(vaccine of _hvac.HVacs(); track $index){
                   <tr>
                       <td>
-                        {{user.id}}
+                        {{vaccine.id}}
                       </td>
                       <td>
-                        <div class="font-bold">{{ user.name }}</div>
+                        <div class="font-bold">{{ vaccine.vacName }}</div>
                       </td>
                       <td>
-                        {{ user.email }}
+                        {{ vaccine.brandName }}
                       </td>
-                      <td>{{user.address}}</td>
+                      <td>{{vaccine.stockQuantity}}</td>
                       <td>
                         <div class="flex flex-row items-center">
-                          {{user.accountType.toUpperCase()}}
+                          {{vaccine.expiryDate.toISOString()}}
                         </div>
                       </td>
                       <td>
                         <div class="dropdown dropdown-left 2xl:dropdown-right">
                           <div tabindex="0" role="button" class="btn m-1">Action</div>
                           <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24">
-                            <li><a (click)="openViewModal(user.id)">View</a></li>
-                            <li><a (click)="openEditModal(user.id)">Edit</a></li>
-                            <li><a (click)="deleteUser(user.id)">Delete</a></li>
+                            <li><a (click)="openHVacViewModal(vaccine.id)">View</a></li>
+                            <li><a (click)="openHVacEditModal(vaccine.id)">Edit</a></li>
                           </ul>
                         </div>
                       </td>
@@ -63,10 +62,10 @@
     </div>
   </div>
 </div>
-@if (modalAdd()) {
-  <app-add-user (modalEvent)="this.modalAdd.set($event)" (getAllUsersMethod)="getAllUsers()" />
-} @else if (modalView()) {
-  <app-view-user (modalEvent)="this.modalView.set($event)" (getAllUsersMethod)="getAllUsers()" [userInfo]="userDetails"/>
-} @else if (modalEdit()) {
-  <app-edit-user (modalEvent)="this.modalEdit.set($event)" (getAllUsersMethod)="getAllUsers()"/>
+@if (HVacAddModal()) {
+  <app-add (modalEvent)="this.HVacAddModal.set($event)" (getAllHumanVaccineMethod)="getAllHumanVacine()" />
+} @else if (HVacViewModal()) {
+  <app-view (modalEvent)="this.HVacViewModal.set($event)" (getAllHumanVaccineMethod)="getAllHumanVacine()" [hVacInfo]=""/>
+} @else if (HVacEditModal()) {
+  <app-edit (modalEvent)="this.HVacEditModal.set($event)" (getAllHumanVaccineMethod)="getAllHumanVacine()"/>
 }

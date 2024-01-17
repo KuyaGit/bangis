@@ -15,6 +15,7 @@ import { UserService } from '../../services/user.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { Subscription } from 'rxjs';
 import { UserModel } from '../../models/user.interface';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-usermanagement',
@@ -32,8 +33,8 @@ export class UsermanagementComponent implements OnInit {
   modalAdd = signal<boolean>(false);
   modalView = signal<boolean>(false);
   modalEdit = signal<boolean>(false);
-  userDetails: undefined | UserModel;
-
+  userDetails: UserModel[] = [];
+  _auth = inject(AuthService);
   openViewModal(id: number) {
     this.UserSubscription.add(
       this._user.getUserById(id).subscribe((response) => {
@@ -46,8 +47,7 @@ export class UsermanagementComponent implements OnInit {
   openEditModal(id: number) {
     this.UserSubscription.add(
       this._user.getUserById(id).subscribe((response) => {
-        console.log(' Test 3');
-        this.userDetails = response;
+        this._user.userInfo.set(response)
         this.modalEdit.set(true)
       })
     )

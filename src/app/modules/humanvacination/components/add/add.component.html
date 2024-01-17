@@ -13,23 +13,39 @@
 
   <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-        <form class="w-full flex justify-center items-center" [formGroup]="account">
+        <form class="w-full flex justify-center items-center" [formGroup]="HVacineForm">
           <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div class="sm:flex sm:items-center w-full">
                 <label class="form-control w-full">
                   <div class="label">
-                    <span class="label-text">Clinic Name</span>
+                    <span class="label-text">Vaccine Name</span>
                   </div>
-                  <input type="text" formControlName="name" placeholder="Ex. Petify Clinic" class="input input-bordered w-full cursor-not-allowed"/>
+                  <input type="text" formControlName="vacName" placeholder="Vaccine Name" class="input input-bordered w-full" />
                 </label>
               </div>
               <div class="sm:flex sm:items-center w-full">
                 <label class="form-control w-full">
                   <div class="label">
-                    <span class="label-text">Username</span>
+                    <span class="label-text">Brand Name</span>
                   </div>
-                  <input type="text" formControlName="email" placeholder="Username" class="input input-bordered w-full cursor-not-allowed" readonly/>
+                  <input type="text" formControlName="brandName" placeholder="Brand Name" class="input input-bordered w-full" />
+                </label>
+              </div>
+              <div class="sm:flex sm:items-center w-full">
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Quantity</span>
+                  </div>
+                  <input type="number" formControlName="stockQuantity" placeholder="Quantity" class="input input-bordered w-full" />
+                </label>
+              </div>
+              <div class="sm:flex sm:items-center w-full">
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Dosage</span>
+                  </div>
+                  <input type="number" formControlName="dosage" placeholder="Dosage" class="input input-bordered w-full" />
                 </label>
               </div>
               <div class="sm:flex sm:items-center w-full">
@@ -37,19 +53,14 @@
                   <div class="label">
                     <span class="label-text">Address</span>
                   </div>
-                  <input type="text" formControlName="address" placeholder="Please Select Address" class="input input-bordered w-full cursor-not-allowed" readonly/>
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Account Type</span>
-                  </div>
-                  <input type="text" formControlName="accountType" placeholder="" class="input input-bordered w-full cursor-not-allowed"  readonly/>
+                  <select class="select select-bordered w-full" formControlName="address" >
+                    <option value="" disabled selected>Please Select Address</option>
+                  </select>
                 </label>
               </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto" (click)="addhVac()">Add Account</button>
               <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="closemodaladd()">Cancel</button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 export const navbarData = [
   {
-    appHasRole: ['admin', 'abtc', 'agri'],
+    appHasRole: 'lab' || 'abtc' || 'agri',
     routerLink : 'dashboard',
     icon : 'fa-solid fa-bars-progress',
     label: 'Dashboard',
@@ -12,10 +12,16 @@ export const navbarData = [
     label: 'Manage Users',
   },
   {
-    appHasRole: 'admin',
+    appHasRole: 'agri',
     routerLink : 'animalvaccination',
     icon: 'fa-solid fa-cog',
     label: 'Animal Vaccine Inventory',
+  },
+  {
+    appHasRole: 'abtc',
+    routerLink : 'humanvaccination',
+    icon: 'fa-solid fa-cog',
+    label: 'Human Vaccine Inventory',
   },
   {
     appHasRole: 'abtc',

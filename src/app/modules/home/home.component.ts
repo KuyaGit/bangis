@@ -32,49 +32,42 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
             class="logo-container flex content-center justify-center items-center rounded-lg"
           >
             <div class="logo-text flex text-white bg-red-600 rounded-lg" *ngIf="collapsed">
-              <h1 class="text-2xl font-bold m-6" *appHasRole="'admin'">
+              <h1 class="text-2xl font-bold m-6" *appHasRole="['admin']">
                 ADMINISTRATOR
               </h1>
-              <h1 class="text-2xl font-bold m-10" *appHasRole="'abtc'">
+              <h1 class="text-2xl font-bold m-10" *appHasRole="['lab']">
                 LABORATORY
               </h1>
+              <div class="text-2xl font-bold m-2 " *appHasRole="['abtc']">
+                <span class="">Animal Bite</span><br>
+                <span class="">Treatment Center</span>
+
+              </div>
               <h1
                 class="text-2xl font-bold m-10"
-                *appHasRole="'agri'"
+                *appHasRole="['agri']"
               >
-                AGRI
+                AGRICULTURE
               </h1>
             </div>
           </div>
         </div>
-
         <ul class="sidenav-nav">
-          <li class="sidenav-nav-item" style="margin: 0;">
-            <a
-              class="sidenav-nav-link"
-              routerLink='/home/dashboard'
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              <i class="sidenav-link-icon fa-solid fa-bars-progress"></i>
-              <span class="sidenav-link-text" *ngIf="collapsed">Home</span>
-            </a>
           <li class="sidenav-nav-item" *ngFor="let data of navData">
             <a
-              *appHasRole="data.appHasRole"
+              *appHasRole="[data.appHasRole]"
               class="sidenav-nav-link"
               [routerLink]="[data.routerLink]"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
+              
             >
               <i class="sidenav-link-icon" [class]="data.icon"></i>
-              <span class="sidenav-link-text" *ngIf="collapsed">{{
-                data.label
-              }}</span>
+              <span class="sidenav-link-text" *ngIf="collapsed">{{ data.label }}</span>
             </a>
           </li>
         </ul>
-      </div>
+        </div>
       <div class="right-container w-full">
         <div class="right-content">
           <div class="topbar flex items-center justify-between">
