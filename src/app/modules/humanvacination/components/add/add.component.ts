@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { DatePickerComponent } from '../../../../core/components/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, DatePickerComponent],
   templateUrl: './add.component.html',
   styleUrl: './add.component.scss'
 })
