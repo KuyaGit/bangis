@@ -9,18 +9,11 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./modules/auth/pages/login/login.component').then(m => m.LoginComponent),
     title: 'Login',
-    canActivate: [hastokenGuard]
   },
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  },
-  {
-    path: 'notauthorized',
-    title: 'Not Authorized',
-    loadComponent: () => import('./modules/not-authorized/not-authorized.component').then(m => m.NotAuthorizedComponent),
-    canActivate: [hastokenGuard]
   },
   {
     path: 'home',
@@ -30,7 +23,6 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./modules/home/home.route').then(m => m.homeRoute),
-        // canActivate: [hasRoleGuard]
       }
     ]
   }

@@ -1,8 +1,6 @@
 import { Route } from "@angular/router";
 import { hasRoleGuard } from "../../core/guards/has-role.guard";
-import { abtcGuardGuard } from "../../core/guards/abtc-guard.guard";
-import { labGuardGuard } from "../../core/guards/lab-guard.guard";
-import { agriGuardGuard } from "../../core/guards/agri-guard.guard";
+
 
 
 export const homeRoute: Route[] = [
@@ -10,18 +8,19 @@ export const homeRoute: Route[] = [
         path: 'dashboard',
         title: 'Dashboard',
         loadComponent: () => import('../dashboard/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
-        // canActivate: [abtcGuardGuard,labGuardGuard,agriGuardGuard]
-      },
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
+        canActivate: [hasRoleGuard],
+        data : {
+          roles: ['abtc', 'lab', 'agri']
+        }
       },
       {
         path: 'usermanagement',
         title: 'Accounts',
         loadComponent: () => import('../usermanagement/pages/usermanagement/usermanagement.component').then(m => m.UsermanagementComponent),
-
+        canActivate: [hasRoleGuard],
+        data : {
+          roles: ['admin']
+        }
       },
       {
         path: 'animalvaccination',
@@ -32,6 +31,11 @@ export const homeRoute: Route[] = [
         path: 'humanvaccination',
         title: 'Human Vaccination',
         loadComponent: () => import('../humanvacination/pages/h-listvac/h-listvac.component').then(m => m.HListvacComponent),
-      }
+      },
+      {
+        path: 'notauthorized',
+        title: 'Not Authorized',
+        loadComponent: () => import('../../modules/not-authorized/not-authorized.component').then(m => m.NotAuthorizedComponent),
+      },
 
 ]
