@@ -11,7 +11,7 @@
               readonly
               [(ngModel)]="datepickerValue"
               (click)="showDatepicker = !showDatepicker"
-              (keydown.escape)="showDatepicker = false"
+              (keydown.escape)="this.showDatepicker = false"
               class="
                 w-full
                 pl-4
@@ -38,20 +38,17 @@
               </svg>
             </div>
 
-            <!-- <div {{no_of_days.length"></div>
-                            <div {{32 - new Date(year, month, 32).getDate()"></div>
-                            <div {{new Date(year, month).getDay()"></div> -->
             <div
               class="bg-white mt-12 rounded-lg shadow p-4 absolute top-0 left-0"
               style="width: 17rem"
               [hidden]="!showDatepicker"
-              (keydown.away)="showDatepicker = false"
+              (keydown.away)="this.showDatepicker = false"
             >
-              <div class="flex justify-between items-center mb-2">
-                <div>
-                  <span class="text-lg font-bold text-gray-800">{{ MONTH_NAMES[month] }}</span>
+            <div class="flex justify-between items-center mb-2">
+              <div>
+                <span class="text-lg font-bold text-gray-800">{{ MONTH_NAMES[month] }}</span>
                   <span class="ml-1 text-lg text-gray-600 font-normal">{{ year }}</span>
-                </div>
+              </div>
                 <div>
                   <button
                     type="button"

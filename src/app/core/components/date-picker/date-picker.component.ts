@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -30,6 +30,7 @@ export class DatePickerComponent {
   datepickerValue!: string;
   month!: number; // !: mean promis it will not be null, and it will definitely be assigned
   year!: number;
+  @Output() selectedDate = new EventEmitter<Date>();
   no_of_days = [] as number[];
   blankdays = [] as number[];
 
@@ -56,6 +57,7 @@ export class DatePickerComponent {
   getDateValue(date: any) {
     let selectedDate = new Date(this.year, this.month, date);
     this.datepickerValue = selectedDate.toDateString();
+    this.selectedDate.emit(selectedDate); // Convert this.datepickerValue to selectedDate
     this.showDatepicker = false;
   }
 

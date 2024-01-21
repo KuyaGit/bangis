@@ -24,7 +24,7 @@ import { AuthService } from '../../../../core/services/auth.service';
     CommonModule,
     AddUserComponent,
     EditUserComponent,
-    ViewUserComponent,
+    ViewUserComponent
   ],
   templateUrl: './usermanagement.component.html',
   styleUrl: './usermanagement.component.scss',
@@ -38,7 +38,6 @@ export class UsermanagementComponent implements OnInit {
   openViewModal(id: number) {
     this.UserSubscription.add(
       this._user.getUserById(id).subscribe((response) => {
-        console.log(' Test 2');
         this.userDetails = response;
         this.modalView.set(true)
       })

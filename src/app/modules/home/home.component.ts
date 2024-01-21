@@ -60,7 +60,7 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
               [routerLink]="[data.routerLink]"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              
+
             >
               <i class="sidenav-link-icon" [class]="data.icon"></i>
               <span class="sidenav-link-text" *ngIf="collapsed">{{ data.label }}</span>

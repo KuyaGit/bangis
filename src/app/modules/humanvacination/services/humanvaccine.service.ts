@@ -14,7 +14,11 @@ export class HumanvaccineService {
   getAllHumanVaccine() {
     return this.http.get(this.url + '/humanvac')
   }
+  getVaccineById(id: number) {
+    return this.http.get(this.url + '/humanvac/' + id)
+  }
   addHVac(body : HVacModel) {
     return this.http.post(this.url + '/humanvac', body)
   }
+
 }

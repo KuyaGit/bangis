@@ -1,5 +1,5 @@
 export interface HVacModel {
-  id: number,
+  Hid: number,
   vacName: string,
   brandName: string,
   stockQuantity: number,

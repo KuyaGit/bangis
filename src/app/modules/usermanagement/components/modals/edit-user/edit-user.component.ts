@@ -39,7 +39,9 @@ export class EditUserComponent implements OnInit{
     });
   }
   executeGetAllUsers() {
-    this.userSubscription.add(this.getAllUsersMethod.emit(this.userSubscription));
+    this.userSubscription.add(
+      this.getAllUsersMethod.emit(this.userSubscription)
+    );
   }
   updateAccount() {
     this._user.updateByUserId(this.userDetails.id, this.account.value).subscribe(
@@ -57,9 +59,7 @@ export class EditUserComponent implements OnInit{
   closemodaledit() {
     this.modalEvent.emit(false);
   }
-  compareBarangayObjects(object1: any, object2: any) {
-    return object1 && object2 && object1.barangay === object2.barangay;
-  }
+  
 
   ngOnInit(): void {
     this.userDetails = this._user.userInfo();
