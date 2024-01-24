@@ -33,9 +33,19 @@ export const homeRoute: Route[] = [
         loadComponent: () => import('../humanvacination/pages/h-listvac/h-listvac.component').then(m => m.HListvacComponent),
       },
       {
+        path: 'animalbites',
+        title: 'Animal Bites',
+        loadComponent: () => import('../animalbiteregistry/pages/animalbitelist/animalbitelist.component').then(m => m.AnimalbitelistComponent),
+      },
+      {
         path: 'notauthorized',
         title: 'Not Authorized',
         loadComponent: () => import('../../modules/not-authorized/not-authorized.component').then(m => m.NotAuthorizedComponent),
       },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
 
 ]

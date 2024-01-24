@@ -52,6 +52,6 @@ export class AddUserComponent implements OnInit{
       })
   }
   ngOnInit(): void {
-      this.municipipalities =this._municipality.getmunicipalityNames();
+      this.municipipalities = this._municipality.getmunicipalityNames();
   }
 }

@@ -4,7 +4,7 @@
       <div class="search-input">
         <input
           type="text"
-          placeholder="Search for Vaccine Name"
+          placeholder="Search for an Event"
           class="input input-bordered w-full max-w-xs"
         />
       </div>
@@ -15,9 +15,10 @@
         <i class="fa-solid fa-download"></i>
       </button>
     </div>
+
     <button
       class="btn bg-red-600 border-none hover:bg-red-700 text-white"
-      (click)="this.HVacAddModal.set(true)"
+      (click)="this.modalAdd.set(true)"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -33,57 +34,52 @@
           d="M12 6v12m6-6H6"
         />
       </svg>
-      Add Human Vaccine
+      Add Animal Vaccine
     </button>
   </div>
-
   <div class="card max-h-[450px] overflow-auto">
-    <table class="table-auto user-table">
+    <!-- <div class="relative"> -->
+    <table class="table-auto table user-table">
       <thead class="text-stone-600">
         <tr class="sticky top-0 bg-white">
-          <th class="px-2 py-2">Vaccine Name</th>
-          <th class="px-2 py-2">Brand Name</th>
-          <th class="px-2 py-2">Stock Quantity</th>
-          <th class="px-2 py-2">Dosage</th>
-          <th class="px-2 py-2">Date Expired</th>
+          <th class="px-2 py-2">UserID</th>
+          <th class="px-2 py-2">Name</th>
+          <th class="px-2 py-2">Username</th>
+          <th class="px-2 py-2">Address</th>
+          <th class="px-2 py-2">Role</th>
           <th class="px-2 py-2">Action</th>
         </tr>
       </thead>
-      <tbody>
-        @for(vaccine of _hvac.HVacs(); track $index){
+      <tbody class="table-body">
+        @for(user of _animalbite.aniList(); track $index){
         <tr>
           <td>
-            <div class="font-bold flex justify-center">
-              {{ vaccine.vacName }}
-            </div>
+            <div class="flex justify-center">{{ user.id }}</div>
           </td>
           <td>
-            <div class="font-bold flex justify-center">
-              {{ vaccine.brandName }}
-            </div>
+            <div class="font-bold flex justify-center">{{ user.name }}</div>
           </td>
           <td>
-            <div class="flex justify-center">
-              {{ vaccine.dosage }}
-            </div>
+            <div class="flex justify-center">{{ user.email }}</div>
           </td>
           <td>
-            <div class="flex justify-center">{{ vaccine.stockQuantity }}</div>
+            <div class="flex justify-center">{{ user.address }}</div>
           </td>
           <td>
             <div class="flex flex-row justify-center items-center">
-              {{ vaccine.expiryDate | date : "MMM, dd, yyyy" }}
+              {{ user.accountType.toUpperCase() }}
             </div>
           </td>
-          <td class="flex justify-center">
+          <td class="flex justify-center items-center">
             <div class="dropdown dropdown-left 2xl:dropdown-right">
               <div tabindex="0" role="button" class="btn m-1">Action</div>
               <ul
                 tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-40"
+                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
               >
-                <li><a (click)="openHVacViewModal(vaccine.Hid)">View</a></li>
-                <li><a (click)="openHVacEditModal(vaccine.Hid)">Edit Stocks Quantity</a></li>
+                <!-- <li><a (click)="openViewModal(user.id)">View</a></li>
+                <li><a (click)="openEditModal(user.id)">Edit</a></li>
+                <li><a (click)="deleteUser(user.id)">Delete</a></li> -->
               </ul>
             </div>
           </td>
@@ -97,21 +93,22 @@
     </table>
   </div>
 </div>
-@if (HVacAddModal()) {
-<app-add
-  (modalEvent)="this.HVacAddModal.set($event)"
-  (getAllHumanVaccine)="getAllHumanVacine()"
+
+<!-- </div> -->
+@if (modalAdd()) {
+<app-addanimalbite
+  (modalEvent)="this.modalAdd.set($event)"
+  (getAllUsersMethod)="getAllAnimalBite()"
 />
-} @else if (HVacViewModal()) {
-<app-view
-  (modalEvent)="this.HVacViewModal.set($event)"
-  (getAllHumanVaccine)="getAllHumanVacine()"
-  [hVacInfo]="humanVacs"
+} @else if (modalView()) {
+<app-viewanimalbite
+  (modalEvent)="this.modalView.set($event)"
+  (getAllMethod)="getAllAnimalBite()"
+  [animalBiteInfo]="animalBiteInfo"
 />
-} @else if (HVacEditModal()) {
-<app-edit
-  (modalEvent)="this.HVacEditModal.set($event)"
-  (getAllHumanVaccineMethod)="getAllHumanVacine()"
-  [hVacInfo]="humanVacs"
+} @else if (modalEdit()) {
+<app-editanimalbite
+  (modalEvent)="this.modalEdit.set($event)"
+  (getAllMethod)="getAllAnimalBite()"
 />
 }

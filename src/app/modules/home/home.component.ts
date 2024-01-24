@@ -13,7 +13,6 @@ import { AuthService } from '../../core/services/auth.service';
 import { HasRoleDirective } from '../../hasRole.directive';
 import { AvatarComponent } from '../../core/components/avatar/avatar.component';
 
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -27,47 +26,85 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
   template: `
     <div class="sidenav-container flex w-full justify-items-center">
       <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
-        <div class="px-4 py-4">
+        <div [ngClass]="collapsed ? 'px-4 py-4' : ''">
           <div
-            class="logo-container flex content-center justify-center items-center rounded-lg"
+            class="logo-container flex  justify-center items-center rounded-lg"
           >
-            <div class="logo-text flex text-white bg-red-600 rounded-lg" *ngIf="collapsed">
-              <h1 class="text-2xl font-bold m-6" *appHasRole="['admin']">
-                ADMINISTRATOR
-              </h1>
-              <h1 class="text-2xl font-bold m-10" *appHasRole="['lab']">
-                LABORATORY
-              </h1>
-              <div class="text-2xl font-bold m-2 " *appHasRole="['abtc']">
-                <span class="">Animal Bite</span><br>
-                <span class="">Treatment Center</span>
-
+            <div
+              class="logo-text flex text-white rounded-lg"
+              [ngClass]="collapsed ? 'bg-red-600' : ''"
+            >
+              <div class="text-2xl font-bold m-2" *appHasRole="['admin']">
+                @if(collapsed) {
+                  <h1 class="text-2xl font-bold m-4" *appHasRole="['admin']">
+                    ADMINISTRATOR
+                  </h1>
+                } @else {
+                <li
+                  class="sidenav-item list-none text-red-600 text-2xl font-bold m-2"
+                >
+                  <i class="sidenav-link-icon fa-solid fa-user-tie"></i>
+                </li>
+                }
               </div>
-              <h1
-                class="text-2xl font-bold m-10"
-                *appHasRole="['agri']"
-              >
+              <div class="text-2xl font-bold m-2 " *appHasRole="['lab']">
+                @if(collapsed) {
+                <h1 class="text-2xl font-bold m-10" >
+                  LABORATORY
+                </h1>
+                } @else {
+                <li
+                  class="sidenav-item list-none text-red-600 text-2xl font-bold m-2"
+                >
+                  <i class="sidenav-link-icon fa-solid fa-flask-vial"></i>
+                </li>
+                }
+              </div>
+              <div class="text-2xl font-bold m-2 " *appHasRole="['abtc']">
+                @if(collapsed) {
+                <span class="">Animal Bite</span><br />
+                <span class="">Treatment Center</span>
+                } @else {
+                <li
+                  class="sidenav-item list-none text-red-600 text-2xl font-bold m-2"
+                >
+                  <i class="sidenav-link-icon fa-solid fa-house-medical"></i>
+                </li>
+                }
+              </div>
+              @if(collapsed) {
+              <h1 class="text-2xl font-bold m-10" *appHasRole="['agri']">
                 AGRICULTURE
               </h1>
+              } @else {
+              <li
+                *appHasRole="['agri']"
+                class="sidenav-item list-none text-red-600 text-2xl font-bold m-2"
+              >
+                <i class="sidenav-link-icon fa-solid fa-building-wheat"></i>
+              </li>
+              }
             </div>
           </div>
         </div>
         <ul class="sidenav-nav">
-          <li class="sidenav-nav-item" *ngFor="let data of navData">
-            <a
-              *appHasRole="[data.appHasRole]"
-              class="sidenav-nav-link"
-              [routerLink]="[data.routerLink]"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-
-            >
-              <i class="sidenav-link-icon" [class]="data.icon"></i>
-              <span class="sidenav-link-text" *ngIf="collapsed">{{ data.label }}</span>
-            </a>
-          </li>
+          <ng-container *ngFor="let data of navData">
+            <li class="sidenav-nav-item" *appHasRole="data.appHasRole">
+              <a
+                class="sidenav-nav-link"
+                [routerLink]="[data.routerLink]"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <span class="sidenav-link-text" *ngIf="collapsed">{{
+                  data.label
+                }}</span>
+              </a>
+            </li>
+          </ng-container>
         </ul>
-        </div>
+      </div>
       <div class="right-container w-full">
         <div class="right-content">
           <div class="topbar flex items-center justify-between">
@@ -129,12 +166,12 @@ export class HomeComponent implements OnInit {
   role?: string;
   _auth = inject(AuthService);
   username?: string;
-  constructor(){
+  constructor() {
     effect(() => {
-      this._auth.accountType()
-    })
+      this._auth.accountType();
+    });
   }
-  token : any;
+  token: any;
   closeMenu() {
     this.collapsed = !this.collapsed;
   }
@@ -142,6 +179,5 @@ export class HomeComponent implements OnInit {
   openMenu() {
     this.collapsed = true;
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

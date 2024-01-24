@@ -1,1 +1,115 @@
-<p>a-vaclist works!</p>
+<div class="table-container w-full">
+  <div class="flex flex-row justify-between w-full">
+    <div class="search w-full flex items-center justify-start">
+      <div class="search-input">
+        <input
+          type="text"
+          placeholder="Search for an Event"
+          class="input input-bordered w-full max-w-xs"
+        />
+      </div>
+      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
+        <i class="fa-solid fa-download"></i>
+      </button>
+    </div>
+
+    <button
+      class="btn bg-red-600 border-none hover:bg-red-700 text-white"
+      (click)="this.avacModalAdd.set(true)"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 6v12m6-6H6"
+        />
+      </svg>
+      Add Animal Vaccine
+    </button>
+  </div>
+  <div class="card max-h-[450px] overflow-auto">
+    <!-- <div class="relative"> -->
+    <table class="table-auto table user-table">
+      <thead class="text-stone-600">
+        <tr class="sticky top-0 bg-white">
+          <th class="px-2 py-2">UserID</th>
+          <th class="px-2 py-2">Name</th>
+          <th class="px-2 py-2">Username</th>
+          <th class="px-2 py-2">Address</th>
+          <th class="px-2 py-2">Role</th>
+          <th class="px-2 py-2">Action</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        @for(user of _avac.avacList(); track $index){
+        <tr>
+          <td>
+            <div class="flex justify-center">{{ user.id }}</div>
+          </td>
+          <td>
+            <div class="font-bold flex justify-center">{{ user.name }}</div>
+          </td>
+          <td>
+            <div class="flex justify-center">{{ user.email }}</div>
+          </td>
+          <td>
+            <div class="flex justify-center">{{ user.address }}</div>
+          </td>
+          <td>
+            <div class="flex flex-row justify-center items-center">
+              {{ user.accountType.toUpperCase() }}
+            </div>
+          </td>
+          <td class="flex justify-center items-center">
+            <div class="dropdown dropdown-left 2xl:dropdown-right">
+              <div tabindex="0" role="button" class="btn m-1">Action</div>
+              <ul
+                tabindex="0"
+                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
+              >
+                <!-- <li><a (click)="openViewModal(user.id)">View</a></li>
+                <li><a (click)="openEditModal(user.id)">Edit</a></li>
+                <li><a (click)="deleteUser(user.id)">Delete</a></li> -->
+              </ul>
+            </div>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="6" class="text-center">No Data</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- </div> -->
+@if (avacModalAdd()) {
+<app-add
+  (modalEvent)="this.avacModalAdd.set($event)"
+  (getAllUsersMethod)="getAllAvac()"
+/>
+} @else if (avacModalView()) {
+<app-view
+  (modalEvent)="this.avacModalView.set($event)"
+  (getAllMethod)="getAllAvac()"
+  [animalBiteInfo]="vacInfo"
+/>
+} @else if (aVacModalEdit()) {
+<app-edit
+  (modalEvent)="this.aVacModalEdit.set($event)"
+  (getAllMethod)="getAllAvac()"
+  [animalBiteInfo]="vacInfo"
+/>
+}

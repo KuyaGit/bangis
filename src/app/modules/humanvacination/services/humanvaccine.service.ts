@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HVacModel } from '../models/hvac.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +22,7 @@ export class HumanvaccineService {
     return this.http.post(this.url + '/humanvac', body)
   }
 
+  update(id : number, data: HVacModel): Observable<any> {
+    return this.http.put(`${this.url}/humanvac/${id}`, data)
+  }
 }

@@ -11,7 +11,7 @@
                   <div class="label">
                     <span class="label-text">Vaccine Name</span>
                   </div>
-                  <input type="text" formControlName="vacName" placeholder="Vaccine Name" class="input input-bordered w-full" />
+                  <input type="text" [value]="HVacineForm.get('vacName')?.value" placeholder="Vaccine Name" class="input input-bordered w-full" disabled/>
                 </label>
               </div>
               <div class="sm:flex sm:items-center w-full">
@@ -19,7 +19,7 @@
                   <div class="label">
                     <span class="label-text">Brand Name</span>
                   </div>
-                  <input type="text" formControlName="brandName" placeholder="Brand Name" class="input input-bordered w-full" />
+                  <input type="text" [value]="HVacineForm.get('brandName')?.value" placeholder="Brand Name" class="input input-bordered w-full" disabled/>
                 </label>
               </div>
               <div class="sm:flex sm:items-center w-full">
@@ -35,7 +35,7 @@
                   <div class="label">
                     <span class="label-text">Dosage</span>
                   </div>
-                  <input type="text"  formControlName="dosage" [value]="HVacineForm.get('dosage')?.value" placeholder="Dosage" class="input input-bordered w-full disabled:opacity-75 disabled:cursor-not-allowed" readonly/>
+                  <input type="text" [value]="HVacineForm.get('dosage')?.value" placeholder="Dosage" class="dosage input input-bordered w-full" disabled/>
                 </label>
               </div>
               <div class="sm:flex sm:items-center w-full">

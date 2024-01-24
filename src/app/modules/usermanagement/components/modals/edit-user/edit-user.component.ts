@@ -59,7 +59,7 @@ export class EditUserComponent implements OnInit{
   closemodaledit() {
     this.modalEvent.emit(false);
   }
-  
+
 
   ngOnInit(): void {
     this.userDetails = this._user.userInfo();

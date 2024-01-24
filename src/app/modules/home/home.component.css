@@ -127,6 +127,7 @@
 
 .right-container{
   background-color: #999999;
+  overflow: hidden;
 }
 
 .content{

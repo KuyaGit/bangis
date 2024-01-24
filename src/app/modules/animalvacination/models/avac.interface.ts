@@ -1,9 +1,9 @@
-export interface HVacModel {
-  Hid: number,
+export interface AVacsModel {
+  Aid: number,
   vacName: string,
   brandName: string,
   stockQuantity: number,
   dosage: number,
   expiryDate: Date,
-  hvaccineFrom: number,
+  aVacFrom: number,
 }

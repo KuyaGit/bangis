@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-view',
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './view.component.scss'
 })
 export class ViewComponent {
-
+  @Input() animalBiteInfo: any
+  @Output() modalEvent = new EventEmitter<boolean>();
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HListvacComponent } from './h-listvac.component';
+import { AddanimalbiteComponent } from './addanimalbite.component';
 
-describe('HListvacComponent', () => {
-  let component: HListvacComponent;
-  let fixture: ComponentFixture<HListvacComponent>;
+describe('AddanimalbiteComponent', () => {
+  let component: AddanimalbiteComponent;
+  let fixture: ComponentFixture<AddanimalbiteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HListvacComponent]
+      imports: [AddanimalbiteComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(HListvacComponent);
+    fixture = TestBed.createComponent(AddanimalbiteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

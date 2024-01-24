@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { DatePickerComponent } from '../../../../core/components/date-picker/date-picker.component';
 import { HumanvaccineService } from '../../services/humanvaccine.service';
 import { AlertService } from '../../../../core/services/alert.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-add',
@@ -21,13 +22,16 @@ export class AddComponent {
   _form = inject(FormBuilder)
   _hVac = inject(HumanvaccineService)
   _alert = inject(AlertService)
+  _auth = inject(AuthService)
+  accountid = this._auth.userInfo?.id
   constructor(){
     this.HVacineForm = this._form.group({
       vacName: ['',Validators.required],
       brandName: ['',Validators.required],
       stockQuantity: ['',Validators.required],
       dosage: ['',Validators.required],
-      expiryDate: ['',Validators.required]
+      expiryDate: ['',Validators.required],
+      hVacID : this.accountid,
     })
   }
   setExpiryDate(selectedDate: Date): void {

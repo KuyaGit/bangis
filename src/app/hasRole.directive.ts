@@ -1,6 +1,5 @@
-import { Input, Directive, ViewContainerRef, TemplateRef, effect, OnInit} from '@angular/core';
+import { Input, Directive, ViewContainerRef, TemplateRef } from '@angular/core';
 import { AuthService } from './core/services/auth.service';
-import { UserModel } from './modules/usermanagement/models/user.interface';
 
 @Directive({
   selector: '[appHasRole]',
@@ -8,15 +7,8 @@ import { UserModel } from './modules/usermanagement/models/user.interface';
 })
 export class HasRoleDirective {
   @Input()
-  set appHasRole(roles: any[]) {
-    let hasRole = false;
-    for (const role of roles) {
-      if (this._authService.hasRole(role)) {
-        hasRole = true;
-        break;
-      }
-    }
-
+  set appHasRole(roles: any) {
+    const hasRole = roles.includes(this._authService.userInfo?.accountType);
     if (hasRole) {
       this.viewContainerRef.createEmbeddedView(this.templateRef);
     } else {
@@ -28,8 +20,5 @@ export class HasRoleDirective {
     private viewContainerRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
     private _authService: AuthService
-  ) {
-
-  }
-
+  ) {}
 }
