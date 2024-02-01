@@ -37,7 +37,7 @@ export class AddComponent {
       aVacID: this._auth.userInfo?.id,
     })
   }
-  setExpiryDate(selectedDate: Date): void {
+  setExpiryDate(selectedDate: Date) {
     this.aVacForm.controls['expiryDate'].setValue(selectedDate);
   }
   addAvac() {
@@ -52,5 +52,4 @@ export class AddComponent {
       this.getAllMethod.emit(this.aVac)
     )
   }
-
 }

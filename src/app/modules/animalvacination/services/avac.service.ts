@@ -15,4 +15,16 @@ export class AvacService {
   addAvac(data: AVacsModel): Observable<any> {
     return this._http.post(`${this.url}/animalvac`, data)
   }
+
+  getAllAvac(): Observable<any> {
+    return this._http.get(`${this.url}/animalvac`)
+  }
+
+  getVaccineById(id : number): Observable<any> {
+    return this._http.get(this.url + '/animalvac/' + id)
+  }
+
+  update(id : number, data: AVacsModel): Observable<any> {
+    return this._http.put(`${this.url}/animalvac/${id}`, data)
+  }
 }

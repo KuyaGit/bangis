@@ -42,44 +42,49 @@
     <table class="table-auto table user-table">
       <thead class="text-stone-600">
         <tr class="sticky top-0 bg-white">
-          <th class="px-2 py-2">UserID</th>
-          <th class="px-2 py-2">Name</th>
-          <th class="px-2 py-2">Username</th>
-          <th class="px-2 py-2">Address</th>
-          <th class="px-2 py-2">Role</th>
+          <th class="px-2 py-2">Vaccine Name</th>
+          <th class="px-2 py-2">Brand Name</th>
+          <th class="px-2 py-2">Stock Quantity</th>
+          <th class="px-2 py-2">Dosage</th>
+          <th class="px-2 py-2">Date Expired</th>
           <th class="px-2 py-2">Action</th>
         </tr>
       </thead>
-      <tbody class="table-body">
-        @for(user of _avac.avacList(); track $index){
+      <tbody>
+        @for(vaccine of _avac.avacList(); track $index){
         <tr>
           <td>
-            <div class="flex justify-center">{{ user.id }}</div>
+            <div class="font-bold flex justify-center">
+              {{ vaccine.vacName }}
+            </div>
           </td>
           <td>
-            <div class="font-bold flex justify-center">{{ user.name }}</div>
+            <div class="font-bold flex justify-center">
+              {{ vaccine.brandName }}
+            </div>
           </td>
           <td>
-            <div class="flex justify-center">{{ user.email }}</div>
+            <div class="flex justify-center">
+              {{ vaccine.dosage }}
+            </div>
           </td>
           <td>
-            <div class="flex justify-center">{{ user.address }}</div>
+            <div class="flex justify-center">{{ vaccine.stockQuantity }}</div>
           </td>
           <td>
             <div class="flex flex-row justify-center items-center">
-              {{ user.accountType.toUpperCase() }}
+              {{ vaccine.expiryDate | date : "MMM, dd, yyyy" }}
             </div>
           </td>
-          <td class="flex justify-center items-center">
+          <td class="flex justify-center">
             <div class="dropdown dropdown-left 2xl:dropdown-right">
               <div tabindex="0" role="button" class="btn m-1">Action</div>
               <ul
                 tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
+                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-40"
               >
-                <!-- <li><a (click)="openViewModal(user.id)">View</a></li>
-                <li><a (click)="openEditModal(user.id)">Edit</a></li>
-                <li><a (click)="deleteUser(user.id)">Delete</a></li> -->
+                <li><a (click)="openAvacViewModal(vaccine.Aid)">View</a></li>
+                <li><a (click)="openAvacEditModal(vaccine.Aid)">Edit Stocks Quantity</a></li>
               </ul>
             </div>
           </td>
@@ -98,18 +103,18 @@
 @if (avacModalAdd()) {
 <app-add
   (modalEvent)="this.avacModalAdd.set($event)"
-  (getAllUsersMethod)="getAllAvac()"
+  (getAllMethod)="getAllAvac()"
 />
 } @else if (avacModalView()) {
 <app-view
   (modalEvent)="this.avacModalView.set($event)"
   (getAllMethod)="getAllAvac()"
-  [animalBiteInfo]="vacInfo"
+  [aVacInfo]="vacInfo"
 />
 } @else if (aVacModalEdit()) {
 <app-edit
   (modalEvent)="this.aVacModalEdit.set($event)"
   (getAllMethod)="getAllAvac()"
-  [animalBiteInfo]="vacInfo"
+  [animalVacInfo]="vacInfo"
 />
 }
