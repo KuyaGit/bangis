@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, FormsModule, ReactiveFormsModule } from '@angul
 import { Subscription, every } from 'rxjs';
 import { DatePickerComponent } from '../../../../core/components/date-picker/date-picker.component';
 import { CommonModule, DatePipe } from '@angular/common';
+import { AvacService } from '../../services/avac.service';
+import { AlertService } from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-edit',
@@ -19,18 +21,29 @@ export class EditComponent implements OnInit{
 
   aVacForm!: FormGroup;
 
+  _alert = inject(AlertService)
+  _avac = inject(AvacService)
   fb = inject(FormBuilder)
   thisaVacForm() {
     this.aVacForm = this.fb.group({
-      AiD: [''],
+      Aid: [''],
       vacName: [''],
       brandName: [''],
       stockQuantity: [''],
       dosage: [''],
       expiryDate: [''],
-      aVacID: [''],
     });
 
+  }
+  updateAvacStocks() {
+    this._avac.update(this.animalVacInfo.Aid ,this.aVacForm.value).subscribe((res) => {
+      this._alert.handleSuccess('Vaccine Stocks updated successfully');
+      this.emitGetAllHumanVaccine();
+      this.closeModalEdit();
+    }, (error) =>{
+      this._alert.handleError('An error occurred while updating the vaccine');
+      console.error(error);
+    });
   }
   closeModalEdit() {
     this.modalEvent.emit(false);

@@ -40,6 +40,13 @@ export class DatePickerComponent {
     this.initDate();
     this.getNoOfDays();
   }
+  
+  isPastDate(date: number): boolean {
+    const today = new Date();
+    const compareDate = new Date(this.year, this.month, date);
+    return compareDate < today;
+  }
+
 
   initDate() {
     let today = new Date();

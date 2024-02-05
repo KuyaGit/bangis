@@ -1,57 +1,114 @@
-<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div
+  class="relative z-10"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+>
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
   <div class="fixed inset-0 z-10 w-screen">
-    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-        <form class="w-full flex justify-center items-center" [formGroup]="aVacForm">
-          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 overflow-auto">
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Vaccine Name</span>
-                  </div>
-                  <input type="text" [value]="aVacForm.get('vacName')?.value" placeholder="Vaccine Name" class="input input-bordered w-full" disabled/>
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Brand Name</span>
-                  </div>
-                  <input type="text" [value]="aVacForm.get('brandName')?.value" placeholder="Brand Name" class="input input-bordered w-full" disabled/>
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Quantity</span>
-                  </div>
-                  <input type="number" formControlName="stockQuantity" placeholder="Quantity" class="input input-bordered w-full"/>
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Dosage</span>
-                  </div>
-                  <input type="number" [value]="aVacForm.get('dosage')?.value" placeholder="Dosage" class="input input-bordered w-full" disabled/>
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Expiry Date</span>
-                  </div>
-                  <input type="text"  [value]="aVacForm.get('expiryDate')?.value | date: 'MMM dd, yyyy'" placeholder="Dosage" class="input input-bordered w-full" disabled/>
-                </label>
-              </div>
+    <div
+      class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
+    >
+      <form
+        class="w-full flex justify-center items-center"
+        [formGroup]="aVacForm"
+      >
+        <div
+          class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+        >
+          <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 overflow-auto">
+            <div class="sm:flex sm:items-center w-full">
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text">Vaccine Name</span>
+                </div>
+                <input
+                  type="text"
+                  [value]="aVacForm.get('vacName')?.value"
+                  placeholder="Vaccine Name"
+                  class="input input-bordered w-full"
+                  disabled
+                />
+              </label>
             </div>
-            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-              <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="closeModalEdit()">Cancel</button>
+            <div class="sm:flex sm:items-center w-full">
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text">Brand Name</span>
+                </div>
+                <input
+                  type="text"
+                  [value]="aVacForm.get('brandName')?.value"
+                  placeholder="Brand Name"
+                  class="input input-bordered w-full"
+                  disabled
+                />
+              </label>
+            </div>
+            <div class="sm:flex sm:items-center w-full">
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text">Quantity</span>
+                </div>
+                <input
+                  type="number"
+                  formControlName="stockQuantity"
+                  placeholder="Quantity"
+                  class="input input-bordered w-full"
+                />
+              </label>
+            </div>
+            <div class="sm:flex sm:items-center w-full">
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text">Dosage</span>
+                </div>
+                <input
+                  type="number"
+                  [value]="aVacForm.get('dosage')?.value"
+                  placeholder="Dosage"
+                  class="input input-bordered w-full"
+                  disabled
+                />
+              </label>
+            </div>
+            <div class="sm:flex sm:items-center w-full">
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text">Expiry Date</span>
+                </div>
+                <input
+                  type="text"
+                  [value]="
+                    aVacForm.get('expiryDate')?.value | date : 'MMM dd, yyyy'
+                  "
+                  placeholder="Dosage"
+                  class="input input-bordered w-full"
+                  disabled
+                />
+              </label>
             </div>
           </div>
-        </form>
+          <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button
+              type="button"
+              class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto"
+              (click)="updateAvacStocks()"
+            >
+              Update Animal Vaccine Stocks
+            </button>
+
+            <button
+              type="button"
+              class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+              (click)="closeModalEdit()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -5,11 +5,12 @@ import { ViewanimalbiteComponent } from '../../components/viewanimalbite/viewani
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { AnimalbiteService } from '../../services/animalbite.service';
+import { HasRoleDirective } from '../../../../hasRole.directive';
 
 @Component({
   selector: 'app-animalbitelist',
   standalone: true,
-  imports: [AddanimalbiteComponent, EditanimalbiteComponent, ViewanimalbiteComponent, CommonModule],
+  imports: [AddanimalbiteComponent, EditanimalbiteComponent, ViewanimalbiteComponent, CommonModule, HasRoleDirective],
   templateUrl: './animalbitelist.component.html',
   styleUrl: './animalbitelist.component.scss'
 })

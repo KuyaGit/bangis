@@ -12,7 +12,7 @@ export const navbarData = [
     label: 'Manage Users',
   },
   {
-    appHasRole: ['abtc'],
+    appHasRole: ['abtc', 'agri'],
     routerLink: 'animalbites',
     icon: 'fa-solid fa-cog',
     label: 'Animal Bite Registry',
