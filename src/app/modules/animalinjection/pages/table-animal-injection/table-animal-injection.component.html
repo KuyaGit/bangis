@@ -4,7 +4,7 @@
       <div class="search-input">
         <input
           type="text"
-          placeholder="Search for Vaccine Name"
+          placeholder="Search for an Event"
           class="input input-bordered w-full max-w-xs"
         />
       </div>
@@ -15,9 +15,10 @@
         <i class="fa-solid fa-download"></i>
       </button>
     </div>
+
     <button
       class="btn bg-red-600 border-none hover:bg-red-700 text-white"
-      (click)="this.HVacAddModal.set(true)"
+      (click)="this.avacModalAddInject.set(true)"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -33,11 +34,11 @@
           d="M12 6v12m6-6H6"
         />
       </svg>
-      Add Human Vaccine
+      Add Animal Vaccine
     </button>
   </div>
-
   <div class="card max-h-[450px] overflow-y-scroll overflow-x-hidden">
+    <!-- <div class="relative"> -->
     <table class="table-auto user-table">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
@@ -50,7 +51,7 @@
         </tr>
       </thead>
       <tbody>
-        @for(vaccine of _hvac.HVacs(); track $index){
+        @for(vaccine of _avacInjectList.avacInjectList(); track $index){
         <tr>
           <td>
             <div class="font-bold flex justify-center">
@@ -76,14 +77,14 @@
             </div>
           </td>
           <td class="flex justify-center">
-            <div class="dropdown dropdown-left 2xl:dropdown-right">
+            <div class="dropdown dropdown-left">
               <div tabindex="0" role="button" class="btn m-1">Action</div>
               <ul
                 tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-40"
+                class="dropdown-content menu p-2 shadow bg-base-200 rounded-box w-40"
               >
-                <li><a (click)="openHVacViewModal(vaccine.Hid)">View</a></li>
-                <li><a (click)="openHVacEditModal(vaccine.Hid)">Edit Stocks Quantity</a></li>
+                <li><a (click)="openAvacInjectViewModal()">View</a></li>
+                <li><a (click)="openAvacEditInjectModal()">Edit Stocks Quantity</a></li>
               </ul>
             </div>
           </td>
@@ -97,21 +98,7 @@
     </table>
   </div>
 </div>
-@if (HVacAddModal()) {
-<app-add
-  (modalEvent)="this.HVacAddModal.set($event)"
-  (getAllHumanVaccine)="getAllHumanVacine()"
-/>
-} @else if (HVacViewModal()) {
-<app-view
-  (modalEvent)="this.HVacViewModal.set($event)"
-  (getAllHumanVaccine)="getAllHumanVacine()"
-  [hVacInfo]="humanVacs"
-/>
-} @else if (HVacEditModal()) {
-<app-edit
-  (modalEvent)="this.HVacEditModal.set($event)"
-  (getAllHumanVaccineMethod)="getAllHumanVacine()"
-  [hVacInfo]="humanVacs"
-/>
+
+@if (avacModalAddInject()) {
+  <app-add-animalinjection (modalEvent)="this.avacModalAddInject.set($event)"/>
 }

@@ -23,12 +23,17 @@ export const homeRoute: Route[] = [
         }
       },
       {
-        path: 'animalvaccination',
+        path: 'animalvaccinationinventory',
         title: 'Animal Vaccination',
         loadComponent: () => import('../animalvacination/pages/a-vaclist/a-vaclist.component').then(m => m.AVaclistComponent),
       },
       {
-        path: 'humanvaccination',
+        path: 'animalvaccination',
+        title: 'Animal Vaccination',
+        loadComponent: () => import('../animalinjection/pages/table-animal-injection/table-animal-injection.component').then(m => m.TableAnimalInjectionComponent),
+      },
+      {
+        path: 'humanvaccinationinventory',
         title: 'Human Vaccination',
         loadComponent: () => import('../humanvacination/pages/h-listvac/h-listvac.component').then(m => m.HListvacComponent),
       },
@@ -47,5 +52,4 @@ export const homeRoute: Route[] = [
         redirectTo: 'dashboard',
         pathMatch: 'full'
       }
-
 ]

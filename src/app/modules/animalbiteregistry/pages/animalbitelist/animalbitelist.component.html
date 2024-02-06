@@ -42,10 +42,9 @@
       </button>
     </ng-container>
   </div>
-  <div class="card max-h-[450px] overflow-auto">
-    <!-- <div class="relative"> -->
+  <div class="card max-h-[450px] overflow-x-auto">
     <table class="table-auto table user-table">
-      <thead class="text-stone-600">
+      <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
           <th class="px-2 py-2">UserID</th>
           <th class="px-2 py-2">Name</th>
@@ -83,8 +82,8 @@
                 class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
               >
                 <!-- <li><a (click)="openViewModal(user.id)">View</a></li>
-                <li><a (click)="openEditModal(user.id)">Edit</a></li>
-                <li><a (click)="deleteUser(user.id)">Delete</a></li> -->
+                <li><a (click)="openEditModal(user.id)" *appHasRole="['abtc']">Edit</a></li>
+                <li><a (click)="deleteUser(user.id)" *appHasRole="['abtc']">Delete</a></li> -->
               </ul>
             </div>
           </td>
@@ -98,8 +97,6 @@
     </table>
   </div>
 </div>
-
-<!-- </div> -->
 @if (modalAdd()) {
 <app-addanimalbite
   (modalEvent)="this.modalAdd.set($event)"

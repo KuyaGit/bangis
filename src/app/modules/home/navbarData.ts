@@ -19,26 +19,20 @@ export const navbarData = [
   },
   {
     appHasRole: ['agri'],
-    routerLink: 'animalvaccination',
+    routerLink: 'animalvaccinationinventory',
     icon: 'fa-solid fa-syringe',
     label: 'Animal Vaccine Inventory',
   },
   {
+    appHasRole: ['agri','abtc'],
+    routerLink: 'animalvaccination',
+    icon: 'fa-solid fa-syringe',
+    label: 'Animal Vaccination',
+  },
+  {
     appHasRole: ['abtc'],
-    routerLink: 'humanvaccination',
+    routerLink: 'humanvaccinationinventory',
     icon: 'fa-solid fa-syringe',
     label: 'Human Vaccine Inventory',
-  },
-  {
-    appHasRole: ['abtc'],
-    routerLink: '#',
-    icon: 'fa-solid fa-cog',
-    label: 'Clinical Lab Result',
-  },
-  {
-    appHasRole: ['abtc'],
-    routerLink: '#',
-    icon: 'fa-solid fa-cog',
-    label: 'Animal Bite Registry',
   },
 ];

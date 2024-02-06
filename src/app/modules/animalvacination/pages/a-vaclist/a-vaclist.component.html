@@ -37,10 +37,10 @@
       Add Animal Vaccine
     </button>
   </div>
-  <div class="card max-h-[450px] overflow-auto">
+  <div class="card max-h-[450px] overflow-y-scroll overflow-x-hidden">
     <!-- <div class="relative"> -->
-    <table class="table-auto table user-table">
-      <thead class="text-stone-600">
+    <table class="table-auto user-table">
+      <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
           <th class="px-2 py-2">Vaccine Name</th>
           <th class="px-2 py-2">Brand Name</th>
@@ -77,11 +77,11 @@
             </div>
           </td>
           <td class="flex justify-center">
-            <div class="dropdown dropdown-left 2xl:dropdown-right">
+            <div class="dropdown dropdown-left">
               <div tabindex="0" role="button" class="btn m-1">Action</div>
               <ul
                 tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-40"
+                class="dropdown-content menu p-2 shadow bg-base-200 rounded-box w-40"
               >
                 <li><a (click)="openAvacViewModal(vaccine.Aid)">View</a></li>
                 <li><a (click)="openAvacEditModal(vaccine.Aid)">Edit Stocks Quantity</a></li>
@@ -99,7 +99,6 @@
   </div>
 </div>
 
-<!-- </div> -->
 @if (avacModalAdd()) {
 <app-add
   (modalEvent)="this.avacModalAdd.set($event)"
