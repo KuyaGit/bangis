@@ -75,16 +75,18 @@ export class LoginComponent {
           (response) => {
 
             if (response['status'] == 200) {
-              this._alertService.simpleAlert(
+              this._alertService.alertWithTimer(
                 'success',
                 'Success',
                 'Login Successful'
               )
-              if(this._auth.hasRole('admin')){
-                this.router.navigate(['home/usermanagement'])
-              } else {
-                this.router.navigate(['home/'])
-              }
+              setTimeout(() => {
+                if (this._auth.hasRole('admin')) {
+                    this.router.navigate(['home/usermanagement']);
+                } else {
+                    this.router.navigate(['home/']);
+                }
+              }, 2000);
               } else if (response['response']['statusCode'] == 400 || response['response']['statusCode'] == 401){
                 this._alertService.simpleAlert(
                   'error',

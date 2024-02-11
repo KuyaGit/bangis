@@ -1,22 +1,12 @@
+<app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
-      <div class="search-input">
-        <input
-          type="text"
-          placeholder="Search for an Event"
-          class="input input-bordered w-full max-w-xs"
-        />
-      </div>
-      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
-        <i class="fa-solid fa-download"></i>
-      </button>
+      <app-exportexcelbtn [data]="this._avacInjectList.avacInjectList()" [fileName]="fileName" />
     </div>
 
     <button
+      *appHasRole="['agri']"
       class="btn bg-red-600 border-none hover:bg-red-700 text-white"
       (click)="this.avacModalAddInject.set(true)"
     >
@@ -34,60 +24,70 @@
           d="M12 6v12m6-6H6"
         />
       </svg>
-      Add Animal Vaccine
+      Add Data
     </button>
   </div>
-  <div class="card max-h-[450px] overflow-y-scroll overflow-x-hidden">
+  <div class="card h-[79vh] overflow-y-scroll overflow-x-hidden">
     <!-- <div class="relative"> -->
-    <table class="table-auto user-table">
+    <table class="table-auto user-table table-zebra">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
-          <th class="px-2 py-2">Vaccine Name</th>
-          <th class="px-2 py-2">Brand Name</th>
-          <th class="px-2 py-2">Stock Quantity</th>
-          <th class="px-2 py-2">Dosage</th>
-          <th class="px-2 py-2">Date Expired</th>
-          <th class="px-2 py-2">Action</th>
+          <th class="py-1">Owner Name</th>
+          <th class="py-1">Pet Name</th>
+          <th class="py-1">Species</th>
+          <th class="py-2">Breed</th>
+          <th class="py-2">Vaccinator</th>
+          <ng-container *appHasRole="['agri']">
+            <th class="py-2">Action</th>
+          </ng-container>
+
         </tr>
       </thead>
       <tbody>
-        @for(vaccine of _avacInjectList.avacInjectList(); track $index){
+        @for(items of _avacInjectList.avacInjectList(); track $index){
         <tr>
           <td>
-            <div class="font-bold flex justify-center">
-              {{ vaccine.vacName }}
+            <div class="font-bold flex justify-center py-2">
+              {{ items.ownerName }}
             </div>
           </td>
           <td>
-            <div class="font-bold flex justify-center">
-              {{ vaccine.brandName }}
+            <div class="font-bold flex justify-center py-2">
+              {{ items.petName }}
             </div>
           </td>
           <td>
-            <div class="flex justify-center">
-              {{ vaccine.dosage }}
+            <div class="flex justify-center py-2">
+              {{ items.species }}
             </div>
           </td>
           <td>
-            <div class="flex justify-center">{{ vaccine.stockQuantity }}</div>
+            <div class="flex justify-center py-2">{{ items.vaccinator }}</div>
           </td>
           <td>
-            <div class="flex flex-row justify-center items-center">
-              {{ vaccine.expiryDate | date : "MMM, dd, yyyy" }}
+            <div class="flex flex-row justify-center items-center py-3">
+              {{ items.vaccinator }}
             </div>
           </td>
-          <td class="flex justify-center">
-            <div class="dropdown dropdown-left">
-              <div tabindex="0" role="button" class="btn m-1">Action</div>
-              <ul
-                tabindex="0"
-                class="dropdown-content menu p-2 shadow bg-base-200 rounded-box w-40"
-              >
-                <li><a (click)="openAvacInjectViewModal()">View</a></li>
-                <li><a (click)="openAvacEditInjectModal()">Edit Stocks Quantity</a></li>
-              </ul>
-            </div>
-          </td>
+          <ng-container *appHasRole="['agri']">
+            <td class="flex justify-center">
+              <div class="dropdown dropdown-left">
+                <div tabindex="0" role="button" class="btn m-1">Action</div>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-base-200 rounded-box w-40"
+                >
+                  <li><a (click)="openAvacInjectViewModal()">View</a></li>
+                  <li>
+                    <a (click)="openAvacEditInjectModal()">
+                      Edit Data
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </ng-container>
+
         </tr>
         } @empty {
         <tr>
@@ -100,5 +100,8 @@
 </div>
 
 @if (avacModalAddInject()) {
-  <app-add-animalinjection (modalEvent)="this.avacModalAddInject.set($event)"/>
+<app-add-animalinjection
+  (modalEvent)="this.avacModalAddInject.set($event)"
+  (getAllAnimalVaccinated)="getAllAnimalVacinated()"
+/>
 }

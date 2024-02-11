@@ -1,25 +1,38 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { UserModel } from '../models/user.interface';
 import { environment } from '../../../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { AlertService } from '../../../core/services/alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  //** Injectables */
+  http = inject(HttpClient);
+  refreshTrigger$ = new BehaviorSubject<null>(null);
+
   Users = signal<UserModel[] | undefined>(undefined);
   userInfo = signal<UserModel | undefined>(undefined);
 
   private url = environment.baseUrl
-  constructor( private http: HttpClient) { }
+
   public createUser(data: UserModel): Observable<any> {
     return this.http.post(`${this.url}/users`, data)
   }
-  public getAllUsers(): Observable<any> {
-    return this.http.get(`${this.url}/users`)
+  getAllUsers(): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`${environment.baseUrl}/users`)
+      .pipe(
+        map((users)=> users.sort((a, b) => b.id  ? 1 : -1)),
+        catchError(this.handleError)
+        );
   }
+  // getAllUsers(): Observable<UserModel[]> {
+  //   return this.http.get<UserModel[]>(`${this.url}/users`).pipe(
+  //     catchError(this.handleError)
+  //   )
+  // }
 
   archiveUser(id: number): Observable<any> {
     return this.http.put(`${this.url}/users/${id}`, id)
@@ -33,5 +46,9 @@ export class UserService {
   }
   updateByUserId(id: number, data: UserModel) {
     return this.http.put(`${this.url}/users/${id}`, data)
+  }
+  private handleError(error: HttpErrorResponse) {
+    console.error(error);
+    return throwError(()=> error)
   }
 }

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, inject, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  inject,
+  signal,
+} from '@angular/core';
 import { AddComponent } from '../../components/add/add.component';
 import { EditComponent } from '../../components/edit/edit.component';
 import { ViewComponent } from '../../components/view/view.component';
@@ -6,22 +13,38 @@ import { Subscription } from 'rxjs';
 import { HumanvaccineService } from '../../services/humanvaccine.service';
 import { HVacModel } from '../../models/hvac.interface';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../core/services/auth.service';
+import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
+import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
 
 @Component({
   selector: 'app-h-listvac',
   standalone: true,
-  imports: [AddComponent, EditComponent,ViewComponent, CommonModule],
+  imports: [
+    AddComponent,
+    EditComponent,
+    ViewComponent,
+    CommonModule,
+    ExportexcelbtnComponent,
+    FullPageLoaderComponent
+  ],
   templateUrl: './h-listvac.component.html',
-  styleUrl: './h-listvac.component.scss'
+  styleUrl: './h-listvac.component.scss',
 })
-export class HListvacComponent implements OnInit{
+export class HListvacComponent implements OnInit {
   @Output() getAllUsersMethod = new EventEmitter<Subscription>();
   HVacViewModal = signal<boolean>(false);
   HVacEditModal = signal<boolean>(false);
   HVacAddModal = signal<boolean>(false);
-  humanVac : Subscription = new Subscription();
-  humanVacs : any;
+  humanVac: Subscription = new Subscription();
+  humanVacs: any;
+
+  // Baryabols
+  fileName : string = 'humanvaccinationstocks.xlsx'
+
+  // Dependensi Indyeksyon
   _hvac = inject(HumanvaccineService);
+  _auth = inject(AuthService);
   openHVacEditModal(Hid: number) {
     this.humanVac.add(
       this._hvac.getVaccineById(Hid).subscribe((response) => {
@@ -34,7 +57,7 @@ export class HListvacComponent implements OnInit{
     this.humanVac.add(
       this._hvac.getVaccineById(Hid).subscribe((response) => {
         this.humanVacs = response;
-        this.HVacViewModal.set(true)
+        this.HVacViewModal.set(true);
       })
     );
   }
@@ -53,10 +76,12 @@ export class HListvacComponent implements OnInit{
 
   getAllHumanVacine() {
     this.humanVac.add(
-      this._hvac.getAllHumanVaccine().subscribe((result: any) => {
-        this._hvac.HVacs.set(result);
-      })
-    )
+      this._hvac
+        .getAllHumanVaccineByAccount(this._auth.userInfo?.id)
+        .subscribe((result: any) => {
+          this._hvac.HVacs.set(result);
+        })
+    );
   }
 
   ngOnInit(): void {

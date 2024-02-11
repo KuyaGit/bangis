@@ -7,7 +7,7 @@ export const hastokenGuard: CanActivateFn = (route, state) => {
   const tokenName = environment.tokenName
   const token = localStorage.getItem(tokenName);
   if(token){
-    router.navigate(['home'])
+    router.navigate(['/home'])
     return false;
   } else {
     return true;

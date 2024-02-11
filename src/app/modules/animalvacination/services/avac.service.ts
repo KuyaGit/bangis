@@ -19,6 +19,9 @@ export class AvacService {
   getAllAvac(): Observable<any> {
     return this._http.get(`${this.url}/animalvac`)
   }
+  getAllAvacByAccount(id: any) {
+    return this._http.get(`${this.url}/animalvac/${id}`)
+  }
 
   getVaccineById(id : number): Observable<any> {
     return this._http.get(this.url + '/animalvac/' + id)

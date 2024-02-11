@@ -1,0 +1,63 @@
+@if((pageData$ | async); as pageData){
+  <div style="height: 300px;margin-bottom: 10px;">
+    <table class="table table-fixed">
+      <thead>
+        <tr>
+          @for(column of columns; track $index){
+            <th [class]="column.class ? column.class : ''">
+            @if(column.tableHeaderType === 'checkbox'){
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            }@else if (column.tableHeaderType === 'text') {
+              {{column.name}}
+            }
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for(instance of pageData; track instance.id; let i = $index){
+          <tr>
+          @for(column of columns;track $index){
+            <td>
+            @switch(column.tableBodyType){
+              @case ("text") {
+                {{ instance[column.key] }}
+              }
+              @case("menu") {
+                <div class="dropdown dropdown-left 2xl:dropdown-right">
+                  <div tabindex="0" role="button" class="btn m-1 btn-sm">Action</div>
+                  <ul
+                    tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
+                  >
+                  @for(menu of column.item; track $index){
+                    <li (click)="menu.method(instance)" >
+                      <a>{{menu.name !== '$active' ? menu.name : (instance.active? 'Deactivate' : 'Activate')}}</a>
+                    </li>
+                  }
+                  </ul>
+                </div>
+              }
+              @case ("checkbox") {
+                <label>
+                  <input type="checkbox" class="checkbox" />
+                </label>
+              }
+            }
+            </td>
+          }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex justify-end join">
+    <button class="join-item btn btn-sm" (click)="prevPage()" [disabled]="(this.isFirstPage$ |async)">«</button>
+    <button class="join-item btn btn-sm">Page {{currentPage$ | async}}</button>
+    <button class="join-item btn btn-sm" (click)="nextPage()" [disabled]="(this.isLastPage$ |async)">»</button>
+  </div>
+
+}

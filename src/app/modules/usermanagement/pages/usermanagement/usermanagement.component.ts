@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  EventEmitter,
   OnInit,
-  Output,
-  Signal,
   inject,
   signal,
 } from '@angular/core';
@@ -13,9 +10,14 @@ import { EditUserComponent } from '../../components/modals/edit-user/edit-user.c
 import { ViewUserComponent } from '../../components/modals/view-user/view-user.component';
 import { UserService } from '../../services/user.service';
 import { AlertService } from '../../../../core/services/alert.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, switchMap } from 'rxjs';
 import { UserModel } from '../../models/user.interface';
 import { AuthService } from '../../../../core/services/auth.service';
+import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
+import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
+import { ColumnInterface } from '../../../../core/interface/table-data';
+import { TableDataComponent } from '../../../../core/components/table.data/table.data.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-usermanagement',
@@ -24,7 +26,10 @@ import { AuthService } from '../../../../core/services/auth.service';
     CommonModule,
     AddUserComponent,
     EditUserComponent,
-    ViewUserComponent
+    ViewUserComponent,
+    ExportexcelbtnComponent,
+    FullPageLoaderComponent,
+    TableDataComponent
   ],
   templateUrl: './usermanagement.component.html',
   styleUrl: './usermanagement.component.scss',
@@ -35,6 +40,71 @@ export class UsermanagementComponent implements OnInit {
   modalEdit = signal<boolean>(false);
   userDetails: UserModel[] = [];
   _auth = inject(AuthService);
+  dataExport : [] = [];
+  fileName : string = 'UserList.xlsx';
+
+  columns: ColumnInterface<UserModel>[] = [
+    {
+      name: 'UserID',
+      tableBodyType: 'text',
+      tableHeaderType: 'text',
+      key: 'id',
+    },
+    {
+      name: 'Name',
+      tableBodyType: 'text',
+      tableHeaderType: 'text',
+      key: 'name',
+    },
+    {
+      name: 'Username',
+      tableBodyType: 'text',
+      tableHeaderType: 'text',
+      key: 'email',
+    },
+    {
+      name: 'Address',
+      tableBodyType: 'text',
+      tableHeaderType: 'text',
+      key: 'address',
+    },
+    {
+      name: 'Account Type',
+      tableBodyType: 'text',
+      tableHeaderType: 'text',
+      key: 'accountType',
+    },
+    {
+      name: 'Action',
+      tableBodyType: 'button',
+      tableHeaderType: 'text',
+      key: 'id',
+      item: [
+        {
+          name: 'View',
+          method: (id: number) => {
+            this.openViewModal(id);
+          },
+
+        },
+        {
+          name: 'Edit',
+          method: (id: number) => {
+            this.openEditModal(id);
+          },
+        },
+        {
+          name: 'Delete',
+          method: (id: number) => {
+            this.deleteUser(id);
+          },
+        }
+      ]
+    }
+  ]
+
+
+
   openViewModal(id: number) {
     this.UserSubscription.add(
       this._user.getUserById(id).subscribe((response) => {
@@ -94,6 +164,10 @@ export class UsermanagementComponent implements OnInit {
       }
     );
   }
+  User$ !: Observable<UserModel[]>;
+  searchKey = new FormControl();
+  searchKey$ = this.searchKey.valueChanges;
+  UsersData : UserModel[] = [];
   getAllUsers() {
     this.UserSubscription.add(
       this._user.getAllUsers().subscribe((result) => {
@@ -101,10 +175,15 @@ export class UsermanagementComponent implements OnInit {
       })
     )
   }
+
   ngOnDestroy(): void {
     this.UserSubscription.unsubscribe();
   }
   ngOnInit(): void {
-    this.getAllUsers();
+    // this.getAllUsers();
+    this.User$ = this._user.refreshTrigger$.pipe(
+      switchMap(() => this._user.getAllUsers())
+    )
+    console.log(this.User$);
   }
 }

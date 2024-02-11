@@ -30,56 +30,51 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
           <div
             class="logo-container flex  justify-center items-center rounded-lg"
           >
-            <div
-              class="logo-text flex text-white rounded-lg"
-              [ngClass]="collapsed ? 'bg-red-600' : ''"
-            >
-              <div class="text-2xl font-bold m-2" *appHasRole="['admin']">
+            <div class="logo-text flex text-red-600 rounded-lg">
+              <div class="text-2xl font-bold" *appHasRole="['admin']">
                 @if(collapsed) {
-                  <h1 class="text-2xl font-bold m-4" *appHasRole="['admin']">
-                    ADMINISTRATOR
-                  </h1>
+                <h1 class="text-2xl font-bold m-4" *appHasRole="['admin']">
+                  ADMINISTRATOR
+                </h1>
                 } @else {
                 <li
-                  class="sidenav-item list-none text-red-600 text-2xl font-bold m-2"
+                  class="sidenav-item list-none text-red-600 text-2xl font-bold px-5 my-4"
                 >
                   <i class="sidenav-link-icon fa-solid fa-user-tie"></i>
                 </li>
                 }
               </div>
-              <div class="text-2xl font-bold m-2 " *appHasRole="['lab']">
+              <div class="text-2xl font-bold" *appHasRole="['lab']">
                 @if(collapsed) {
-                <h1 class="text-2xl font-bold m-10" >
-                  LABORATORY
-                </h1>
+                <h1 class="text-2xl font-bold m-10">LABORATORY</h1>
                 } @else {
                 <li
-                  class="sidenav-item list-none text-red-600 text-2xl font-bold m-2"
+                  class="sidenav-item list-none text-red-600 text-2xl font-bold px-5 my-4"
                 >
                   <i class="sidenav-link-icon fa-solid fa-flask-vial"></i>
                 </li>
                 }
               </div>
-              <div class="text-2xl font-bold m-2 " *appHasRole="['abtc']">
+              <div class="text-2xl font-bold" *appHasRole="['abtc']">
                 @if(collapsed) {
                 <span class="">Animal Bite</span><br />
                 <span class="">Treatment Center</span>
                 } @else {
                 <li
-                  class="sidenav-item list-none text-red-600 text-2xl font-bold m-2"
+                  class="sidenav-item list-none text-red-600 text-2xl font-bold px-5 my-4"
                 >
                   <i class="sidenav-link-icon fa-solid fa-house-medical"></i>
                 </li>
                 }
               </div>
               @if(collapsed) {
-              <h1 class="text-2xl font-bold m-10" *appHasRole="['agri']">
+              <h1 class="text-2xl font-bold" *appHasRole="['agri']">
                 AGRICULTURE
               </h1>
               } @else {
               <li
                 *appHasRole="['agri']"
-                class="sidenav-item list-none text-red-600 text-2xl font-bold m-2"
+                class="sidenav-item list-none text-red-600 text-2xl font-bold px-5 my-4"
               >
                 <i class="sidenav-link-icon fa-solid fa-building-wheat"></i>
               </li>

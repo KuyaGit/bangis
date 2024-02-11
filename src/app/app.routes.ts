@@ -9,6 +9,7 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./modules/auth/pages/login/login.component').then(m => m.LoginComponent),
     title: 'Login',
+    canActivate: [hastokenGuard]
   },
   {
     path: '',

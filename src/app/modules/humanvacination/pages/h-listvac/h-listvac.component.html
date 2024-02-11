@@ -1,52 +1,42 @@
+<app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
-      <div class="search-input">
-        <input
-          type="text"
-          placeholder="Search for Vaccine Name"
-          class="input input-bordered w-full max-w-xs"
-        />
-      </div>
-      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
-        <i class="fa-solid fa-download"></i>
-      </button>
-    </div>
-    <button
-      class="btn bg-red-600 border-none hover:bg-red-700 text-white"
-      (click)="this.HVacAddModal.set(true)"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
+      <button
+        class="btn bg-red-600 border-none hover:bg-red-700 text-white"
+        (click)="this.HVacAddModal.set(true)"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 6v12m6-6H6"
-        />
-      </svg>
-      Add Human Vaccine
-    </button>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 6v12m6-6H6"
+          />
+        </svg>
+        Add Data
+      </button>
+      <app-exportexcelbtn [data]="this._hvac.HVacs()" [fileName]="fileName" />
+
+    </div>
   </div>
 
-  <div class="card max-h-[450px] overflow-y-scroll overflow-x-hidden">
-    <table class="table-auto user-table">
+  <div class="card max-h-4/5 overflow-y-scroll overflow-x-hidden">
+    <table class="table-auto user-table table-zebra">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
-          <th class="px-2 py-2">Vaccine Name</th>
-          <th class="px-2 py-2">Brand Name</th>
-          <th class="px-2 py-2">Stock Quantity</th>
-          <th class="px-2 py-2">Dosage</th>
-          <th class="px-2 py-2">Date Expired</th>
-          <th class="px-2 py-2">Action</th>
+          <th class=" py-1">Vaccine Name</th>
+          <th class=" py-1">Brand Name</th>
+          <th class=" py-1">Stock Quantity</th>
+          <th class=" py-1">Dosage</th>
+          <th class=" py-1">Date Expired</th>
+          <th class=" py-1">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -76,14 +66,18 @@
             </div>
           </td>
           <td class="flex justify-center">
-            <div class="dropdown dropdown-left 2xl:dropdown-right">
+            <div class="dropdown dropdown-left">
               <div tabindex="0" role="button" class="btn m-1">Action</div>
               <ul
                 tabindex="0"
                 class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-40"
               >
                 <li><a (click)="openHVacViewModal(vaccine.Hid)">View</a></li>
-                <li><a (click)="openHVacEditModal(vaccine.Hid)">Edit Stocks Quantity</a></li>
+                <li>
+                  <a (click)="openHVacEditModal(vaccine.Hid)"
+                    >Edit Stocks Quantity</a
+                  >
+                </li>
               </ul>
             </div>
           </td>

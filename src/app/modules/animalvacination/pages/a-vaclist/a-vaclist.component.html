@@ -1,22 +1,8 @@
+<app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
-      <div class="search-input">
-        <input
-          type="text"
-          placeholder="Search for an Event"
-          class="input input-bordered w-full max-w-xs"
-        />
-      </div>
-      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
-        <i class="fa-solid fa-download"></i>
-      </button>
-    </div>
-
-    <button
+      <button
       class="btn bg-red-600 border-none hover:bg-red-700 text-white"
       (click)="this.avacModalAdd.set(true)"
     >
@@ -34,20 +20,24 @@
           d="M12 6v12m6-6H6"
         />
       </svg>
-      Add Animal Vaccine
-    </button>
+      Add Data
+      </button>
+      <app-exportexcelbtn [data]="this._avac.avacList()" [fileName]="fileName" />
+    </div>
+
+
   </div>
-  <div class="card max-h-[450px] overflow-y-scroll overflow-x-hidden">
+  <div class="card max-h-[79vh] overflow-y-scroll overflow-x-hidden">
     <!-- <div class="relative"> -->
     <table class="table-auto user-table">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
-          <th class="px-2 py-2">Vaccine Name</th>
-          <th class="px-2 py-2">Brand Name</th>
-          <th class="px-2 py-2">Stock Quantity</th>
-          <th class="px-2 py-2">Dosage</th>
-          <th class="px-2 py-2">Date Expired</th>
-          <th class="px-2 py-2">Action</th>
+          <th class="py-1">Vaccine Name</th>
+          <th class="py-2">Brand Name</th>
+          <th class="py-2">Dosage</th>
+          <th class="py-2">Stock Quantity</th>
+          <th class="py-2">Date Expired</th>
+          <th class="py-2">Action</th>
         </tr>
       </thead>
       <tbody>
