@@ -8,7 +8,9 @@ import { AnimalbiteService } from '../../services/animalbite.service';
 import { HasRoleDirective } from '../../../../hasRole.directive';
 import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
-import { FullPageLoaderService } from '../../../../core/components/fullPageLoader/fullPageLoader.service';
+import { environment } from '../../../../../environments/environment.development';
+import { AuthService } from '../../../../core/services/auth.service';
+
 
 @Component({
   selector: 'app-animalbitelist',
@@ -20,7 +22,7 @@ import { FullPageLoaderService } from '../../../../core/components/fullPageLoade
     CommonModule,
     HasRoleDirective,
     ExportexcelbtnComponent,
-    FullPageLoaderComponent
+    FullPageLoaderComponent,
   ],
   templateUrl: './animalbitelist.component.html',
   styleUrl: './animalbitelist.component.scss',
@@ -36,16 +38,39 @@ export class AnimalbitelistComponent implements OnInit{
   @Output() modalEvent = new EventEmitter<boolean>();
   // Dependency Injection
   _animalbite = inject(AnimalbiteService);
-  _fullPageLoader = inject(FullPageLoaderService)
+  _auth = inject(AuthService)
   // Baryabols
   isVisiblePageLoader : boolean = false;
   fileName: string = 'animalbite.xlsx';
-
+  subsciption : Subscription = new Subscription()
+  accountID = this._auth.userInfo?.id
   // Methods
   getAllAnimalBite() {
-    console.log('getAllAnimalBite');
+
+    this.subsciption.add(
+      this._animalbite.getAllPatientsByAbtc(Number(this.accountID)).subscribe(
+        (res) => {
+          this._animalbite.aniList.set(res)
+        }
+    )
+    );
   }
+
+  openViewModal(id : number) {
+    console.log(id)
+    this.modalView.set(true);
+
+  }
+  openEditModal(id: number) {
+    this.modalEdit.set(true);
+    console.log(id)
+  }
+  delete(id: number){
+    console.log(id)
+  }
+
   ngOnInit(): void {
-    this._fullPageLoader.loadPage()
+    this.getAllAnimalBite();
+    console.log(this._animalbite.aniList)
   }
 }

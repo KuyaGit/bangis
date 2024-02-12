@@ -26,13 +26,20 @@ export class DashboardComponent implements OnInit{
 
   accountID = this._authS.userInfo?.id
   humanVacCount = signal<number>(0)
+  totalVacCount = signal<number>(0)
   getHumanVacCount(id: any) {
     this._dashboardS.getHumanVacCount(id).subscribe((res: any) => {
       this.humanVacCount.set(res.hVacID)
     })
   }
+  getTotalVacCount(id: any) {
+    this._dashboardS.getTotalVacCount(id).subscribe((res: any) => {
+      this.totalVacCount.set(res.totalVac)
+    })
+  }
 
   ngOnInit(): void {
     this.getHumanVacCount(this.accountID)
+    this.getTotalVacCount(this.accountID)
   }
 }

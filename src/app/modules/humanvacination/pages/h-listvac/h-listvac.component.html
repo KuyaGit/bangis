@@ -43,7 +43,7 @@
         @for(vaccine of _hvac.HVacs(); track $index){
         <tr>
           <td>
-            <div class="font-bold flex justify-center">
+            <div class="font-bold flex justify-center items-center">
               {{ vaccine.vacName }}
             </div>
           </td>
@@ -65,12 +65,12 @@
               {{ vaccine.expiryDate | date : "MMM, dd, yyyy" }}
             </div>
           </td>
-          <td class="flex justify-center">
+          <td class="w-10">
             <div class="dropdown dropdown-left">
               <div tabindex="0" role="button" class="btn m-1">Action</div>
               <ul
                 tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-40"
+                class="dropdown-content z-[1] menu p-2 drop-shadow-md bg-base-200 rounded-box w-40"
               >
                 <li><a (click)="openHVacViewModal(vaccine.Hid)">View</a></li>
                 <li>

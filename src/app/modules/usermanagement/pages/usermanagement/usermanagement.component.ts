@@ -170,7 +170,7 @@ export class UsermanagementComponent implements OnInit {
   UsersData : UserModel[] = [];
   getAllUsers() {
     this.UserSubscription.add(
-      this._user.getAllUsers().subscribe((result) => {
+      this._user.getAllUsers().subscribe((result ) => {
         this._user.Users.set(result);
       })
     )
@@ -180,10 +180,9 @@ export class UsermanagementComponent implements OnInit {
     this.UserSubscription.unsubscribe();
   }
   ngOnInit(): void {
-    // this.getAllUsers();
     this.User$ = this._user.refreshTrigger$.pipe(
       switchMap(() => this._user.getAllUsers())
     )
-    console.log(this.User$);
+    this.getAllUsers();
   }
 }

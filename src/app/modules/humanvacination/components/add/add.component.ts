@@ -59,6 +59,5 @@ export class AddComponent {
   }
   addhVac() {
     this.addHVacObservable = this._hVac.addHVac(this.HVacineForm.value)
-    
   }
 }

@@ -56,18 +56,28 @@ export class AdddatabtnComponent {
   _alertService = inject(AlertService);
   addData() {
     this.method.emit();
-      this.addVacObservable.subscribe((res: any) => {
-        this.isLoading.set(true);
-        setTimeout(() => {
-          if (this.isLoading()) {
-            this._alertService.handleSuccess('Data Added Successfully');
-            this.emitGetAllAnimalVaccinated();
-            this.modalEvent.emit(false);
-            this.isLoading.set(false);
-          }
-        },2000);
-      });
+    if (!this.addVacObservable) {
+      console.error('addVacObservable is undefined.');
+      return;
   }
+    this.addVacObservable.subscribe({
+        next: (res: any) => {
+            this.isLoading.set(true);
+            setTimeout(() => {
+                if (this.isLoading()) {
+                    this._alertService.handleSuccess('Data Added Successfully');
+                    this.emitGetAllAnimalVaccinated();
+                    this.modalEvent.emit(false);
+                    this.isLoading.set(false);
+                }
+            }, 2000);
+        },
+        error: (err: any) => {
+            console.error('Error occurred during subscription:', err);
+            // Handle error as needed
+        }
+    });
+}
   emitGetAllAnimalVaccinated() {
     this.methodGetAll.emit();
   }

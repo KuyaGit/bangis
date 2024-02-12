@@ -16,7 +16,7 @@ import { ColumnInterface } from '../../interface/table-data';
 })
 export class TableDataComponent implements OnInit{
   @Input() searchKey$!: Observable<string>;
-  @Input() data$!: Observable<UserModel[] | AVacsModel[] | HVacModel[] | Animalinjection[] | any[]>
+  @Input() data$!: Observable<UserModel[] | AVacsModel[] | HVacModel[] | Animalinjection[] | any[] >
   @Input() columns: ColumnInterface<any>[] = [];
 
 

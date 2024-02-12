@@ -13,19 +13,20 @@ import { HasRoleDirective } from '../../../../hasRole.directive';
 export class PiegraphComponent implements OnInit{
   @Input() available: number = 10;
   @Input() outOfStock: number = 20;
+  @Input() expired: number = 30;
   ngOnInit(): void {
     this.renderChart()
   }
   renderChart(): void {
     const chartOptions = {
-      series: [this.available, this.outOfStock, 20.4],
+      series: [this.available, this.outOfStock, this.expired],
       colors: ["#1C64F2", "#16BDCA", "#9061F9"],
+      labels: ["Available", "Out of Stock", "Expired"],
       chart: {
         height: 600,
         width: "100%",
         type: "pie",
       },
-
   legend: {
     show: true,
     showForSingleSeries: false,

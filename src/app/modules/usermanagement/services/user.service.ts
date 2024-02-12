@@ -3,7 +3,6 @@ import { UserModel } from '../models/user.interface';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
-import { AlertService } from '../../../core/services/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +27,6 @@ export class UserService {
         catchError(this.handleError)
         );
   }
-  // getAllUsers(): Observable<UserModel[]> {
-  //   return this.http.get<UserModel[]>(`${this.url}/users`).pipe(
-  //     catchError(this.handleError)
-  //   )
-  // }
 
   archiveUser(id: number): Observable<any> {
     return this.http.put(`${this.url}/users/${id}`, id)
