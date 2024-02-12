@@ -11,4 +11,7 @@ import { Subscription } from 'rxjs';
 export class EditanimalbiteComponent {
   @Output() getAllMethod = new EventEmitter<Subscription>();
   @Output() modalEvent = new EventEmitter<boolean>();
+
+  
+
 }

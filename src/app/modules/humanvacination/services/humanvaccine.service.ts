@@ -15,6 +15,9 @@ export class HumanvaccineService {
   getAllHumanVaccine() {
     return this.http.get(this.url + '/humanvac')
   }
+  getAllHumanVaccineByAccount(id: any) {
+    return this.http.get(`${this.url}/humanvac/${id}`)
+  }
   getVaccineById(id: number) {
     return this.http.get(this.url + '/humanvac/' + id)
   }

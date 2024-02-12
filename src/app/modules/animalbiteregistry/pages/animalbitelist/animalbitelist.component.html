@@ -1,92 +1,84 @@
+<app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
-      <div class="search-input">
-        <input
-          type="text"
-          placeholder="Search for an Event"
-          class="input input-bordered w-full max-w-xs"
-        />
-      </div>
-      <button
-        class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1"
-      >
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button
-        class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1"
-      >
-        <i class="fa-solid fa-download"></i>
-      </button>
-    </div>
-    <ng-container *appHasRole="['abtc']">
-      <button
-        class="btn bg-red-600 border-none hover:bg-red-700 text-white"
-        (click)="this.modalAdd.set(true)"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+      <ng-container *appHasRole="['abtc']">
+        <button
+          class="btn bg-red-600 border-none hover:bg-red-700 text-white"
+          (click)="this.modalAdd.set(true)"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 6v12m6-6H6"
-          />
-        </svg>
-        Add Animal Vaccine
-      </button>
-    </ng-container>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 6v12m6-6H6"
+            />
+          </svg>
+          Add
+        </button>
+      </ng-container>
+      <app-exportexcelbtn [data]="this._animalbite.aniList()" />
+
+    </div>
+
   </div>
-  <div class="card max-h-[450px] overflow-x-auto">
-    <table class="table-auto table user-table">
+  <div class="card max-h-4/5 overflow-y-scroll overflow-x-hidden">
+    <table class="table-auto table user-table table-zebra">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
-          <th class="px-2 py-2">UserID</th>
-          <th class="px-2 py-2">Name</th>
-          <th class="px-2 py-2">Username</th>
-          <th class="px-2 py-2">Address</th>
-          <th class="px-2 py-2">Role</th>
-          <th class="px-2 py-2" *appHasRole="['abtc']">Action</th>
+          <th class="py-1">Patient ID</th>
+          <th class="py-1">Name</th>
+          <th class="py-1">Address</th>
+          <th class="py-1">Type of Animal</th>
+          <th class="py-1">Date Bitten</th>
+          <ng-container *appHasRole="['abtc']">
+            <th class="py-1">Action</th>
+          </ng-container>
         </tr>
       </thead>
       <tbody class="table-body">
         @for(user of _animalbite.aniList(); track $index){
         <tr>
           <td>
-            <div class="flex justify-center">{{ user.id }}</div>
+            <div class="flex justify-center">{{ user.AnimalBiteId }}</div>
           </td>
           <td>
-            <div class="font-bold flex justify-center">{{ user.name }}</div>
+            <div class="font-bold flex justify-center">{{ user.patientName }}</div>
           </td>
           <td>
-            <div class="flex justify-center">{{ user.email }}</div>
+            <div class="flex justify-center">{{ user.Address }}</div>
           </td>
           <td>
-            <div class="flex justify-center">{{ user.address }}</div>
+            <div class="flex justify-center">{{ user.typeOfAnimal }}</div>
           </td>
-          <td>
+          <td >
             <div class="flex flex-row justify-center items-center">
-              {{ user.accountType.toUpperCase() }}
+              {{ user.dateBitten | date : "MMM, dd, yyyy" }}
             </div>
           </td>
-          <td class="flex justify-center items-center">
-            <div class="dropdown dropdown-left 2xl:dropdown-right">
-              <div tabindex="0" role="button" class="btn m-1">Action</div>
-              <ul
-                tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
-              >
-                <!-- <li><a (click)="openViewModal(user.id)">View</a></li>
-                <li><a (click)="openEditModal(user.id)" *appHasRole="['abtc']">Edit</a></li>
-                <li><a (click)="deleteUser(user.id)" *appHasRole="['abtc']">Delete</a></li> -->
-              </ul>
-            </div>
-          </td>
+          <ng-container *appHasRole="['abtc']">
+            <td class="w-10">
+              <div class="dropdown dropdown-left 2xl:dropdown-left">
+                <div tabindex="0" role="button" class="btn">Action</div>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
+                >
+                  <li><a (click)="openViewModal(user.AnimalBiteId)">View</a></li>
+                  <li><a (click)="openEditModal(user.AnimalBiteId)" *appHasRole="['abtc']">Edit</a></li>
+                  <li><a (click)="delete(user.AnimalBiteId)" *appHasRole="['abtc']">Delete</a></li>
+                </ul>
+              </div>
+            </td>
+          </ng-container>
+
         </tr>
         } @empty {
         <tr>

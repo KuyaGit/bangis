@@ -1,58 +1,454 @@
-<!-- <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div
+  class="relative z-10"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+>
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
-  <div class="fixed inset-0 z-10 w-screen">
-    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-        <form class="w-full flex justify-center items-center" [formGroup]="aVacForm">
-          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 overflow-auto">
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Vaccine Name</span>
-                  </div>
-                  <input type="text" formControlName="vacName" placeholder="Vaccine Name" class="input input-bordered w-full" />
-                </label>
+  <div class="fixed inset-0 z-10 w-screen flex items-center sm:flex sm:items-center sm:justify-center sm:h-full">
+    <div
+      class="flex items-end justify-center p-4 text-center sm:items-center sm:flex sm:p-0"
+    >
+      <form class="w-full flex justify-center items-center" [formGroup]="animalBiteForm">
+        <div
+          class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all s sm:my-8 sm:w-90 sm:max-w-6xl md:max-w-6xl"
+        >
+          <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 overflow-auto">
+            <h1
+              class="text-2xl flex items-start font-extrabold text-slate-600 mb-2"
+            >
+              Patient's Information
+            </h1>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Patient's Name</span>
+                    </div>
+                    <input
+                      type="text"
+                      formControlName="patientName"
+                      placeholder="Enter Name"
+                      class="input input-bordered w-full"
+                      ngDis
+                    />
+                  </label>
+                </div>
               </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Brand Name</span>
-                  </div>
-                  <input type="text" formControlName="brandName" placeholder="Brand Name" class="input input-bordered w-full" />
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Quantity</span>
-                  </div>
-                  <input type="number" formControlName="stockQuantity" placeholder="Quantity" class="input input-bordered w-full" />
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Dosage</span>
-                  </div>
-                  <input type="number" formControlName="dosage" placeholder="Dosage" class="input input-bordered w-full" />
-                </label>
-              </div>
-              <div class="sm:flex sm:items-center w-full">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Expiry Date</span>
-                  </div>
-                  <app-date-picker (selectedDate)="setExpiryDate($event)"/>
-                </label>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Address</span>
+                    </div>
+                    <input
+                      type="text"
+                      class="input input-bordered w-full"
+                      formControlName="Address"
+                      placeholder="Enter Address"
+                    />
+                  </label>
+                </div>
               </div>
             </div>
-            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-              <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto" (click)="addAvac()">Add Animal Vaccine</button>
-              <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="this.modalEvent.emit(false)">Cancel</button>
+            <h1
+              class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
+            >
+              History Exposure
+            </h1>
+            <div class="grid grid-cols-4 gap-3">
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Age</span>
+                    </div>
+                    <input
+                      type="number"
+                      formControlName="age"
+                      placeholder="Age"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Gender</span>
+                    </div>
+                    <select
+                      class="select select-bordered w-full"
+                      formControlName="sex"
+                    >
+                      <option value="" disabled selected>
+                        Please Select Gender
+                      </option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Date Bitten</span>
+                    </div>
+                    <input
+                      type="date"
+                      formControlName="dateBitten"
+                      placeholder="Enter Date"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Place (Where Biting Occurred / Address)</span>
+                    </div>
+                    <input
+                      type="text"
+                      formControlName="bittenAt"
+                      placeholder="Enter Place"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-5">
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Type of Animal</span>
+                    </div>
+                    <input
+                      type="text"
+                      formControlName="typeOfAnimal"
+                      placeholder="Enter Type of Animal"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Type</span>
+                    </div>
+                    <select
+                      class="select select-bordered w-full"
+                      formControlName="type"
+                    >
+                      <option value="" disabled selected>
+                        B OR NB
+                      </option>
+                      <option value="b">B</option>
+                      <option value="nb">NB</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Site(Body Parts)</span>
+                    </div>
+                    <input
+                      type="text"
+                      formControlName="siteOfBite"
+                      placeholder="Enter Site"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <h1
+              class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
+            >
+            Post Exposure Prophylaxis
+            </h1>
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Category (1,2 and 3) </span>
+                    </div>
+                    <select
+                      class="select select-bordered w-full"
+                      formControlName="category"
+                    >
+                      <option value="" disabled selected>
+                        Enter Category
+                      </option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Washing of Bite (Y/N)</span>
+                    </div>
+                    <select
+                      class="select select-bordered w-full"
+                      formControlName="washAfterbite"
+                    >
+                      <option value="" disabled selected>
+                        Yes or No
+                      </option>
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">RIG Date Given</span>
+                    </div>
+                    <input
+                      type="date"
+                      formControlName="dateRigGiven"
+                      placeholder="Enter Breed"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <h1
+              class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
+            >
+            Tissues Culture Vaccine (Data Given)
+            </h1>
+            <div class="grid grid-cols-6 gap-3">
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Route </span>
+                    </div>
+                    <input
+                      type="text"
+                      formControlName="route"
+                      placeholder="Enter Route"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D0 </span>
+                    </div>
+                    <input
+                      type="date"
+                      formControlName="dateOfFirstVaccine"
+                      placeholder="Enter Route"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D3 </span>
+                    </div>
+                    <input
+                      type="date"
+                      formControlName="dateOfSecondVaccine"
+                      placeholder="Enter Route"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D7 </span>
+                    </div>
+                    <input
+                      type="date"
+                      formControlName="dateOfThirdVaccine"
+                      placeholder="Enter Route"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D14(1M)</span>
+                    </div>
+                    <input
+                      type="date"
+                      formControlName="dateOfFourthVaccine"
+                      placeholder="Enter Route"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D28</span>
+                    </div>
+                    <input
+                      type="date"
+                      formControlName="dateOfFifthVaccine"
+                      placeholder="Enter Date"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <h1
+              class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
+            >
+            Vaccine Names
+            </h1>
+            <div class="grid grid-cols-6 gap-3">
+              <div></div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">First Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full"
+                      formControlName="brandNameFirstVaccine"
+                    >
+                      <option value="" disabled selected>Please Select</option>
+                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Second Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full disabled"
+                      formControlName="brandNameSecondVaccine"
+
+
+                    >
+                      <option value="" disabled selected>Please Select</option>
+                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Third Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full"
+                      formControlName="brandNameThirdVaccine"
+                    >
+                      <option value="" disabled selected>Please Select</option>
+                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Fourth Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full"
+                      formControlName="brandNameFourthVaccine"
+                    >
+                      <option value="" disabled selected>Please Select</option>
+                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Fifth Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full"
+                      formControlName="brandNameFifthVaccine"
+                    >
+                      <option value="" disabled selected>Please Select</option>
+                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
-        </form>
+
+
+          <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <app-adddatabtn
+              (method)="addAnimalBite()"
+              (methodGetAll)="emitGetAll()"
+              [addVacObservable]="addAnimalBiteObservable"
+              (modalEvent)="closemodaladd()"
+            />
+            <button
+              type="button"
+              class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+              (click)="this.modalEvent.emit(false)"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-</div> -->
+</div>

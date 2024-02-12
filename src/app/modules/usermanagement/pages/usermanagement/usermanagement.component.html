@@ -1,23 +1,11 @@
+<app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
-      <div class="search-input">
-        <input
-          type="text"
-          placeholder="Search for an Event"
-          class="input input-bordered w-full max-w-xs"
-        />
-      </div>
-      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button class="btn btn-square bg-red-600 border-none hover:bg-red-700 text-white ml-1">
-        <i class="fa-solid fa-download"></i>
-      </button>
-    </div>
 
-    <button
-      class="btn bg-red-600 border-none hover:bg-red-700 text-white"
+      <app-exportexcelbtn [data]="this._user.Users()" [fileName]="fileName" />
+      <button
+      class="btn bg-red-600 border-none hover:bg-red-700 text-white ml-3"
       (click)="this.modalAdd.set(true)"
     >
       <svg
@@ -36,42 +24,45 @@
       </svg>
       Add Account
     </button>
+    </div>
+
+
   </div>
   <div class="card max-h-[450px] overflow-auto">
     <!-- <div class="relative"> -->
     <table class="table-auto table user-table">
       <thead class="text-stone-600">
         <tr class="sticky top-0 bg-white">
-          <th class="px-2 py-2">UserID</th>
-          <th class="px-2 py-2">Name</th>
-          <th class="px-2 py-2">Username</th>
-          <th class="px-2 py-2">Address</th>
-          <th class="px-2 py-2">Role</th>
-          <th class="px-2 py-2">Action</th>
+          <th class="py-1">UserID</th>
+          <th class="py-1">Name</th>
+          <th class="py-1">Username</th>
+          <th class="py-1">Address</th>
+          <th class="py-1">Role</th>
+          <th class="py-1">Action</th>
         </tr>
       </thead>
       <tbody class="table-body">
         @for(user of _user.Users(); track $index){
         <tr>
           <td>
-            <div class="flex justify-center">{{ user.id }}</div>
+            <div class="flex justify-center py-1">{{ user.id }}</div>
           </td>
           <td>
-            <div class="font-bold flex justify-center">{{ user.name }}</div>
+            <div class="font-bold flex justify-center py-1">{{ user.name }}</div>
           </td>
           <td>
-            <div class="flex justify-center">{{ user.email }}</div>
+            <div class="flex justify-center py-1">{{ user.email }}</div>
           </td>
           <td>
-            <div class="flex justify-center">{{ user.address }}</div>
+            <div class="flex justify-center py-1">{{ user.address }}</div>
           </td>
           <td>
-            <div class="flex flex-row justify-center items-center">
+            <div class="flex flex-row justify-center items-center p-1">
               {{ user.accountType.toUpperCase() }}
             </div>
           </td>
-          <td class="flex justify-center items-center">
-            <div class="dropdown dropdown-left 2xl:dropdown-right">
+          <td class="w-10">
+            <div class="dropdown dropdown-left 2xl:dropdown-left">
               <div tabindex="0" role="button" class="btn m-1">Action</div>
               <ul
                 tabindex="0"
@@ -92,7 +83,13 @@
       </tbody>
     </table>
   </div>
-</div>
+  <!-- <div class="card max-h-[450px] overflow-auto"> -->
+    <app-table-data
+      [columns]="columns"
+      [data$]="User$"
+    />
+  </div>
+<!-- </div> -->
 
 <!-- </div> -->
 @if (modalAdd()) {

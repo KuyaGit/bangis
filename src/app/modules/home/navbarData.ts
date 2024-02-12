@@ -18,16 +18,16 @@ export const navbarData = [
     label: 'Animal Bite Registry',
   },
   {
-    appHasRole: ['agri'],
-    routerLink: 'animalvaccinationinventory',
-    icon: 'fa-solid fa-syringe',
-    label: 'Animal Vaccine Inventory',
-  },
-  {
     appHasRole: ['agri','abtc'],
     routerLink: 'animalvaccination',
     icon: 'fa-solid fa-syringe',
     label: 'Animal Vaccination',
+  },
+  {
+    appHasRole: ['agri'],
+    routerLink: 'animalvaccinationinventory',
+    icon: 'fa-solid fa-syringe',
+    label: 'Animal Vaccine Inventory',
   },
   {
     appHasRole: ['abtc'],
@@ -35,4 +35,10 @@ export const navbarData = [
     icon: 'fa-solid fa-syringe',
     label: 'Human Vaccine Inventory',
   },
+  {
+    appHasRole: ['abtc', 'agri'],
+    routerLink: '#',
+    icon: 'fa-solid fa-syringe',
+    label: 'Rabies Samples',
+  }
 ];
