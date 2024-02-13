@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit{
   accountID = this._authS.userInfo?.id
   humanVacCount = signal<number>(0)
   totalVacCount = signal<number>(0)
+  totalVaccinated = signal<number>(0)
   getHumanVacCount(id: any) {
     this._dashboardS.getHumanVacCount(id).subscribe((res: any) => {
       this.humanVacCount.set(res.hVacID)
@@ -34,12 +35,29 @@ export class DashboardComponent implements OnInit{
   }
   getTotalVacCount(id: any) {
     this._dashboardS.getTotalVacCount(id).subscribe((res: any) => {
-      this.totalVacCount.set(res.totalVac)
+      this.totalVacCount.set(res.animalBiteIDFrom)
     })
   }
 
+  getTotalRabiesSubmission() : number {
+    return 10
+  }
+  async getTotalVaccinated(id: any){
+    this._dashboardS.getVacinatedCount(id).subscribe((res: any) => {
+      this.totalVaccinated.set(res.animalVaccinationIDFrom)
+    })
+  }
+  getTotalConfirmedrRabies() : number {
+    return 30
+  }
   ngOnInit(): void {
-    this.getHumanVacCount(this.accountID)
-    this.getTotalVacCount(this.accountID)
+    if(this._authS.userInfo?.accountType === 'abtc') {
+      this.getHumanVacCount(this.accountID)
+      this.getTotalVacCount(this.accountID)
+    } else if(this._authS.userInfo?.accountType === 'agri') {
+      this.getTotalConfirmedrRabies()
+      this.getTotalVaccinated(this.accountID)
+      this.getTotalRabiesSubmission()
+    }
   }
 }

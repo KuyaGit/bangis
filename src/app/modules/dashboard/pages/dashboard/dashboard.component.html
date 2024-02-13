@@ -1,22 +1,25 @@
 <app-full-page-loader />
 <body class="px-5 py-5">
   <div class="first-card flex justify-start px-7">
-    <div class="card w-50 bg-red-600 drop-shadow-lg mr-3">
-      <div class="card-body flex justify-center mr-3">
-        <div class="number-dashboard flex">
-          <h1 class="card-title text-4xl text-white">
-            {{ this.totalVacCount() }}
-          </h1>
-        </div>
-        <div class="title-dashboard flex">
-          <h1 class="card-title text-white text-1xl">
-            Total No. of Vaccinated Individuals
-          </h1>
+
+    <ng-container *appHasRole="['abtc']">
+      <div class="card w-50 bg-red-600 drop-shadow-lg mr-3">
+        <div class="card-body flex justify-center mr-3">
+          <div class="number-dashboard flex">
+            <h1 class="card-title text-4xl text-white">
+              {{ this.totalVacCount() }}
+            </h1>
+          </div>
+          <div class="title-dashboard flex">
+            <h1 class="card-title text-white text-1xl">
+              Total No. of Vaccinated Individuals
+            </h1>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
     <ng-container *appHasRole="['abtc']">
-      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg " >
+      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg">
         <div class="card-body flex justify-center">
           <div class="number-dashboard flex">
             <h1 class="card-title text-4xl text-white">
@@ -31,7 +34,54 @@
         </div>
       </div>
     </ng-container>
+    <ng-container *appHasRole="['agri']">
+      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg">
+        <div class="card-body flex justify-center">
+          <div class="number-dashboard flex">
+            <h1 class="card-title text-4xl text-white">
+              {{ this.getTotalConfirmedrRabies() }}
+            </h1>
+          </div>
+          <div class="title-dashboard flex">
+            <h1 class="card-title text-white text-1xl">
+              Confirmed Rabies Animal Cases
+            </h1>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *appHasRole="['agri']">
+      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg">
+        <div class="card-body flex justify-center">
+          <div class="number-dashboard flex">
+            <h1 class="card-title text-4xl text-white">
+              {{ this.totalVaccinated() }}
+            </h1>
+          </div>
+          <div class="title-dashboard flex">
+            <h1 class="card-title text-white text-1xl">
+              Vaccinated Dogs and Cats
+            </h1>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *appHasRole="['agri']">
+      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg">
+        <div class="card-body flex justify-center">
+          <div class="number-dashboard flex">
+            <h1 class="card-title text-4xl text-white">
+              {{ this.getTotalRabiesSubmission() }}
+            </h1>
+          </div>
+          <div class="title-dashboard flex">
+            <h1 class="card-title text-white text-1xl">
+              Submitted Animal Rabies Samples
+            </h1>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
   <app-piegraph />
-
 </body>

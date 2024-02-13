@@ -28,4 +28,7 @@ export class DashboardService {
   getTotalVacCount(id: number) {
     return this.http.get(`${this.url}/animalbite/count/${id}`)
   }
+  getVacinatedCount(id: number) {
+    return this.http.get(`${this.url}/animalvacinated/count/${id}`)
+  }
 }
