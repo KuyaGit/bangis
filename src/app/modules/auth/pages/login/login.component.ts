@@ -59,7 +59,7 @@ import { HttpClientModule } from '@angular/common/http';
                   <span class="label-text">Password</span>
                 </div>
                 <input
-                  type="text"
+                  type="password"
                   formControlName="password"
                   placeholder="Enter Password"
                   class="input input-bordered w-full max-w-xs"
