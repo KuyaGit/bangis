@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
-  baseUrl: 'https://bangis-api.onrender.com',
+  production: false,
+  baseUrl: 'http://localhost:3000',
   tokenName: 'bangis_authToken123'
 };

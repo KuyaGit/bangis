@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { AVacsModel } from '../models/avac.interface';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

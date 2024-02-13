@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { UserModel } from '../models/user.interface';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 
