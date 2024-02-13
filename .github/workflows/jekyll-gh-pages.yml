@@ -33,3 +33,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/bangis # Change this to your build directory
         enable_jekyll: true
+        publish_branch: prod
