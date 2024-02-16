@@ -37,7 +37,7 @@ export const navbarData = [
   },
   {
     appHasRole: ['abtc', 'agri'],
-    routerLink: '#',
+    routerLink: 'rabiessubmission',
     icon: 'fa-solid fa-syringe',
     label: 'Rabies Samples',
   }

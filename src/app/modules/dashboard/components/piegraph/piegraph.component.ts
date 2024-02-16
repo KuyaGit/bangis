@@ -1,19 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject, signal } from '@angular/core';
 import ApexCharts from 'apexcharts';
 import { HasRoleDirective } from '../../../../hasRole.directive';
+import { Observable } from 'rxjs';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-piegraph',
   standalone: true,
   imports: [CommonModule, HasRoleDirective],
   templateUrl: './piegraph.component.html',
-  styleUrl: './piegraph.component.scss'
+  styleUrl: './piegraph.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PiegraphComponent implements OnInit{
-  @Input() available: number = 10;
-  @Input() outOfStock: number = 20;
-  @Input() expired: number = 30;
+  @Input() available!: Observable<any>;
+  @Input() outOfStock!: Observable<number>;
+  @Input() expired!: Observable<number>;
+
+  _dashboardS =inject(DashboardService)
   ngOnInit(): void {
     this.renderChart()
   }
@@ -23,7 +28,7 @@ export class PiegraphComponent implements OnInit{
       colors: ["#1C64F2", "#16BDCA", "#9061F9"],
       labels: ["Available", "Out of Stock", "Expired"],
       chart: {
-        height: 600,
+        height: 355,
         width: "100%",
         type: "pie",
       },

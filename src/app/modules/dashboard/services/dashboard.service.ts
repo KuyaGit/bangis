@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface DashboardInterface {
   hVacID: number;
@@ -17,18 +17,36 @@ export class DashboardService {
   http = inject(HttpClient)
   // Baryabols
   private url = environment.baseUrl
-  available = signal<number>(10);
-  outOfStock= signal<number>(20);
-  expired = signal<number>(30);
+  available !: Observable<number>
+  outOfStock!: Observable<number>
+  expired!: Observable<number>
 
   // Methods
-  getHumanVacCount(id: number) {
+  getHumanVacCount(id: number): Observable<any> {
     return this.http.get(`${this.url}/humanvac/count/${id}`)
   }
-  getTotalVacCount(id: number) {
+  getHvacOutofStockCount(id: number): Observable<any>  {
+    return this.http.get(`${this.url}/humanvac/count/outofstock/${id}`)
+  }
+  getHumanVacCountExpired(id: number) : Observable<any> {
+    return this.http.get(`${this.url}/humanvac/count/expired/${id}`)
+  }
+  getTotalVacCount(id: number): Observable<any>  {
     return this.http.get(`${this.url}/animalbite/count/${id}`)
   }
-  getVacinatedCount(id: number) {
+  getVacinatedCount(id: number): Observable<any>  {
     return this.http.get(`${this.url}/animalvacinated/count/${id}`)
   }
+
+  getAnimalVacCountExpired(id: number): Observable<any> {
+    return this.http.get(`${this.url}/animalvac/count/expired/${id}`)
+  }
+  getAnimalVacOutofStockCount(id: number): Observable<any> {
+    return this.http.get(`${this.url}/animalvac/count/outofstock/${id}`)
+  }
+  getAnimalVacCount(id: number): Observable<any> {
+    return this.http.get(`${this.url}/animalvac/count/${id}`)
+  }
+
+
 }

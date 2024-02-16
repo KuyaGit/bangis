@@ -24,7 +24,7 @@ export class AvacService {
   }
 
   getVaccineById(id : number): Observable<any> {
-    return this._http.get(this.url + '/animalvac/' + id)
+    return this._http.get(this.url + '/animalvac/view/' + id)
   }
 
   update(id : number, data: AVacsModel): Observable<any> {

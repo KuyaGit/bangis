@@ -48,6 +48,11 @@ export const homeRoute: Route[] = [
         loadComponent: () => import('../../modules/not-authorized/not-authorized.component').then(m => m.NotAuthorizedComponent),
       },
       {
+        path: 'rabiessubmission',
+        title: 'Rabies Submission',
+        loadComponent: () => import('../rabiessample/pages/rabiessubmissionlist/rabiessubmissionlist.component').then(m => m.RabiessubmissionlistComponent),
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

@@ -23,7 +23,7 @@
         <div class="card-body flex justify-center">
           <div class="number-dashboard flex">
             <h1 class="card-title text-4xl text-white">
-              {{ this.humanVacCount() }}
+              {{ available$ }}
             </h1>
           </div>
           <div class="title-dashboard flex">
@@ -83,5 +83,5 @@
       </div>
     </ng-container>
   </div>
-  <app-piegraph />
+  <app-piegraph #pieGraphComponent *ngIf="this.pieGraph()" [available]="available$" [outOfStock]="outofstock$" [expired]="expired$"/>
 </body>

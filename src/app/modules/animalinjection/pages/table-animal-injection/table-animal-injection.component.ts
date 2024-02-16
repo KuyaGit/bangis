@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
+import { Animalinjection } from '../../models/animalinjection';
 
 @Component({
   selector: 'app-table-animal-injection',
@@ -42,12 +43,19 @@ export class TableAnimalInjectionComponent implements OnInit {
   // Subscriptions
   subscription: Subscription = new Subscription();
   // Method
-  openAvacInjectViewModal() {
+  animalInjectionInfo: Animalinjection[] = [];
+  openAvacInjectViewModal(id: number): void {
+    this.subscription.add(
+      this._avacInjectList.getAvacInjectInfoByID(id).subscribe((res: Animalinjection[])=>{
+        this.animalInjectionInfo = res;
+      })
+    )
     this.avacModalViewInject.set(true);
     console.log('openAvacInjectViewModal');
   }
   openAvacEditInjectModal() {
     console.log('openAvacEditInjectModal');
+    this.avacModalEditInject.set(true);
   }
 
   getAllAnimalVacinated() {
