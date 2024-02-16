@@ -10,7 +10,7 @@
     <div
       class="flex items-end justify-center p-4 text-center sm:items-center sm:flex sm:p-0"
     >
-      <form class="w-full flex justify-center items-center" [formGroup]="animalBiteForm">
+      <form class="w-full flex justify-center items-center" [formGroup]="rabiesSampleForm">
         <div
           class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all s sm:my-8 sm:w-90 sm:max-w-6xl md:max-w-6xl"
         >
@@ -18,19 +18,19 @@
             <h1
               class="text-2xl flex items-start font-extrabold text-slate-600 mb-2"
             >
-              Patient's Information
+              Animal Profile
             </h1>
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-4 gap-3">
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Patient's Name</span>
+                      <span class="label-text">Residence of Animal for  last 15 days:</span>
                     </div>
                     <input
                       type="text"
-                      formControlName="patientName"
-                      placeholder="Enter Name"
+                      formControlName="residence"
+                      placeholder="Enter Residence"
                       class="input input-bordered w-full"
                       ngDis
                     />
@@ -41,14 +41,49 @@
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Address</span>
+                      <span class="label-text">Species</span>
                     </div>
                     <input
                       type="text"
                       class="input input-bordered w-full"
-                      formControlName="Address"
+                      formControlName="species"
                       placeholder="Enter Address"
                     />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Breed</span>
+                    </div>
+                    <input
+                      type="text"
+                      class="input input-bordered w-full"
+                      formControlName="breed"
+                      placeholder="Enter Breed"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Gender</span>
+                    </div>
+                    <select
+                      class="select select-bordered w-full"
+                      formControlName="gender"
+                    >
+                      <option value="" disabled selected>
+                        Please Select Gender
+                      </option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
                   </label>
                 </div>
               </div>
@@ -353,7 +388,7 @@
                       formControlName="brandNameFirstVaccine"
                     >
                       <option value="" disabled selected>Please Select</option>
-                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                      <!-- <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option> -->
                     </select>
                   </label>
                 </div>
@@ -372,7 +407,7 @@
 
                     >
                       <option value="" disabled selected>Please Select</option>
-                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                      <!-- <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option> -->
                     </select>
                   </label>
                 </div>
@@ -389,7 +424,7 @@
                       formControlName="brandNameThirdVaccine"
                     >
                       <option value="" disabled selected>Please Select</option>
-                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                      <!-- <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option> -->
                     </select>
                   </label>
                 </div>
@@ -406,7 +441,7 @@
                       formControlName="brandNameFourthVaccine"
                     >
                       <option value="" disabled selected>Please Select</option>
-                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                      <!-- <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option> -->
                     </select>
                   </label>
                 </div>
@@ -423,7 +458,7 @@
                       formControlName="brandNameFifthVaccine"
                     >
                       <option value="" disabled selected>Please Select</option>
-                      <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option>
+                      <!-- <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option> -->
                     </select>
                   </label>
                 </div>
@@ -434,10 +469,10 @@
 
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <app-adddatabtn
-              (method)="addAnimalBite()"
+              (method)="addRabiesSamle()"
               (methodGetAll)="emitGetAll()"
-              [addVacObservable]="addAnimalBiteObservable"
-              (modalEvent)="closemodaladd()"
+              [addVacObservable]="addRabies$"
+              (modalEvent)="closeModalAdd()"
             />
             <button
               type="button"

@@ -27,6 +27,17 @@ export class PiegraphComponent implements OnInit{
       series: [this.available, this.outOfStock, this.expired],
       colors: ["#1C64F2", "#16BDCA", "#9061F9"],
       labels: ["Available", "Out of Stock", "Expired"],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }],
       chart: {
         height: 355,
         width: "100%",

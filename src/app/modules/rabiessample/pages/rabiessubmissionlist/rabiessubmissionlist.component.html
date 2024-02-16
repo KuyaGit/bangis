@@ -1,2 +1,90 @@
 <app-full-page-loader />
-<p>rabiessubmissionlist works!</p>
+<div class="table-container w-full">
+  <div class="flex flex-row justify-between w-full">
+    <div class="search w-full flex items-center justify-start">
+
+      <app-exportexcelbtn [data]="this._rabiesS.rabiesList()" [fileName]="fileName" />
+      <button
+      class="btn bg-red-600 border-none hover:bg-red-700 text-white ml-3"
+      (click)="this.modalAddRabiesSubmission.set(true)"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 6v12m6-6H6"
+        />
+      </svg>
+      Add Account
+    </button>
+    </div>
+
+
+  </div>
+  <div class="card max-h-[450px] overflow-auto">
+    <!-- <div class="relative"> -->
+    <table class="table-auto table user-table">
+      <thead class="text-stone-600">
+        <tr class="sticky top-0 bg-white">
+          <th class="py-1">UserID</th>
+          <th class="py-1">Name</th>
+          <th class="py-1">Username</th>
+          <th class="py-1">Address</th>
+          <th class="py-1">Role</th>
+          <th class="py-1">Action</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        @for(user of _rabiesS.rabiesList(); track $index){
+        <tr>
+          <td>
+            <div class="flex justify-center py-1">{{ user.id }}</div>
+          </td>
+          <td>
+            <div class="font-bold flex justify-center py-1">{{ user.name }}</div>
+          </td>
+          <td>
+            <div class="flex justify-center py-1">{{ user.email }}</div>
+          </td>
+          <td>
+            <div class="flex justify-center py-1">{{ user.address }}</div>
+          </td>
+          <td>
+            <div class="flex flex-row justify-center items-center p-1">
+              {{ user.accountType.toUpperCase() }}
+            </div>
+          </td>
+          <td class="w-10">
+            <div class="dropdown dropdown-left 2xl:dropdown-left">
+              <div tabindex="0" role="button" class="btn m-1">Action</div>
+              <ul
+                tabindex="0"
+                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
+              >
+                <!-- <li><a (click)="openViewModal(user.id)">View</a></li>
+                <li><a (click)="openEditModal(user.id)">Edit</a></li> -->
+              </ul>
+            </div>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="6" class="text-center">No Data</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <!-- <div class="card max-h-[450px] overflow-auto"> -->
+  </div>
+
+@if (modalAddRabiesSubmission()) {
+  <app-add-rabies-submission class="z-20"></app-add-rabies-submission>
+}
