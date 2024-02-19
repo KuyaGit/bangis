@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, inject, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -13,7 +20,6 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { AdddatabtnComponent } from '../../../../core/components/adddatabtn/adddatabtn.component';
 import { Observable, Subscription } from 'rxjs';
 
-
 @Component({
   selector: 'app-add-rabies-submission',
   standalone: true,
@@ -22,28 +28,73 @@ import { Observable, Subscription } from 'rxjs';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    AdddatabtnComponent
+    AdddatabtnComponent,
   ],
   templateUrl: './add-rabies-submission.component.html',
   styleUrl: './add-rabies-submission.component.scss',
 })
-export class AddRabiesSubmissionComponent implements OnInit{
+export class AddRabiesSubmissionComponent implements OnInit {
   _fb = inject(FormBuilder);
   _authS = inject(AuthService);
   accountID = this._authS.userInfo?.id;
   rabiesSampleForm!: FormGroup;
   currentStep = 1;
 
-  addRabies$ !: Observable<any>
-  subsciption : Subscription = new Subscription();
-
+  addRabies$!: Observable<any>;
+  subsciption: Subscription = new Subscription();
 
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllMethod = new EventEmitter<Subscription>();
 
-  addRabiesSamle() {
-
+  behaviorChanges: Array<any> = [
+    { name: 'Restlessness', value: 'Restlessness' },
+    { name: 'Apprehensive Watchful look', value: 'Apprehensive Watchful look' },
+    { name: 'Unprovoked Aggressiveness', value: 'Unprovoked Aggressiveness' },
+    { name: 'Aimless Running', value: 'Aimless Running' },
+    { name: 'Eating Inanimate Objects', value: 'Eating Inanimate Objects' },
+    { name: 'Drooling', value: 'Drooling' },
+    { name: 'Paralysis', value: 'Paralysis' },
+  ];
+  otherIllness: Array<any>= [
+    {
+      name: 'Diarrhea',
+      value: 'otheDiarrhears',
+    },
+    {
+      name: 'Vomiting',
+      value: 'Vomiting',
+    },
+    {
+      name: 'Inappetence',
+      value: 'Inappetence',
+    },
+    {
+      name: 'Jaundice',
+      value: 'Jaundice',
+    },
+    {
+      name: 'Skin Lesions',
+      value: 'Skin Lesions',
+    },
+    {
+      name: 'Lethargy/Weakness',
+      value: 'Lethargy/Weakness',
+    },
+    {
+      name: 'Nasal/ocular discharge',
+      value: 'Nasal/ocular discharge',
+    },
+    {
+      name: 'Convulsions',
+      value: 'Convulsions',
+    },
+  ];
+  onCheckboxChange(e: any) {
+    const description: FormArray = this.rabiesSampleForm.get('description') as FormArray;
+    return description.push(this._fb.control(e.target.value));
   }
+
+  addRabiesSamle() {}
   emitGetAll() {
     this.getAllMethod.emit(this.subsciption);
   }
@@ -58,9 +109,8 @@ export class AddRabiesSubmissionComponent implements OnInit{
       return this.currentStep--;
     }
     return this.currentStep++;
-
   }
-  
+
   renderForm() {
     this.rabiesSampleForm = this._fb.group({
       sampleIDFrom: this.accountID,
@@ -81,7 +131,7 @@ export class AddRabiesSubmissionComponent implements OnInit{
       otherDateofVaccination: ['', Validators.required],
       contactWithAnimal: ['', Validators.required],
       whereContact: ['', Validators.required],
-      description: new FormArray([]),
+      description: this._fb.array([this._fb.control('')]),
       victimName: ['', Validators.required],
       victimBarangay: ['', Validators.required],
       victimMunicipality: ['', Validators.required],
@@ -90,38 +140,8 @@ export class AddRabiesSubmissionComponent implements OnInit{
       victimTimeBitten: ['', Validators.required],
       siteOfBite: ['', Validators.required],
       natureofExposured: ['', Validators.required],
-      // delete this
-      billingPeriod: ['', Validators.required],
-      name: ['', Validators.required],
+      causeOfDeathOther: [''],
+      otherVaccinationHistoryOther: [''],
     });
   }
-
-  changeBillingPeriod() {
-    let isYearly = this.rabiesSampleForm.controls['billingPeriod'].value;
-    if (isYearly) {
-      this.billingPeriod = 'yearly';
-      this.arcadePlan = 90;
-      this.advancedPlan = 120;
-      this.proPlan = 150;
-      this.onlineService = 10;
-      this.storage = 20;
-      this.customProfile = 20;
-    } else {
-      this.billingPeriod = 'monthly';
-      this.arcadePlan = 9;
-      this.advancedPlan = 12;
-      this.proPlan = 15;
-      this.onlineService = 1;
-      this.storage = 2;
-      this.customProfile = 2;
-    }
-  }
-  billingPeriod: 'monthly' | 'yearly' = 'monthly';
-  arcadePlan = 9;
-  advancedPlan = 12;
-  proPlan = 15;
-  onlineService = 1;
-  storage = 2;
-  customProfile = 2;
-  total = 9;
 }

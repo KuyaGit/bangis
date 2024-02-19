@@ -6,31 +6,38 @@
 >
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
-  <div class="fixed inset-0 z-10 w-screen flex items-center sm:flex sm:items-center sm:justify-center sm:h-full">
+  <div
+    class="fixed inset-0 z-10 w-screen flex items-center sm:flex sm:items-center sm:justify-center sm:h-full"
+  >
     <div
       class="flex items-end justify-center p-4 text-center sm:items-center sm:flex sm:p-0"
     >
-      <form class="w-full flex justify-center items-center" [formGroup]="rabiesSampleForm">
+      <form
+        class="w-full flex justify-center items-center"
+        [formGroup]="rabiesSampleForm"
+      >
         <div
           class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all s sm:my-8 sm:w-90 sm:max-w-6xl md:max-w-6xl"
         >
-          <div class="bg-white h-[90vh] px-4 pb-4 pt-5 sm:p-6 sm:pb-4 md:overflow-x-scroll md:h-[70vh] ">
+          <div
+            class="bg-white h-[90vh] px-4 pb-4 pt-5 sm:p-6 sm:pb-4 md:overflow-x-scroll md:h-[70vh]"
+          >
             <h1
               class="text-2xl flex items-start font-extrabold text-slate-600 mb-2"
             >
               Animal Profile
             </h1>
-            <div class="grid grid-cols-4 gap-3">
+            <div class="grid grid-cols-5 gap-3">
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Residence of Animal for  last 15 days:</span>
+                      <span class="label-text">Residence of Animal</span>
                     </div>
                     <input
                       type="text"
                       formControlName="residence"
-                      placeholder="Enter Residence"
+                      placeholder="Enter Residence(in 15 days)"
                       class="input input-bordered w-full"
                       ngDis
                     />
@@ -87,18 +94,11 @@
                   </label>
                 </div>
               </div>
-            </div>
-            <h1
-              class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
-            >
-              History Exposure
-            </h1>
-            <div class="grid grid-cols-4 gap-3">
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Age</span>
+                      <span class="label-text">Age(Month)</span>
                     </div>
                     <input
                       type="number"
@@ -109,22 +109,22 @@
                   </label>
                 </div>
               </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Gender</span>
+                      <span class="label-text">Type of Ownership</span>
                     </div>
                     <select
                       class="select select-bordered w-full"
-                      formControlName="sex"
+                      formControlName="typeOfOwnership"
                     >
-                      <option value="" disabled selected>
-                        Please Select Gender
-                      </option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
+                      <option value="" disabled selected>Please Select</option>
+                      <option value="household pet">Household Pet</option>
+                      <option value="neighbor's pet">Neigbor's Pet</option>
+                      <option value="stray animal">Stray Animal</option>
                     </select>
                   </label>
                 </div>
@@ -133,12 +133,72 @@
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Date Bitten</span>
+                      <span class="label-text">Pet Management</span>
+                    </div>
+                    <select
+                      class="select select-bordered w-full"
+                      formControlName="petManagement"
+                    >
+                      <option value="" disabled selected>Please Select</option>
+                      <option value="household pet">Confined</option>
+                      <option value="neighbor's pet">Leashed</option>
+                      <option value="stray animal">Free</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <!-- First Row -->
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Cause of Death</span>
+                    </div>
+                    <select
+                      class="select select-bordered w-full"
+                      [formControlName]="
+                        rabiesSampleForm.get('causeOfDeath')?.value == 'others'
+                          ? 'causeOfDeathOther'
+                          : 'causeOfDeath'
+                      "
+                    >
+                      <option value="" disabled selected>Please Select</option>
+                      <option value="euthanasia">Euthanasia</option>
+                      <option value="accident">Accident</option>
+                      <option value="illness">Illness</option>
+                      <option value="others">Other</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div
+                *ngIf="rabiesSampleForm.get('causeOfDeath')?.value == 'others'"
+              >
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Please Specify</span>
+                    </div>
+                    <input
+                      type="number"
+                      formControlName="causeOfDeath"
+                      placeholder="Enter Cause of Death"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Date of Death</span>
                     </div>
                     <input
                       type="date"
-                      formControlName="dateBitten"
-                      placeholder="Enter Date"
+                      formControlName="dateOfDeath"
                       class="input input-bordered w-full"
                     />
                   </label>
@@ -148,29 +208,11 @@
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Place (Where Biting Occurred / Address)</span>
+                      <span class="label-text">Time of Death</span>
                     </div>
                     <input
-                      type="text"
-                      formControlName="bittenAt"
-                      placeholder="Enter Place"
-                      class="input input-bordered w-full"
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="grid grid-cols-3 gap-5">
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">Type of Animal</span>
-                    </div>
-                    <input
-                      type="text"
-                      formControlName="typeOfAnimal"
-                      placeholder="Enter Type of Animal"
+                      type="time"
+                      formControlName="timeOfDeath"
                       class="input input-bordered w-full"
                     />
                   </label>
@@ -180,102 +222,195 @@
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Type</span>
+                      <span class="label-text">Vaccination History</span>
                     </div>
                     <select
                       class="select select-bordered w-full"
-                      formControlName="type"
+                      [formControlName]="
+                        rabiesSampleForm.get('otherVaccinationHistory')
+                          ?.value == 'others'
+                          ? 'otherVaccinationHistoryOther'
+                          : 'otherVaccinationHistory'
+                      "
                     >
-                      <option value="" disabled selected>
-                        B OR NB
-                      </option>
-                      <option value="b">B</option>
-                      <option value="nb">NB</option>
+                      <option value="" disabled selected>Please Select</option>
+                      <option value="anit-rabies">Anti-Rabies</option>
+                      <option value="others">Other</option>
                     </select>
                   </label>
                 </div>
               </div>
-              <div>
+              <!-- Second Row -->
+              <div
+                *ngIf="
+                  rabiesSampleForm.get('otherVaccinationHistory')?.value ==
+                  'others'
+                "
+              >
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Site(Body Parts)</span>
+                      <span class="label-text">Please Specify</span>
                     </div>
                     <input
-                      type="text"
-                      formControlName="siteOfBite"
-                      placeholder="Enter Site"
+                      type="number"
+                      formControlName="otherVaccinationHistory"
+                      placeholder="Enter Vaccine"
                       class="input input-bordered w-full"
                     />
                   </label>
                 </div>
               </div>
-            </div>
-            <h1
-              class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
-            >
-            Post Exposure Prophylaxis
-            </h1>
-            <div class="grid grid-cols-3 gap-3">
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">Category (1,2 and 3) </span>
-                    </div>
-                    <select
-                      class="select select-bordered w-full"
-                      formControlName="category"
-                    >
-                      <option value="" disabled selected>
-                        Enter Category
-                      </option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">Washing of Bite (Y/N)</span>
-                    </div>
-                    <select
-                      class="select select-bordered w-full"
-                      formControlName="washAfterbite"
-                    >
-                      <option value="" disabled selected>
-                        Yes or No
-                      </option>
-                      <option value="true">Yes</option>
-                      <option value="false">No</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">RIG Date Given</span>
+                      <span class="label-text">Date of Vaccination</span>
                     </div>
                     <input
                       type="date"
-                      formControlName="dateRigGiven"
-                      placeholder="Enter Breed"
+                      formControlName="otherDateofVaccination"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text"
+                        >*For Puppies: Was Bitch Vaccinated?</span
+                      >
+                    </div>
+                    <select
+                      class="select select-bordered w-full"
+                      formControlName="puppiesBitchVaccinated"
+                    >
+                      <option value="" disabled selected>Please Select</option>
+                      <option value="yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </label>
+                </div>
+                <div
+                  *ngIf="
+                    rabiesSampleForm.get('puppiesBitchVaccinated')?.value ==
+                    'yes'
+                  "
+                >
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">Date of Vaccination</span>
+                      </div>
+                      <input
+                        type="date"
+                        formControlName="dateOfVaccinationpuppies"
+                        class="input input-bordered w-full"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="sm:flex sm:items-center w-full">
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text"
+                      >Contact With Other Animals</span
+                    >
+                  </div>
+                  <select
+                    class="select select-bordered w-full"
+                    formControlName="contactWithAnimal"
+                  >
+                    <option value="" disabled selected>Please Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </label>
+              </div>
+              <div class="sm:flex sm:items-center w-full">
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text"
+                      >If Yes, Where?</span
+                    >
+                  </div>
+                  <select
+                    class="select select-bordered w-full"
+                    [formControlName]="
+                        rabiesSampleForm.get('whereContact')
+                          ?.value == 'others'
+                          ? 'whereContactOthers'
+                          : 'whereContact'
+                      "
+                  >
+                    <option value="" disabled selected>Please Select</option>
+                    <option value="household">Household</option>
+                    <option value="neighborhood">Neighborhood</option>
+                    <option value="others">Other</option>
+                  </select>
+                </label>
+              </div>
+              <div
+                *ngIf="
+                  rabiesSampleForm.get('whereContact')?.value ==
+                  'others'
+                "
+              >
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Please Specify</span>
+                    </div>
+                    <input
+                      type="text"
+                      formControlName="whereContact"
+                      placeholder="Enter Where?"
                       class="input input-bordered w-full"
                     />
                   </label>
                 </div>
               </div>
             </div>
+            <h3 class="mb-4 mt-4 font-semibold text-gray-900 dark:text-white">
+              Behavior Changes
+            </h3>
+            <ul
+              class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              formArrayName="description"
+            >
+              <ng-container *ngFor="let item of behaviorChanges; let i=index">
+                <li
+                  class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600"
+                >
+                  <div class="flex items-center ps-3">
+                    <input
+                      id="vue-checkbox"
+                      type="checkbox"
+                      formControlName="description"
+                      [value]="item.value"
+                      (change)="onCheckboxChange($event)"
+                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    />
+                    <label
+                      for="vue-checkbox"
+                      class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                      {{item.name}}
+                    </label>
+                  </div>
+                </li>
+              </ng-container>
+            </ul>
+
             <h1
               class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
             >
-            Tissues Culture Vaccine (Data Given)
+              Tissues Culture Vaccine (Data Given)
             </h1>
             <div class="grid grid-cols-6 gap-3">
               <div>
@@ -372,7 +507,7 @@
             <h1
               class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
             >
-            Vaccine Names
+              Vaccine Names
             </h1>
             <div class="grid grid-cols-6 gap-3">
               <div></div>
@@ -403,8 +538,6 @@
                       type="number"
                       class="select select-bordered w-full disabled"
                       formControlName="brandNameSecondVaccine"
-
-
                     >
                       <option value="" disabled selected>Please Select</option>
                       <!-- <option *ngFor="let item of _hvac.HVacs()" [value]="+item.Hid">{{item.vacName}}</option> -->
@@ -465,7 +598,6 @@
               </div>
             </div>
           </div>
-
 
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <app-adddatabtn

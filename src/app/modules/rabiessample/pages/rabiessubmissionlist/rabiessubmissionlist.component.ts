@@ -12,7 +12,7 @@ import { AddRabiesSubmissionComponent } from '../../components/add-rabies-submis
   styleUrl: './rabiessubmissionlist.component.scss'
 })
 export class RabiessubmissionlistComponent {
-  modalAddRabiesSubmission= signal<boolean>(false);
+  modalAddRabiesSubmission= signal<boolean>(true);
 
   fileName = 'rabies_submission_list.xlsx'
 

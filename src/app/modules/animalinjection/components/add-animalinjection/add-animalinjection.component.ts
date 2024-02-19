@@ -85,17 +85,9 @@ export class AddAnimalinjectionComponent implements OnInit{
     });
 }
 
-  // addAvacInjection() {
-  //   this._avacVac.addAnimalVac(this.animalInjectionForm.value).subscribe((res) => {
-  //     this._alert.handleSuccess('Animal Vaccine Added Successfully')
-  //     this.emitGetAllAnimalVaccinated()
-  //     this.modalEvent.emit(false)
-  //   })
-  // }
-
   ngOnInit(): void {
       this.isLoading.set(false)
-      this._avac.getAllAvac().subscribe((res: any) => {
+      this._avac.getAllAvacByAccount(this.accountId).subscribe((res: any) => {
         this._avac.avacList.set(res)
       })
   }
