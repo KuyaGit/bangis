@@ -19,7 +19,7 @@ export class HumanvaccineService {
     return this.http.get(`${this.url}/humanvac/${id}`)
   }
   getVaccineById(id: number) {
-    return this.http.get(this.url + '/humanvac/view/' + id)
+    return this.http.get(`${this.url}/humanvac/view/${id}`)
   }
   addHVac(body : HVacModel) {
     return this.http.post(this.url + '/humanvac', body)
