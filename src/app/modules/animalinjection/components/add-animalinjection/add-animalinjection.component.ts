@@ -95,7 +95,7 @@ export class AddAnimalinjectionComponent implements OnInit{
 
   ngOnInit(): void {
       this.isLoading.set(false)
-      this._avac.getAllAvac().subscribe((res: any) => {
+      this._avac.getAllAvacByAccount(this.accountId).subscribe((res: any) => {
         this._avac.avacList.set(res)
       })
   }
