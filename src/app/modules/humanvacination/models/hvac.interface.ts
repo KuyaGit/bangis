@@ -3,7 +3,7 @@ export interface HVacModel {
   vacName: string,
   brandName: string,
   stockQuantity: number,
-  dosage: number,
+  dosage: string,
   expiryDate: Date,
   hvaccineFrom: number,
 }

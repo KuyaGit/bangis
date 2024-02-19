@@ -63,7 +63,7 @@
                   <span class="label-text">Dosage</span>
                 </div>
                 <input
-                  type="number"
+                  type="text"
                   formControlName="dosage"
                   placeholder="Dosage"
                   class="input input-bordered w-full"
@@ -75,7 +75,12 @@
                 <div class="label">
                   <span class="label-text">Expiry Date</span>
                 </div>
-                <app-date-picker (selectedDate)="setExpiryDate($event)" />
+                <input
+                  type="date"
+                  formControlName="expiryDate"
+                  placeholder="Expiry Date"
+                  class="input input-bordered w-full"
+                />
               </label>
             </div>
           </div>
