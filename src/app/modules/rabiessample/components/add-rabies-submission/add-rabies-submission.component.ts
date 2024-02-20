@@ -14,15 +14,12 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { AdddatabtnComponent } from '../../../../core/components/adddatabtn/adddatabtn.component';
 import { Observable, Subscription } from 'rxjs';
 
-<<<<<<< Updated upstream
-=======
 export interface RabiesSample {
   id: number;
   name: string;
   value: string;
   isChecked: boolean;
 }
->>>>>>> Stashed changes
 
 @Component({
   selector: 'app-add-rabies-submission',
@@ -51,9 +48,6 @@ export class AddRabiesSubmissionComponent implements OnInit{
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllMethod = new EventEmitter<Subscription>();
 
-<<<<<<< Updated upstream
-  addRabiesSamle() {
-=======
   behaviorChanges: RabiesSample[] = [
     { id: 1, name: 'Restlessness', value: 'Restlessness', isChecked: false },
     {
@@ -131,9 +125,8 @@ export class AddRabiesSubmissionComponent implements OnInit{
     ) as FormArray;
     return description.push(this._fb.control(e.target.value));
   }
->>>>>>> Stashed changes
 
-  }
+
   emitGetAll() {
     this.getAllMethod.emit(this.subsciption);
   }
@@ -148,13 +141,7 @@ export class AddRabiesSubmissionComponent implements OnInit{
       return this.currentStep--;
     }
     return this.currentStep++;
-<<<<<<< Updated upstream
-
   }
-  
-=======
-  }
->>>>>>> Stashed changes
   renderForm() {
     this.rabiesSampleForm = this._fb.group({
       sampleIDFrom: this.accountID,
@@ -175,11 +162,7 @@ export class AddRabiesSubmissionComponent implements OnInit{
       otherDateofVaccination: ['', Validators.required],
       contactWithAnimal: ['', Validators.required],
       whereContact: ['', Validators.required],
-<<<<<<< Updated upstream
-      description: new FormArray([]),
-=======
       description: this.arrayofDescription,
->>>>>>> Stashed changes
       victimName: ['', Validators.required],
       victimBarangay: ['', Validators.required],
       victimMunicipality: ['', Validators.required],
@@ -193,37 +176,6 @@ export class AddRabiesSubmissionComponent implements OnInit{
       name: ['', Validators.required],
     });
   }
-<<<<<<< Updated upstream
-
-  changeBillingPeriod() {
-    let isYearly = this.rabiesSampleForm.controls['billingPeriod'].value;
-    if (isYearly) {
-      this.billingPeriod = 'yearly';
-      this.arcadePlan = 90;
-      this.advancedPlan = 120;
-      this.proPlan = 150;
-      this.onlineService = 10;
-      this.storage = 20;
-      this.customProfile = 20;
-    } else {
-      this.billingPeriod = 'monthly';
-      this.arcadePlan = 9;
-      this.advancedPlan = 12;
-      this.proPlan = 15;
-      this.onlineService = 1;
-      this.storage = 2;
-      this.customProfile = 2;
-    }
-  }
-  billingPeriod: 'monthly' | 'yearly' = 'monthly';
-  arcadePlan = 9;
-  advancedPlan = 12;
-  proPlan = 15;
-  onlineService = 1;
-  storage = 2;
-  customProfile = 2;
-  total = 9;
-=======
   get getOnBehaviorChanges(): FormArray {
     return this.rabiesSampleForm.get('description') as FormArray;
   }
@@ -245,7 +197,8 @@ export class AddRabiesSubmissionComponent implements OnInit{
     }
 
   }
-
+  addRabiesSample() {
+    console.log(this.rabiesSampleForm.value);
+  }
   // Push the value changes
->>>>>>> Stashed changes
 }
