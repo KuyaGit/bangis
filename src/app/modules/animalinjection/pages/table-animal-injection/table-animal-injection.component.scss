@@ -10,8 +10,12 @@
   color: #fff;
   border: none;
 }
+
 .user-table {
-  max-height: 50vh !important;
+  max-height: 79vh;
 }
 
+.table-body {
+  overflow-y: auto;
+}
 
