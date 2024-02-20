@@ -1,1 +1,3 @@
-export interface Rabiessubmissioninterface { }
+export interface Rabiessubmissioninterface {
+  
+}
