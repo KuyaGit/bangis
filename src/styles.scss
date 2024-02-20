@@ -45,7 +45,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   /* Firefox */
 * {
     scrollbar-width: thin !important;
-    scrollbar-color: #e01b24 #ffffff;
+    scrollbar-color: #aaaaaa #ffffff;
   }
 
   /* Chrome, Edge, and Safari */
@@ -58,7 +58,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #e01b24;
+    background-color: #aaaaaa;
     border-radius: 10px;
     border: 3px solid #ffffff;
   }

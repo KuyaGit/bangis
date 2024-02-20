@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, inject, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -29,25 +36,24 @@ export interface RabiesSample {
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    AdddatabtnComponent
+    AdddatabtnComponent,
   ],
   templateUrl: './add-rabies-submission.component.html',
   styleUrl: './add-rabies-submission.component.scss',
 })
-export class AddRabiesSubmissionComponent implements OnInit{
+export class AddRabiesSubmissionComponent implements OnInit {
   _fb = inject(FormBuilder);
   _authS = inject(AuthService);
   accountID = this._authS.userInfo?.id;
   rabiesSampleForm!: FormGroup;
   currentStep = 1;
 
-  addRabies$ !: Observable<any>
-  subsciption : Subscription = new Subscription();
-
+  addRabies$!: Observable<any>;
+  subsciption: Subscription = new Subscription();
 
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllMethod = new EventEmitter<Subscription>();
-
+  themeColor = 'bg-green-600 hover:bg-green-800';
   behaviorChanges: RabiesSample[] = [
     { id: 1, name: 'Restlessness', value: 'Restlessness', isChecked: false },
     {
@@ -119,13 +125,32 @@ export class AddRabiesSubmissionComponent implements OnInit{
       isChecked: false,
     },
   ];
-  onCheckboxChange(e: any) {
-    const description: FormArray = this.rabiesSampleForm.get(
-      'description'
-    ) as FormArray;
-    return description.push(this._fb.control(e.target.value));
+  incrementCurrentStep() {
+    this.currentStep++;
   }
-
+  decrementCurrentStep() {
+    this.currentStep--;
+  }
+  siteofExposure: any[] = [
+    {value: 'Head'},
+    {value: 'Neck'},
+    {value: 'Trunk'},
+    {value: 'Upper Extremities'},
+    {value: 'Lower Extremities'},
+    {value: 'Upper Extremities'},
+    {value: 'Lower Extremities'},
+    {value: 'Others'}
+  ];
+  natureofExposure: any[] = [
+    {value: 'Bite'},
+    {value: 'Scratch'},
+    {value: 'Non-Bite'},
+    {value: 'Single'},
+    {value: 'Multiple'},
+    {value: 'Mild'},
+    {value: 'Moderate'},
+    {value: 'Severe'},
+  ];
 
   emitGetAll() {
     this.getAllMethod.emit(this.subsciption);
@@ -149,7 +174,7 @@ export class AddRabiesSubmissionComponent implements OnInit{
       species: ['', Validators.required],
       breed: ['', Validators.required],
       gender: ['', Validators.required],
-      Age: ['', Validators.required],
+      age: ['', Validators.required],
       typeOfOwnership: ['', Validators.required],
       petManagement: ['', Validators.required],
       causeOfDeath: ['', Validators.required],
@@ -162,8 +187,9 @@ export class AddRabiesSubmissionComponent implements OnInit{
       otherDateofVaccination: ['', Validators.required],
       contactWithAnimal: ['', Validators.required],
       whereContact: ['', Validators.required],
-      description: this.arrayofDescription,
       victimName: ['', Validators.required],
+      victimAge: ['', Validators.required],
+      victimGender: ['', Validators.required],
       victimBarangay: ['', Validators.required],
       victimMunicipality: ['', Validators.required],
       victimProvince: ['', Validators.required],
@@ -171,16 +197,20 @@ export class AddRabiesSubmissionComponent implements OnInit{
       victimTimeBitten: ['', Validators.required],
       siteOfBite: ['', Validators.required],
       natureofExposured: ['', Validators.required],
-      // delete this
-      billingPeriod: ['', Validators.required],
-      name: ['', Validators.required],
+      biteProvoked: ['', Validators.required],
+      locationofBite: ['', Validators.required],
+      siteOfExposureOther: [''],
+      locationofBiteOther: [''],
+      otherVictim: [''],
+      treatmentRecieved: ['', Validators.required],
+      treatmentRecievedOther: [''],
+      treatmentRecievedType: ['', Validators.required],
+
     });
   }
-  get getOnBehaviorChanges(): FormArray {
-    return this.rabiesSampleForm.get('description') as FormArray;
-  }
+
   arrayofDescription: any[] = [];
-  onCheckboxChangeEvent($event: any) {
+  onCheckboxChangeofBehaviorChangeEvent($event: any) {
     const isChecked = $event.target.checked;
     const value = $event.target.value; // Assuming 'value' holds the text of the checkbox
 
@@ -191,11 +221,29 @@ export class AddRabiesSubmissionComponent implements OnInit{
       if (index > -1) {
         this.arrayofDescription.splice(index, 1);
       }
-      if(this.arrayofDescription.length === 0){
+      if (this.arrayofDescription.length === 0) {
         this.arrayofDescription.push('None');
       }
     }
+    console.log(this.arrayofDescription);
+  }
+  arrayofIllness: any[] = [];
+  onCheckboxChangeofOtherIllnessEvent($event: any) {
+    const isChecked = $event.target.checked;
+    const value = $event.target.value; // Assuming 'value' holds the text of the checkbox
 
+    if (isChecked) {
+      this.arrayofIllness.push(value);
+    } else {
+      const index = this.arrayofIllness.indexOf(value);
+      if (index > -1) {
+        this.arrayofIllness.splice(index, 1);
+      }
+      if (this.arrayofDescription.length === 0) {
+        this.arrayofIllness.push('None');
+      }
+    }
+    console.log(this.arrayofIllness);
   }
   addRabiesSample() {
     console.log(this.rabiesSampleForm.value);

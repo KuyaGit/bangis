@@ -17,7 +17,8 @@ import { AlertService } from '../../services/alert.service';
   imports: [CommonModule],
   template: `<button
     type="button"
-    class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto"
+    class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+    [ngClass]="bgButton"
     (click)="addData()"
   >
     <div *ngIf="isLoading()">
@@ -46,6 +47,7 @@ import { AlertService } from '../../services/alert.service';
 })
 export class AdddatabtnComponent {
   @Output() method = new EventEmitter();
+  @Input() bgButton: string = 'bg-red-600';
   @Input() data: any;
   @Input() addVacObservable!: Observable<any>
   @Output() service: any = new EventEmitter();

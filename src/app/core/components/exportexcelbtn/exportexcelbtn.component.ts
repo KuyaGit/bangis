@@ -10,7 +10,7 @@ import { AlertService } from '../../services/alert.service';
     CommonModule,
   ],
   template: `
-    <button class="btn bg-red-600 border-none hover:bg-red-700 text-white ml-1" (click)="exportexcel()">
+    <button class="btn text-white ml-1 border-none" [ngClass]="themeColor" (click)="exportexcel()">
       <i class="fa-solid fa-download"></i>
       Download Excel
     </button>`,
@@ -20,7 +20,7 @@ import { AlertService } from '../../services/alert.service';
 export class ExportexcelbtnComponent {
   @Input() data: any;
   @Input() fileName: string = '';
-
+  @Input() themeColor: string = 'bg-red-600 hover:bg-red-700';
 
   // Dependency Injection
   _alert = inject(AlertService)
