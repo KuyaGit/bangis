@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output, inject, signal } from '@angula
 import {
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -13,6 +14,15 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { AdddatabtnComponent } from '../../../../core/components/adddatabtn/adddatabtn.component';
 import { Observable, Subscription } from 'rxjs';
 
+<<<<<<< Updated upstream
+=======
+export interface RabiesSample {
+  id: number;
+  name: string;
+  value: string;
+  isChecked: boolean;
+}
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'app-add-rabies-submission',
@@ -41,7 +51,87 @@ export class AddRabiesSubmissionComponent implements OnInit{
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllMethod = new EventEmitter<Subscription>();
 
+<<<<<<< Updated upstream
   addRabiesSamle() {
+=======
+  behaviorChanges: RabiesSample[] = [
+    { id: 1, name: 'Restlessness', value: 'Restlessness', isChecked: false },
+    {
+      id: 2,
+      name: 'Apprehensive Watchful look',
+      value: 'Apprehensive Watchful look',
+      isChecked: false,
+    },
+    {
+      id: 3,
+      name: 'Unprovoked Aggressiveness',
+      value: 'Unprovoked Aggressiveness',
+      isChecked: false,
+    },
+    {
+      id: 4,
+      name: 'Aimless Running',
+      value: 'Aimless Running',
+      isChecked: false,
+    },
+    {
+      id: 5,
+      name: 'Eating Inanimate Objects',
+      value: 'Eating Inanimate Objects',
+      isChecked: false,
+    },
+    { id: 6, name: 'Drooling', value: 'Drooling', isChecked: false },
+    { id: 7, name: 'Paralysis', value: 'Paralysis', isChecked: false },
+  ];
+  otherIllness: Array<any> = [
+    {
+      name: 'Diarrhea',
+      value: 'otheDiarrhears',
+      isChecked: false,
+    },
+    {
+      name: 'Vomiting',
+      value: 'Vomiting',
+      isChecked: false,
+    },
+    {
+      name: 'Inappetence',
+      value: 'Inappetence',
+      isChecked: false,
+    },
+    {
+      name: 'Jaundice',
+      value: 'Jaundice',
+      isChecked: false,
+    },
+    {
+      name: 'Skin Lesions',
+      value: 'Skin Lesions',
+      isChecked: false,
+    },
+    {
+      name: 'Lethargy/Weakness',
+      value: 'Lethargy/Weakness',
+      isChecked: false,
+    },
+    {
+      name: 'Nasal/ocular discharge',
+      value: 'Nasal/ocular discharge',
+      isChecked: false,
+    },
+    {
+      name: 'Convulsions',
+      value: 'Convulsions',
+      isChecked: false,
+    },
+  ];
+  onCheckboxChange(e: any) {
+    const description: FormArray = this.rabiesSampleForm.get(
+      'description'
+    ) as FormArray;
+    return description.push(this._fb.control(e.target.value));
+  }
+>>>>>>> Stashed changes
 
   }
   emitGetAll() {
@@ -58,9 +148,13 @@ export class AddRabiesSubmissionComponent implements OnInit{
       return this.currentStep--;
     }
     return this.currentStep++;
+<<<<<<< Updated upstream
 
   }
   
+=======
+  }
+>>>>>>> Stashed changes
   renderForm() {
     this.rabiesSampleForm = this._fb.group({
       sampleIDFrom: this.accountID,
@@ -81,7 +175,11 @@ export class AddRabiesSubmissionComponent implements OnInit{
       otherDateofVaccination: ['', Validators.required],
       contactWithAnimal: ['', Validators.required],
       whereContact: ['', Validators.required],
+<<<<<<< Updated upstream
       description: new FormArray([]),
+=======
+      description: this.arrayofDescription,
+>>>>>>> Stashed changes
       victimName: ['', Validators.required],
       victimBarangay: ['', Validators.required],
       victimMunicipality: ['', Validators.required],
@@ -95,6 +193,7 @@ export class AddRabiesSubmissionComponent implements OnInit{
       name: ['', Validators.required],
     });
   }
+<<<<<<< Updated upstream
 
   changeBillingPeriod() {
     let isYearly = this.rabiesSampleForm.controls['billingPeriod'].value;
@@ -124,4 +223,29 @@ export class AddRabiesSubmissionComponent implements OnInit{
   storage = 2;
   customProfile = 2;
   total = 9;
+=======
+  get getOnBehaviorChanges(): FormArray {
+    return this.rabiesSampleForm.get('description') as FormArray;
+  }
+  arrayofDescription: any[] = [];
+  onCheckboxChangeEvent($event: any) {
+    const isChecked = $event.target.checked;
+    const value = $event.target.value; // Assuming 'value' holds the text of the checkbox
+
+    if (isChecked) {
+      this.arrayofDescription.push(value);
+    } else {
+      const index = this.arrayofDescription.indexOf(value);
+      if (index > -1) {
+        this.arrayofDescription.splice(index, 1);
+      }
+      if(this.arrayofDescription.length === 0){
+        this.arrayofDescription.push('None');
+      }
+    }
+
+  }
+
+  // Push the value changes
+>>>>>>> Stashed changes
 }

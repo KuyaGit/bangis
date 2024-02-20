@@ -7,4 +7,5 @@ export class RabiessubmissionserviceService {
 
   constructor() { }
   rabiesList = signal<any[]>([]);
+  
 }
