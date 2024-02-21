@@ -138,7 +138,7 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
                   tabindex="0"
                   class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box"
                 >
-                  <li><a>Update Profile Setting</a></li>
+                  <!-- <li><a>Update Profile Setting</a></li> -->
                   <li><a (click)="_auth.logout()">Logout</a></li>
                 </ul>
               </div>
