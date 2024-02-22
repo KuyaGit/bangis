@@ -11,6 +11,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
 import { Animalinjection } from '../../models/animalinjection';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-table-animal-injection',
@@ -36,7 +37,7 @@ export class TableAnimalInjectionComponent implements OnInit {
 
   // Baryabols
   fileName : string = 'animalvaccinated.xlsx'
-
+  themeColor = localStorage.getItem(environment.theme)?.toString();
   // Injections
   _avacInjectList = inject(AnimalinjectionService);
   _auth = inject(AuthService);

@@ -8,10 +8,10 @@
         [themeColor]="themeColor"
       />
       <button
+        *ngIf="_authS.userInfo?.accountType == 'lab'"
         class="btn  border-none  text-white ml-3"
         [ngClass]="themeColor"
         (click)="this.modalAddRabiesSubmission.set(true)"
-
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -94,5 +94,6 @@
 <app-add-rabies-submission
   class="z-20"
   (modalEvent)="this.modalAddRabiesSubmission.set($event)"
+  (getAllMethod)="this.getAllRabiesSubmission()"
 />
 }

@@ -3,7 +3,8 @@
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
       <button
-        class="btn bg-red-600 border-none hover:bg-red-700 text-white"
+        class="btn border-none text-white"
+        [ngClass]="themeColor"
         (click)="this.HVacAddModal.set(true)"
       >
         <svg
@@ -22,7 +23,7 @@
         </svg>
         Add Data
       </button>
-      <app-exportexcelbtn [data]="this._hvac.HVacs()" [fileName]="fileName" />
+      <app-exportexcelbtn [data]="this._hvac.HVacs()" [fileName]="fileName" [themeColor]="themeColor"/>
 
     </div>
   </div>

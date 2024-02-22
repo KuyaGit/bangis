@@ -36,7 +36,7 @@ export const navbarData = [
     label: 'Human Vaccine Inventory',
   },
   {
-    appHasRole: ['abtc', 'agri'],
+    appHasRole: ['lab', 'agri'],
     routerLink: 'rabiessubmission',
     icon: 'fa-solid fa-syringe',
     label: 'Rabies Samples',

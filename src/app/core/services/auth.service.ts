@@ -22,6 +22,7 @@ export class AuthService {
   userInfo : UserModel | null = null;
   accountType = signal<String | undefined>('');
   updateInfo = signal<UserModel | undefined>(undefined);
+  themeColor = signal<string>('bg-green-600 hover:bg-green-800');
   get token(): any {
     return localStorage.getItem(this.TOKEN_NAME);
   }
@@ -46,6 +47,15 @@ export class AuthService {
         this.userInfo = this.getUser(response.access_token);
         this.user.set(this.getUser(response.access_token));
         this.accountType.set(this.userInfo?.accountType)
+        if (this.userInfo?.accountType === 'admin') {
+          localStorage.setItem(environment.theme, 'bg-green-400 hover:bg-green-600')
+        } else if (this.userInfo?.accountType === 'agri') {
+          localStorage.setItem(environment.theme, 'bg-red-600 hover:bg-red-800')
+        } else if (this.userInfo?.accountType === 'abtc') {
+          localStorage.setItem(environment.theme,'bg-blue-600 hover:bg-blue-800')
+        } else if (this.userInfo?.accountType === 'lab') {
+          localStorage.setItem(environment.theme, 'bg-green-600 hover:bg-green-800')
+        }
       })
     );
   }

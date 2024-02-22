@@ -23,6 +23,21 @@
             class="bg-white h-[90vh] px-4 pb-4 pt-5 sm:p-6 sm:pb-4 md:overflow-x-scroll md:h-[70vh]"
           >
             <ng-container *ngIf="currentStep == 1">
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Patiend ID</span>
+                    </div>
+                    <input
+                      type="string"
+                      formControlName="sampleId"
+                      placeholder="Enter Residence(in 15 days)"
+                      class="input input-bordered w-full"
+                    />
+                  </label>
+                </div>
+              </div>
               <h1
                 class="text-2xl flex items-start font-extrabold text-slate-600 mb-2"
               >
@@ -40,7 +55,6 @@
                         formControlName="residence"
                         placeholder="Enter Residence(in 15 days)"
                         class="input input-bordered w-full"
-                        ngDis
                       />
                     </label>
                   </div>
@@ -494,7 +508,7 @@
                         <span class="label-text">Age</span>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         class="input input-bordered w-full"
                         formControlName="victimAge"
                         placeholder="Enter Address"
@@ -787,12 +801,15 @@
                       <select
                         class="select select-bordered w-full"
                         [formControlName]="
-                          rabiesSampleForm.get('treatmentRecieved')?.value == 'others'
+                          rabiesSampleForm.get('treatmentRecieved')?.value ==
+                          'others'
                             ? 'treatmentRecieved'
                             : 'treatmentRecievedOther'
                         "
                       >
-                        <option value="" disabled selected>Please Select</option>
+                        <option value="" disabled selected>
+                          Please Select
+                        </option>
                         <option value="Anti Rabies">Anti Rabies</option>
                         <option value="Anti Tetanus">Anti Tetanus</option>
                         <option value="Others">Other</option>
@@ -804,9 +821,7 @@
                   <div class="sm:flex sm:items-center w-full">
                     <label class="form-control w-full">
                       <div class="label">
-                        <span class="label-text"
-                          >Others Specify:</span
-                        >
+                        <span class="label-text">Others Specify:</span>
                       </div>
                       <input
                         type="text"
@@ -822,9 +837,7 @@
                   <div class="sm:flex sm:items-center w-full">
                     <label class="form-control w-full">
                       <div class="label">
-                        <span class="label-text"
-                          >Type</span
-                        >
+                        <span class="label-text">Type</span>
                       </div>
                       <input
                         type="text"
@@ -840,9 +853,7 @@
                   <div class="sm:flex sm:items-center w-full">
                     <label class="form-control w-full">
                       <div class="label">
-                        <span class="label-text"
-                          >Date</span
-                        >
+                        <span class="label-text">Date</span>
                       </div>
                       <input
                         type="date"
@@ -858,14 +869,15 @@
             </ng-container>
           </div>
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-            <app-adddatabtn
-              *ngIf="currentStep == 2"
-              (method)="addRabiesSample()"
-              (methodGetAll)="emitGetAll()"
-              [addVacObservable]="addRabies$"
-              (modalEvent)="closeModalAdd()"
-              [bgButton]="themeColor"
-            />
+            <button
+              type="button"
+              class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+              [ngClass]="themeColor"
+              (click)="addRabiesSample()"
+            >
+              <app-loadingbutton *ngIf="isLoadingButton()" />
+              <span *ngIf="!isLoadingButton()"> Add </span>
+            </button>
             <ng-container *ngIf="currentStep == 1">
               <button
                 type="button"
@@ -893,7 +905,6 @@
               Cancel
             </button>
           </div>
-
         </div>
       </form>
     </div>

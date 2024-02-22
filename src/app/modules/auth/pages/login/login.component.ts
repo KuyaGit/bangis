@@ -116,7 +116,7 @@ export class LoginComponent {
             response['response']['statusCode'] == 400 ||
             response['response']['statusCode'] == 401
           ) {
-            this._alertService.simpleAlert(
+            this._alertService.alertWithTimer(
               'error',
               'Invalid Credentials',
               'Invalid Credentials'

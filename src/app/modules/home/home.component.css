@@ -88,19 +88,56 @@
 
 }
 
-.sidenav-nav-item:hover{
+.agri:hover{
   .sidenav-nav-link{
-    background-color: rgb(185 28 28);
+    background-color: rgb(153 27 27);
+    color: #fff;
+    border-radius: 0.5rem;
+  }
+}
+.admin:hover{
+  .sidenav-nav-link{
+    background-color: rgb(22 163 74);
     color: #fff;
     border-radius: 0.5rem;
   }
 }
 
-.sidenav-nav-item a.active {
+.abtc:hover{
+  .sidenav-nav-link{
+    background-color: rgb(30 64 175);
+    color: #fff;
+    border-radius: 0.5rem;
+  }
+}
+.lab:hover{
+  .sidenav-nav-link{
+    background-color: rgb(22 163 74);
+    color: #fff;
+    border-radius: 0.5rem;
+  }
+}
+.agri a.active {
   background-color: rgb(220 38 38);
   color: #fff;
   border-radius: 0.5rem;
 }
+.admin a.active {
+  background-color: rgb(74 222 128);
+  color: #fff;
+  border-radius: 0.5rem;
+}
+.abtc a.active {
+  background-color: rgb(37 99 235);
+  color: #fff;
+  border-radius: 0.5rem;
+}
+.lab a.active {
+  background-color: rgb(22 163 74);
+  color: #fff;
+  border-radius: 0.5rem;
+}
+
 
 
 .right-content{

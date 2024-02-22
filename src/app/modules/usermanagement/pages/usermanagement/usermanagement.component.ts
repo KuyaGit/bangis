@@ -18,6 +18,7 @@ import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoa
 import { ColumnInterface } from '../../../../core/interface/table-data';
 import { TableDataComponent } from '../../../../core/components/table.data/table.data.component';
 import { FormControl } from '@angular/forms';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-usermanagement',
@@ -42,7 +43,7 @@ export class UsermanagementComponent implements OnInit {
   _auth = inject(AuthService);
   dataExport : [] = [];
   fileName : string = 'UserList.xlsx';
-
+  themeColor = localStorage.getItem(environment.theme)?.toString();
   columns: ColumnInterface<UserModel>[] = [
     {
       name: 'UserID',

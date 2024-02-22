@@ -33,6 +33,7 @@ export class AVaclistComponent implements OnInit {
   vacInfo: any;
   fileName: string = 'vaccineinventory.xlsx';
   datatoExport: any = '';
+  themeColor = localStorage.getItem('theme')?.toString();
 
   // Subscriptions
   subAvac: Subscription = new Subscription();

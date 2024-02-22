@@ -20,7 +20,7 @@ import { AlertService } from '../../services/alert.service';
 export class ExportexcelbtnComponent {
   @Input() data: any;
   @Input() fileName: string = '';
-  @Input() themeColor: string = 'bg-red-600 hover:bg-red-700';
+  @Input() themeColor: any = 'bg-red-600 hover:bg-red-700';
 
   // Dependency Injection
   _alert = inject(AlertService)

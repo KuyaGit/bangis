@@ -4,7 +4,9 @@
     <div class="search w-full flex items-center justify-start">
       <ng-container *appHasRole="['abtc']">
         <button
-          class="btn bg-red-600 border-none hover:bg-red-700 text-white"
+          [ngClass]="themeColor"
+
+          class="btn  text-white border-none"
           (click)="this.modalAdd.set(true)"
         >
           <svg
@@ -24,8 +26,7 @@
           Add
         </button>
       </ng-container>
-      <app-exportexcelbtn [data]="this._animalbite.aniList()" [fileName]="fileName" />
-
+      <app-exportexcelbtn [data]="this._animalbite.aniList()" [fileName]="fileName" [themeColor]="themeColor"/>
     </div>
 
   </div>

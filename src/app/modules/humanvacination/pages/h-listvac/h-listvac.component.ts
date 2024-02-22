@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-h-listvac',
@@ -41,6 +42,7 @@ export class HListvacComponent implements OnInit {
 
   // Baryabols
   fileName : string = 'humanvaccinationstocks.xlsx'
+  themeColor = localStorage.getItem(environment.theme)?.toString();
 
   // Dependensi Indyeksyon
   _hvac = inject(HumanvaccineService);

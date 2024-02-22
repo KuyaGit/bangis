@@ -20,6 +20,9 @@ import { AuthService } from '../../../../core/services/auth.service';
 
 import { AdddatabtnComponent } from '../../../../core/components/adddatabtn/adddatabtn.component';
 import { Observable, Subscription } from 'rxjs';
+import { RabiessubmissionserviceService } from '../../services/rabiessubmissionservice.service';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
+import { AlertService } from '../../../../core/services/alert.service';
 
 export interface RabiesSample {
   id: number;
@@ -36,7 +39,7 @@ export interface RabiesSample {
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    AdddatabtnComponent,
+    LoadingbuttonComponent
   ],
   templateUrl: './add-rabies-submission.component.html',
   styleUrl: './add-rabies-submission.component.scss',
@@ -47,10 +50,13 @@ export class AddRabiesSubmissionComponent implements OnInit {
   accountID = this._authS.userInfo?.id;
   rabiesSampleForm!: FormGroup;
   currentStep = 1;
+  isLoadingButton = signal<boolean>(false);
 
   addRabies$!: Observable<any>;
   subsciption: Subscription = new Subscription();
 
+  _rabiesSampleS = inject(RabiessubmissionserviceService)
+  _alertS = inject(AlertService)
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllMethod = new EventEmitter<Subscription>();
   themeColor = 'bg-green-600 hover:bg-green-800';
@@ -205,7 +211,9 @@ export class AddRabiesSubmissionComponent implements OnInit {
       treatmentRecieved: ['', Validators.required],
       treatmentRecievedOther: [''],
       treatmentRecievedType: ['', Validators.required],
-
+      DateofTreatment: ['', Validators.required],
+      sampleId: ['', Validators.required],
+      explainProvoked: ['', Validators.required],
     });
   }
 
@@ -246,7 +254,28 @@ export class AddRabiesSubmissionComponent implements OnInit {
     console.log(this.arrayofIllness);
   }
   addRabiesSample() {
-    console.log(this.rabiesSampleForm.value);
+    this.subsciption.add(
+      this._rabiesSampleS.addRabiesSampleSubmission(this.rabiesSampleForm.value, this.arrayofDescription, this.arrayofIllness).subscribe({
+        next: (res: any) => {
+          console.log('Response:', res);
+          this.isLoadingButton.set(true);
+          if (res.status == 400) {
+            this.isLoadingButton.set(false);
+            this._alertS.handleError('Already Exist');
+          }
+          if(res.status == 200) {
+            this.rabiesSampleForm.reset()
+            this.isLoadingButton.set(false);
+            this._alertS.handleSuccess('Successfully Added');
+            this.emitGetAll();
+          }
+        },
+        error: (err: any) => {
+          console.error('Error occurred during subscription:', err);
+          // Handle error as needed
+        },
+      })
+    );
   }
   // Push the value changes
 }

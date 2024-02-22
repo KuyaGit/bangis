@@ -1,9 +1,16 @@
 <app-full-page-loader />
 <body class="px-5 py-5">
   <div class="first-card flex justify-start px-7">
-
     <ng-container *appHasRole="['abtc']">
-      <div class="card w-50 bg-red-600 drop-shadow-lg mr-3">
+      <div
+        class="card w-50 drop-shadow-lg mr-3"
+        [ngClass]="{
+          'admin': _authS.userInfo?.accountType === 'admin',
+          'abtc': _authS.userInfo?.accountType === 'abtc',
+          'agri': _authS.userInfo?.accountType === 'agri',
+          'lab': _authS.userInfo?.accountType === 'lab'
+        }"
+      >
         <div class="card-body flex justify-center mr-3">
           <div class="number-dashboard flex">
             <h1 class="card-title text-4xl text-white">
@@ -19,7 +26,16 @@
       </div>
     </ng-container>
     <ng-container *appHasRole="['abtc']">
-      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg">
+      <div
+        class="card w-50 mr-10 drop-shadow-lg"
+        [ngClass]="{
+          'admin': _authS.userInfo?.accountType === 'admin',
+          'abtc': _authS.userInfo?.accountType === 'abtc',
+          'agri': _authS.userInfo?.accountType === 'agri',
+          'lab': _authS.userInfo?.accountType === 'lab'
+        }"
+
+      >
         <div class="card-body flex justify-center">
           <div class="number-dashboard flex">
             <h1 class="card-title text-4xl text-white">
@@ -35,7 +51,16 @@
       </div>
     </ng-container>
     <ng-container *appHasRole="['agri']">
-      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg">
+      <div
+        class="card w-50 mr-10 drop-shadow-lg"
+        [ngClass]="{
+          'admin': _authS.userInfo?.accountType === 'admin',
+          'abtc': _authS.userInfo?.accountType === 'abtc',
+          'agri': _authS.userInfo?.accountType === 'agri',
+          'lab': _authS.userInfo?.accountType === 'lab'
+        }"
+
+      >
         <div class="card-body flex justify-center">
           <div class="number-dashboard flex">
             <h1 class="card-title text-4xl text-white">
@@ -51,7 +76,15 @@
       </div>
     </ng-container>
     <ng-container *appHasRole="['agri']">
-      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg">
+      <div
+        class="card w-50 mr-10 drop-shadow-lg"
+        [ngClass]="{
+          'admin': _authS.userInfo?.accountType === 'admin',
+          'abtc': _authS.userInfo?.accountType === 'abtc',
+          'agri': _authS.userInfo?.accountType === 'agri',
+          'lab': _authS.userInfo?.accountType === 'lab'
+        }"
+      >
         <div class="card-body flex justify-center">
           <div class="number-dashboard flex">
             <h1 class="card-title text-4xl text-white">
@@ -67,7 +100,15 @@
       </div>
     </ng-container>
     <ng-container *appHasRole="['agri']">
-      <div class="card w-50 mr-10 bg-red-600 drop-shadow-lg">
+      <div
+        class="card w-50 mr-10 drop-shadow-lg"
+        [ngClass]="{
+          'admin': _authS.userInfo?.accountType === 'admin',
+          'abtc': _authS.userInfo?.accountType === 'abtc',
+          'agri': _authS.userInfo?.accountType === 'agri',
+          'lab': _authS.userInfo?.accountType === 'lab'
+        }"
+      >
         <div class="card-body flex justify-center">
           <div class="number-dashboard flex">
             <h1 class="card-title text-4xl text-white">
@@ -83,5 +124,11 @@
       </div>
     </ng-container>
   </div>
-  <app-piegraph #pieGraphComponent *ngIf="this.pieGraph()" [available]="available$" [outOfStock]="outofstock$" [expired]="expired$"/>
+  <app-piegraph
+    #pieGraphComponent
+    *ngIf="this.pieGraph()"
+    [available]="available$"
+    [outOfStock]="outofstock$"
+    [expired]="expired$"
+  />
 </body>

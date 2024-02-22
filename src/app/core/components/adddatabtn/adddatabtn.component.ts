@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-adddatabtn',
@@ -63,16 +64,13 @@ export class AdddatabtnComponent {
       return;
   }
     this.addVacObservable.subscribe({
-        next: (res: any) => {
+        next: (res: HttpResponse<any>) => {
+          console.log('Response:', res);
             this.isLoading.set(true);
-            setTimeout(() => {
-                if (this.isLoading()) {
-                    this._alertService.handleSuccess('Data Added Successfully');
-                    this.emitGetAllAnimalVaccinated();
-                    this.modalEvent.emit(false);
-                    this.isLoading.set(false);
-                }
-            }, 2000);
+            if(res.status == 400) {
+              this.isLoading.set(false);
+              this._alertService.handleError('Already Exist');
+            }
         },
         error: (err: any) => {
             console.error('Error occurred during subscription:', err);

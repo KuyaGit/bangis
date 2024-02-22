@@ -30,7 +30,15 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
           <div
             class="logo-container flex  justify-center items-center rounded-lg"
           >
-            <div class="logo-text flex text-red-600 rounded-lg">
+            <div
+              class="logo-text flex  rounded-lg"
+              [ngClass]="{
+                'text-green-400': _auth.userInfo?.accountType === 'admin',
+                'text-blue-600': _auth.userInfo?.accountType === 'abtc',
+                'text-red-600': _auth.userInfo?.accountType === 'agri',
+                'text-green-600': _auth.userInfo?.accountType === 'lab'
+              }"
+            >
               <div class="text-2xl font-bold" *appHasRole="['admin']">
                 @if(collapsed) {
                 <h1 class="text-2xl font-bold m-4" *appHasRole="['admin']">
@@ -38,7 +46,13 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
                 </h1>
                 } @else {
                 <li
-                  class="sidenav-item list-none text-red-600 text-2xl font-bold px-5 my-4"
+                  class="sidenav-item list-none text-2xl font-bold px-5 my-4"
+                  [ngClass]="{
+                    'text-green-400': _auth.userInfo?.accountType === 'admin',
+                    'text-blue-600': _auth.userInfo?.accountType === 'abtc',
+                    'text-red-600': _auth.userInfo?.accountType === 'agri',
+                    'text-green-600': _auth.userInfo?.accountType === 'lab'
+                  }"
                 >
                   <i class="sidenav-link-icon fa-solid fa-user-tie"></i>
                 </li>
@@ -49,7 +63,13 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
                 <h1 class="text-2xl font-bold m-10">LABORATORY</h1>
                 } @else {
                 <li
-                  class="sidenav-item list-none text-red-600 text-2xl font-bold px-5 my-4"
+                  class="sidenav-item list-none text-2xl font-bold px-5 my-4"
+                  [ngClass]="{
+                    'text-green-400': _auth.userInfo?.accountType === 'admin',
+                    'text-blue-600': _auth.userInfo?.accountType === 'abtc',
+                    'text-red-600': _auth.userInfo?.accountType === 'agri',
+                    'text-green-600': _auth.userInfo?.accountType === 'lab'
+                  }"
                 >
                   <i class="sidenav-link-icon fa-solid fa-flask-vial"></i>
                 </li>
@@ -61,7 +81,13 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
                 <span class="">Treatment Center</span>
                 } @else {
                 <li
-                  class="sidenav-item list-none text-red-600 text-2xl font-bold px-5 my-4"
+                  class="sidenav-item list-none text-2xl font-bold px-5 my-4"
+                  [ngClass]="{
+                    'text-green-400': _auth.userInfo?.accountType === 'admin',
+                    'text-blue-600': _auth.userInfo?.accountType === 'abtc',
+                    'text-red-600': _auth.userInfo?.accountType === 'agri',
+                    'text-green-600': _auth.userInfo?.accountType === 'lab'
+                  }"
                 >
                   <i class="sidenav-link-icon fa-solid fa-house-medical"></i>
                 </li>
@@ -74,7 +100,13 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
               } @else {
               <li
                 *appHasRole="['agri']"
-                class="sidenav-item list-none text-red-600 text-2xl font-bold px-5 my-4"
+                class="sidenav-item list-none text-2xl font-bold px-5 my-4"
+                [ngClass]="{
+                  'text-green-400': _auth.userInfo?.accountType === 'admin',
+                  'text-blue-600': _auth.userInfo?.accountType === 'abtc',
+                  'text-red-600': _auth.userInfo?.accountType === 'agri',
+                  'text-green-600': _auth.userInfo?.accountType === 'lab'
+                }"
               >
                 <i class="sidenav-link-icon fa-solid fa-building-wheat"></i>
               </li>
@@ -84,9 +116,18 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
         </div>
         <ul class="sidenav-nav">
           <ng-container *ngFor="let data of navData">
-            <li class="sidenav-nav-item" *appHasRole="data.appHasRole">
+            <li
+              class="sidenav-nav-item rounded-lg"
+              [ngClass]="{
+                'admin': _auth.userInfo?.accountType === 'admin',
+                'abtc': _auth.userInfo?.accountType === 'abtc',
+                'agri': _auth.userInfo?.accountType === 'agri',
+                'lab': _auth.userInfo?.accountType === 'lab'
+              }"
+              *appHasRole="data.appHasRole"
+            >
               <a
-                class="sidenav-nav-link"
+                class="sidenav-nav-link text-black"
                 [routerLink]="[data.routerLink]"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
@@ -122,9 +163,7 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
                   >
                     <div class="avatar-info flex items-center justify-evenly">
                       <div class="avatar ">
-                        <div
-                          class="w-10 rounded-full border border-solid border-green-600"
-                        >
+                        <div class="w-10 rounded-full border border-solid">
                           <img
                             src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
                           />
