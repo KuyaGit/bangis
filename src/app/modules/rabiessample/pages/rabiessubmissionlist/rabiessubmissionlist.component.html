@@ -35,11 +35,13 @@
     <!-- <div class="relative"> -->
     <table class="table-auto table user-table">
       <thead class="text-stone-600">
-        <tr class="sticky top-0 bg-white">
+        <tr class="sticky top-0 bg-white text-center">
           <th class="py-1">ID</th>
-          <th class="py-1">Animal Name</th>
           <th class="py-1">Victim Name</th>
           <th class="py-1">Site of Bite</th>
+          <th class="py-1">Species</th>
+          <th class="py-1">Breed</th>
+          <th class="py-1">Type of Ownership</th>
           <th class="py-1">Treatment Received</th>
           <th class="py-1">Action</th>
         </tr>
@@ -52,20 +54,31 @@
           </td>
           <td>
             <div class="font-bold flex justify-center py-1">
-              {{ rabies.species }}
+              {{ rabies.victimName }}
             </div>
           </td>
           <td>
-            <div class="flex justify-center py-1">{{ rabies.victimName }}</div>
+            <div class="flex justify-center py-1">{{ rabies.siteOfBite }}</div>
           </td>
           <td>
-            <div class="flex justify-center py-1">{{ rabies.siteOfBite }}</div>
+            <div class="flex justify-center py-1">{{ rabies.species }}</div>
+          </td>
+          <td>
+            <div class="flex flex-row justify-center items-center p-1">
+              {{ rabies.breed }}
+            </div>
+          </td>
+          <td>
+            <div class="flex flex-row justify-center items-center p-1">
+              {{ rabies.typeOfOwnership }}
+            </div>
           </td>
           <td>
             <div class="flex flex-row justify-center items-center p-1">
               {{ rabies.treatmentRecieved }}
             </div>
           </td>
+
           <td class="w-10">
             <div class="dropdown dropdown-left 2xl:dropdown-left">
               <div tabindex="0" role="button" class="btn m-1">Action</div>

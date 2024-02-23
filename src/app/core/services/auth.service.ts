@@ -16,6 +16,7 @@ import { AlertService } from "./alert.service";
 export class AuthService {
   _alert = inject(AlertService)
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
+  public loadingColor = signal<string>('border-t-green-400');
   private readonly TOKEN_NAME = environment.tokenName;
   isLoggedIn$ = this._isLoggedIn$.asObservable();
   user =signal<UserModel | null>(null);
@@ -48,6 +49,7 @@ export class AuthService {
         this.user.set(this.getUser(response.access_token));
         this.accountType.set(this.userInfo?.accountType)
         if (this.userInfo?.accountType === 'admin') {
+          this.loadingColor.set('border-t-green-400')
           localStorage.setItem(environment.theme, 'bg-green-400 hover:bg-green-600')
         } else if (this.userInfo?.accountType === 'agri') {
           localStorage.setItem(environment.theme, 'bg-red-600 hover:bg-red-800')
@@ -66,7 +68,18 @@ export class AuthService {
     }
     return JSON.parse(atob(token.split('.')[1])) as UserModel;
   }
-
+  checkUser() : string {
+    if (this.userInfo?.accountType === 'admin') {
+      return 'admin'
+    } else if (this.userInfo?.accountType === 'agri') {
+      return 'agri'
+    } else if (this.userInfo?.accountType === 'abtc') {
+      return 'abtc'
+    } else if (this.userInfo?.accountType === 'lab') {
+      return 'lab'
+    }
+    return ''
+  }
   isLogin() {
     return this.isLoggedIn$
   }

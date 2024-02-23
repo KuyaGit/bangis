@@ -255,6 +255,7 @@ export class AddRabiesSubmissionComponent implements OnInit {
     console.log(this.arrayofIllness);
   }
   addRabiesSample() {
+    this.isLoadingButton.set(true);
     this.subsciption.add(
       this._rabiesSampleS.addRabiesSampleSubmission(this.rabiesSampleForm.value, this.arrayofDescription, this.arrayofIllness)
       .pipe(
@@ -266,22 +267,15 @@ export class AddRabiesSubmissionComponent implements OnInit {
           }
           throw error; // rethrow the error to continue handling it in the subscribe block
         })
-      )
-      .subscribe({
-        next: (res: any) => {
-          console.log('Response:', res);
-          this.isLoadingButton.set(true);
-          if(res.status == 200) {
+      ).subscribe((res: any) => {
+          this.isLoadingButton.set(false);
+          if(res.id) {
             this.rabiesSampleForm.reset()
             this.isLoadingButton.set(false);
+            this.closeModalAdd();
             this._alertS.handleSuccess('Successfully Added');
             this.emitGetAll();
           }
-        },
-        error: (err: any) => {
-          console.error('Error occurred during subscription:', err);
-          // Handle error as needed
-        },
       })
     );
   }

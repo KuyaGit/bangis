@@ -77,9 +77,20 @@ export class DashboardComponent implements OnInit{
       return this.totalVacCount.set(res.animalBiteIDFrom)
     })
   }
+  countRabiesSubmission = signal<number>(0)
+  getTotalRabiesSubmissionbyAccount() {
+    const type = this._authS.userInfo?.accountType
+    if(type === 'lab') {
+      this._dashboardS.getTotalRabiesSubmissionbyAccount(Number(this.accountID)).subscribe((res: any) => {
+        this.countRabiesSubmission.set(res.sampleIDFrom)
+      })
 
-  getTotalRabiesSubmission() : number {
-    return 10
+    } else {
+      this._dashboardS.getCountRabiesSubmission().subscribe((res: any) => {
+        this.countRabiesSubmission.set(res.sampleIDFrom)
+        console.log(res)
+      })
+    }
   }
   async getTotalVaccinated(id: any){
     this._dashboardS.getVacinatedCount(id).subscribe((res: any) => {
@@ -101,6 +112,7 @@ export class DashboardComponent implements OnInit{
     })
     this.getTotalVacCount(this.accountID)
   }
+
   ifAgri() {
     forkJoin([
       this._dashboardS.getAnimalVacCount(Number(this.accountID)),
@@ -121,11 +133,13 @@ export class DashboardComponent implements OnInit{
     } else if(this._authS.userInfo?.accountType === 'agri') {
       this.getTotalConfirmedrRabies()
       this.getTotalVaccinated(this.accountID)
-      this.getTotalRabiesSubmission()
+      this.getTotalRabiesSubmissionbyAccount()
       this.ifAgri()
       setTimeout(() => {
         this.pieGraph.set(true);
       }, 2000);
+    }else if (this._authS.userInfo?.accountType === 'lab') {
+      this.getTotalRabiesSubmissionbyAccount()
     }
   }
 }

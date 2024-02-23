@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject, signal } from '@angular/core';
 import { FullPageLoaderService } from './fullPageLoader.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-full-page-loader',
@@ -13,7 +14,7 @@ import { FullPageLoaderService } from './fullPageLoader.service';
         </div> -->
         <body *ngIf="fLoadPageService.isLoading()">
           <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-          <div class="loader"></div>
+          <div class="loader" [ngClass]="_authS.checkUser()"></div>
         </body>
   `,
   styleUrl: './fullPageLoader.component.css',
@@ -21,6 +22,8 @@ import { FullPageLoaderService } from './fullPageLoader.service';
 })
 export class FullPageLoaderComponent implements OnInit{
   fLoadPageService = inject(FullPageLoaderService);
+  _authS = inject(AuthService)
+  @Input() userType?: string;
   ngOnInit(): void {
     this.fLoadPageService.loadPage();
   }

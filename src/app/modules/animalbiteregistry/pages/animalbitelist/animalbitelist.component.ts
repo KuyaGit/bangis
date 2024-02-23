@@ -51,6 +51,7 @@ export class AnimalbitelistComponent implements OnInit {
   subsciption: Subscription = new Subscription();
   accountID = this._auth.userInfo?.id;
   themeColor = localStorage.getItem(environment.theme)?.toString();
+  loadingColor = this._auth.loadingColor()
   // Methods
   getAllAnimalBite() {
     if (this._auth.userInfo?.accountType === 'agri') {
@@ -86,14 +87,6 @@ export class AnimalbitelistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllAnimalBite();
-    if (this._auth.userInfo?.accountType === 'admin') {
-      this._auth.themeColor.set('bg-green-400 hover:bg-green-600')
-    } else if (this._auth.userInfo?.accountType === 'agri') {
-      this._auth.themeColor.set('bg-red-800 hover:bg-red-600')
-    } else if (this._auth.userInfo?.accountType === 'abtc') {
-      this._auth.themeColor.set('active:bg-blue-800 hover:bg-blue-600')
-    } else if (this._auth.userInfo?.accountType === 'lab') {
-      this._auth.themeColor.set('bg-green-600 hover:bg-green-800')
-    }
+    this.loadingColor = this._auth.checkUser();
   }
 }
