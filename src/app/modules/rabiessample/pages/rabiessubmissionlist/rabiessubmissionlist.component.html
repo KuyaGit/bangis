@@ -48,22 +48,22 @@
         @for(rabies of _rabiesS.rabiesList(); track $index){
         <tr>
           <td>
-            <div class="flex justify-center py-1">{{ rabies.id }}</div>
+            <div class="flex justify-center py-1">{{ rabies.sampleId }}</div>
           </td>
           <td>
             <div class="font-bold flex justify-center py-1">
-              {{ rabies.name }}
+              {{ rabies.species }}
             </div>
           </td>
           <td>
-            <div class="flex justify-center py-1">{{ rabies.email }}</div>
+            <div class="flex justify-center py-1">{{ rabies.victimName }}</div>
           </td>
           <td>
-            <div class="flex justify-center py-1">{{ rabies.address }}</div>
+            <div class="flex justify-center py-1">{{ rabies.siteOfBite }}</div>
           </td>
           <td>
             <div class="flex flex-row justify-center items-center p-1">
-              {{ rabies.accountType.toUpperCase() }}
+              {{ rabies.treatmentRecieved }}
             </div>
           </td>
           <td class="w-10">

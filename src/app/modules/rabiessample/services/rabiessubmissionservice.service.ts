@@ -19,7 +19,7 @@ export class RabiessubmissionserviceService {
         catchError(this.handleError)
       );
   }
-  getAllRabiesSampleSubmissionByAccount(id: number): Observable<any> {
+  getAllRabiesSampleSubmissionByAccount(id: number){
     return this.http.get(`${this.url}/rabiessample/${id}`)
       .pipe(
         catchError(this.handleError)
