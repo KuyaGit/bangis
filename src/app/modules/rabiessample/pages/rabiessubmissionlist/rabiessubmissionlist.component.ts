@@ -25,7 +25,7 @@ export class RabiessubmissionlistComponent implements OnInit{
   }
 
   getAllRabiesSubmission() {
-
+    
   }
   ngOnInit(): void {
     this.getAllRabiesSubmission();

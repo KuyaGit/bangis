@@ -19,10 +19,11 @@ import {
 import { AuthService } from '../../../../core/services/auth.service';
 
 import { AdddatabtnComponent } from '../../../../core/components/adddatabtn/adddatabtn.component';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, catchError } from 'rxjs';
 import { RabiessubmissionserviceService } from '../../services/rabiessubmissionservice.service';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { AlertService } from '../../../../core/services/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface RabiesSample {
   id: number;
@@ -255,14 +256,21 @@ export class AddRabiesSubmissionComponent implements OnInit {
   }
   addRabiesSample() {
     this.subsciption.add(
-      this._rabiesSampleS.addRabiesSampleSubmission(this.rabiesSampleForm.value, this.arrayofDescription, this.arrayofIllness).subscribe({
+      this._rabiesSampleS.addRabiesSampleSubmission(this.rabiesSampleForm.value, this.arrayofDescription, this.arrayofIllness)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 400) {
+            this.isLoadingButton.set(false);
+            this._alertS.handleError(error.error['message']);
+            this.closeModalAdd();
+          }
+          throw error; // rethrow the error to continue handling it in the subscribe block
+        })
+      )
+      .subscribe({
         next: (res: any) => {
           console.log('Response:', res);
           this.isLoadingButton.set(true);
-          if (res.status == 400) {
-            this.isLoadingButton.set(false);
-            this._alertS.handleError('Already Exist');
-          }
           if(res.status == 200) {
             this.rabiesSampleForm.reset()
             this.isLoadingButton.set(false);

@@ -36,34 +36,34 @@
     <table class="table-auto table user-table">
       <thead class="text-stone-600">
         <tr class="sticky top-0 bg-white">
-          <th class="py-1">UserID</th>
-          <th class="py-1">Name</th>
-          <th class="py-1">Username</th>
-          <th class="py-1">Address</th>
-          <th class="py-1">Role</th>
+          <th class="py-1">ID</th>
+          <th class="py-1">Animal Name</th>
+          <th class="py-1">Victim Name</th>
+          <th class="py-1">Site of Bite</th>
+          <th class="py-1">Treatment Received</th>
           <th class="py-1">Action</th>
         </tr>
       </thead>
       <tbody class="table-body">
-        @for(user of _rabiesS.rabiesList(); track $index){
+        @for(rabies of _rabiesS.rabiesList(); track $index){
         <tr>
           <td>
-            <div class="flex justify-center py-1">{{ user.id }}</div>
+            <div class="flex justify-center py-1">{{ rabies.id }}</div>
           </td>
           <td>
             <div class="font-bold flex justify-center py-1">
-              {{ user.name }}
+              {{ rabies.name }}
             </div>
           </td>
           <td>
-            <div class="flex justify-center py-1">{{ user.email }}</div>
+            <div class="flex justify-center py-1">{{ rabies.email }}</div>
           </td>
           <td>
-            <div class="flex justify-center py-1">{{ user.address }}</div>
+            <div class="flex justify-center py-1">{{ rabies.address }}</div>
           </td>
           <td>
             <div class="flex flex-row justify-center items-center p-1">
-              {{ user.accountType.toUpperCase() }}
+              {{ rabies.accountType.toUpperCase() }}
             </div>
           </td>
           <td class="w-10">
@@ -73,8 +73,8 @@
                 tabindex="0"
                 class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
               >
-                <!-- <li><a (click)="openViewModal(user.id)">View</a></li>
-                <li><a (click)="openEditModal(user.id)">Edit</a></li> -->
+                <!-- <li><a (click)="openViewModal(rabies.id)">View</a></li>
+                <li><a (click)="openEditModal(rabies.id)">Edit</a></li> -->
               </ul>
             </div>
           </td>
@@ -87,7 +87,6 @@
       </tbody>
     </table>
   </div>
-  <!-- <div class="card max-h-[450px] overflow-auto"> -->
 </div>
 
 @if (modalAddRabiesSubmission()) {

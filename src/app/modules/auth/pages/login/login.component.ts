@@ -9,11 +9,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError, throwError } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AlertService } from '../../../../core/services/alert.service';
 import { LoginService } from '../../../../core/services/login.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -98,7 +98,18 @@ export class LoginComponent {
     this.loginSubscription.add(
       this._auth
         .login(this.loginForm.value.email, this.loginForm.value.password)
-        .subscribe((response) => {
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 401) {
+              this._alertService.alertWithTimer(
+                'error',
+                'Invalid Credentials',
+                'Invalid Credentials'
+              );
+            }
+            return throwError(error);
+          })
+        ).subscribe((response) => {
           if (response['status'] == 200) {
             this._alertService.alertWithTimer(
               'success',
