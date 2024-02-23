@@ -5,7 +5,7 @@
 
       <app-exportexcelbtn [data]="this._user.Users()" [fileName]="fileName" [themeColor]="themeColor"/>
       <button
-      [ngClass]="_auth.themeColor()"
+      [ngClass]="themeColor"
       class="btn  text-white ml-3 border-none"
       (click)="this.modalAdd.set(true)"
     >
