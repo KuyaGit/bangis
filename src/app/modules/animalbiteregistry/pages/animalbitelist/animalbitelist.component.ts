@@ -74,12 +74,10 @@ export class AnimalbitelistComponent implements OnInit {
   }
 
   openViewModal(id: number) {
-    console.log(id);
     this.modalView.set(true);
   }
   openEditModal(id: number) {
     this.modalEdit.set(true);
-    console.log(id);
   }
   delete(id: number) {
     console.log(id);

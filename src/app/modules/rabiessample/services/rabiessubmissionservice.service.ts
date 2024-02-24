@@ -35,7 +35,6 @@ export class RabiessubmissionserviceService {
   }
   private handleError(error: HttpErrorResponse) {
     console.error(error);
-    console.log('error', error);
     return throwError(() => error);
   }
 }

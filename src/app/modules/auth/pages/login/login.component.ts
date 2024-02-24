@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { PrmBtnComponent } from '../../../../core/components/prm-btn/prm-btn.component';
 import { Router } from '@angular/router';
 import {
@@ -93,8 +93,9 @@ export class LoginComponent {
       password: ['', Validators.required],
     });
   }
-
+  isLoadingButton= signal<boolean>(false);
   login() {
+    this.isLoadingButton.set(true);
     this.loginSubscription.add(
       this._auth
         .login(this.loginForm.value.email, this.loginForm.value.password)
@@ -111,6 +112,7 @@ export class LoginComponent {
           })
         ).subscribe((response) => {
           if (response['status'] == 200) {
+            this.isLoadingButton.set(false);
             this._alertService.alertWithTimer(
               'success',
               'Success',
@@ -123,16 +125,7 @@ export class LoginComponent {
                 this.router.navigate(['home/']);
               }
             }, 2000);
-          } else if (
-            response['response']['statusCode'] == 400 ||
-            response['response']['statusCode'] == 401
-          ) {
-            this._alertService.alertWithTimer(
-              'error',
-              'Invalid Credentials',
-              'Invalid Credentials'
-            );
-          }
+          } 
         })
     );
   }

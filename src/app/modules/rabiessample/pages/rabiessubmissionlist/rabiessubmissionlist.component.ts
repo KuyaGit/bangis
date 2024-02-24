@@ -6,6 +6,7 @@ import { AddRabiesSubmissionComponent } from '../../components/add-rabies-submis
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-rabiessubmissionlist',
@@ -16,7 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class RabiessubmissionlistComponent implements OnInit{
   modalAddRabiesSubmission= signal<boolean>(false);
-  themeColor = 'bg-green-600 hover:bg-green-800';
+  themeColor = localStorage.getItem(environment.theme)
   subscription = new Subscription();
   fileName = 'rabies_submission_list.xlsx'
   _authS = inject(AuthService)

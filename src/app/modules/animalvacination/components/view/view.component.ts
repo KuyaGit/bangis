@@ -21,7 +21,6 @@ export class ViewComponent implements OnInit{
   ngOnInit(): void {
     this.thisaVacForm();
     this.aVacForm.patchValue(this.aVacInfo);
-    console.log(this.aVacForm.value)
   }
 
   thisaVacForm() {

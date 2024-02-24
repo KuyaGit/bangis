@@ -87,7 +87,6 @@ export class AddanimalbiteComponent implements OnInit {
       }
     });
 
-    console.log(formValue);
     this.addAnimalBiteObservable = this._aBitevac.postPatientInfo(formValue);
   }
 

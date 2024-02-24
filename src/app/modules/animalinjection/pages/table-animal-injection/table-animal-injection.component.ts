@@ -52,10 +52,8 @@ export class TableAnimalInjectionComponent implements OnInit {
       })
     )
     this.avacModalViewInject.set(true);
-    console.log('openAvacInjectViewModal');
   }
   openAvacEditInjectModal() {
-    console.log('openAvacEditInjectModal');
     this.avacModalEditInject.set(true);
   }
 

@@ -65,7 +65,7 @@ export class AdddatabtnComponent {
   }
     this.addVacObservable.subscribe({
         next: (res: HttpResponse<any>) => {
-          console.log('Response:', res);
+  
             this.isLoading.set(true);
             if(res.status == 400) {
               this.isLoading.set(false);

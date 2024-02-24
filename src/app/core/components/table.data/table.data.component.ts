@@ -38,7 +38,6 @@ export class TableDataComponent implements OnInit{
     this.currentPage$.next(this.currentPage$.value - 1);
   }
   ngOnInit(): void {
-    console.log(this.data$);
     this.data$ = this.data$.pipe(
       tap((data)=> {
         this.totalItems = data.length;
