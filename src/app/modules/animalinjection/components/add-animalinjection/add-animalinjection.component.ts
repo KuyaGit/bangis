@@ -4,9 +4,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AvacService } from '../../../animalvacination/services/avac.service';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { AnimalinjectionService } from '../../services/animalinjection.service';
 import { AlertService } from '../../../../core/services/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-animalinjection',
@@ -41,7 +42,7 @@ export class AddAnimalinjectionComponent implements OnInit{
     // Form
   this.animalInjectionForm = this._fb.group({
     animalVaccinationIDFrom: this.accountId,
-    animalVaccineUsedID: [null,[Validators.required, Validators.pattern("^[0-9]*$")]],
+    animalVaccineUsedID: ['',Validators.required],
     ownerName: ['',Validators.required],
     birthdate: ['',Validators.required],
     contactNumber: ['',[Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -68,31 +69,26 @@ export class AddAnimalinjectionComponent implements OnInit{
   }
 
   addAvacInjection() {
+    this.isLoading.set(true) ;
     // Assuming this.animalInjectionForm.value contains the data for the animal vaccination
-    this._avacVac.addAnimalVac(this.animalInjectionForm.value).subscribe((res) => {
-      // Set isLoading to true to show loading spinner or message
-      this.isLoading.set(true) ;
-
-      // Handle success after 3000 milliseconds
-      setTimeout(() => {
-        if(this.isLoading()) { // Check if isLoading is still true after 3000 milliseconds
-          this._alert.handleSuccess('Animal Vaccine Added Successfully');
-          this.emitGetAllAnimalVaccinated();
-          this.modalEvent.emit(false);
-          this.isLoading.set(false); // Reset isLoading after success handling
+    this._avacVac.addAnimalVac(this.animalInjectionForm.value).pipe(
+      catchError((err : HttpErrorResponse) => {
+        if (err.status === 400) {
+          this._alert.handleError(err.error['message']);
         }
-      }, 3000);
+        throw err; // rethrow the error to continue handling it in the subscribe block
+      })
+    )
+    .subscribe((res) => {
+      this.isLoading.set(false) ;
+      if(res) {
+        this._alert.handleSuccess('Vaccine Added Successfully');
+        this.animalInjectionForm.reset();
+        this.modalEvent.emit(false);
+        this.emitGetAllAnimalVaccinated();
+      };
     });
 }
-
-  // addAvacInjection() {
-  //   this._avacVac.addAnimalVac(this.animalInjectionForm.value).subscribe((res) => {
-  //     this._alert.handleSuccess('Animal Vaccine Added Successfully')
-  //     this.emitGetAllAnimalVaccinated()
-  //     this.modalEvent.emit(false)
-  //   })
-  // }
-
   ngOnInit(): void {
       this.isLoading.set(false)
       this._avac.getAllAvacByAccount(this.accountId).subscribe((res: any) => {

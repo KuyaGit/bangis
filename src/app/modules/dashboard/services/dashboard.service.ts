@@ -51,7 +51,11 @@ export class DashboardService {
     return this.http.get(`${this.url}/rabiessample/submission/count/${id}`)
   }
   getCountRabiesSubmission(): Observable<any> {
-    return this.http.get(`${this.url}/rabiessample/count`)
+    return this.http.get(`${this.url}/rabiessample/allrabiessubmission/count`)
+  }
+
+  getCountAllVaccinated() : Observable<any> {
+    return this.http.get(`${this.url}/animalvacinated/vaccinated/count`)
   }
 
 }

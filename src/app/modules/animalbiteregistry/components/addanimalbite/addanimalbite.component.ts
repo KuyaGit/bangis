@@ -16,6 +16,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { HVacModel } from '../../../humanvacination/models/hvac.interface';
 import { AnimalbiteService } from '../../services/animalbite.service';
 import { AdddatabtnComponent } from '../../../../core/components/adddatabtn/adddatabtn.component';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 
 @Component({
   selector: 'app-addanimalbite',
@@ -25,6 +26,7 @@ import { AdddatabtnComponent } from '../../../../core/components/adddatabtn/addd
     FormsModule,
     ReactiveFormsModule,
     AdddatabtnComponent,
+    LoadingbuttonComponent,
   ],
   templateUrl: './addanimalbite.component.html',
   styleUrl: './addanimalbite.component.scss',
@@ -60,13 +62,13 @@ export class AddanimalbiteComponent implements OnInit {
       route: [''],
       dateOfFirstVaccine: [''],
       brandNameFirstVaccine: [''],
-      dateOfSecondVaccine: [''],
+      dateOfSecondVaccine: [{ value: '', disabled: true }],
       brandNameSecondVaccine: [{ value: '', disabled: true }],
-      dateOfThirdVaccine: [''],
+      dateOfThirdVaccine: [{ value: '', disabled: true }],
       brandNameThirdVaccine: [{ value: '', disabled: true }],
-      dateOfFourthVaccine: [''],
+      dateOfFourthVaccine: [{ value: '', disabled: true }],
       brandNameFourthVaccine: [{ value: '', disabled: true }],
-      dateOfFifthVaccine: [''],
+      dateOfFifthVaccine: [{ value: '', disabled: true }],
       brandNameFifthVaccine: [{ value: '', disabled: true }],
       outCome: [''],
       bittingAnimalStatusafter4Years: [''],

@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-a-vaclist',
@@ -33,7 +34,7 @@ export class AVaclistComponent implements OnInit {
   vacInfo: any;
   fileName: string = 'vaccineinventory.xlsx';
   datatoExport: any = '';
-  themeColor = localStorage.getItem('theme')?.toString();
+  themeColor = localStorage.getItem(environment.theme)?.toString();
 
   // Subscriptions
   subAvac: Subscription = new Subscription();

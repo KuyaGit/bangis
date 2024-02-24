@@ -84,15 +84,6 @@
       </tbody>
     </table>
   </div>
-  <!-- <div class="card max-h-[450px] overflow-auto"> -->
-    <app-table-data
-      [columns]="columns"
-      [data$]="User$"
-    />
-  </div>
-<!-- </div> -->
-
-<!-- </div> -->
 @if (modalAdd()) {
 <app-add-user
   (modalEvent)="this.modalAdd.set($event)"
