@@ -11,6 +11,7 @@ import {
 import { AlertService } from '../../../../../core/services/alert.service';
 import { UserService } from '../../../services/user.service';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -56,6 +57,10 @@ export class AddUserComponent implements OnInit {
       address: [''],
       accountType: [''],
     });
+  }
+  get form(): { [key: string]: AbstractControl } {
+    // This function will return the form controls
+    return this.account.controls;
   }
 
   getAllUsers() {

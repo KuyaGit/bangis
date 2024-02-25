@@ -51,28 +51,53 @@ import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
               <label class="form-control w-full max-w-xs">
                 <div class="label">
                   <span class="label-text">Username</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      loginForm.controls['email'].touched &&
+                      !loginForm.controls['email'].value
+                    "
+                    >Required</span
+                  >
+                  <span class="label-text text-error" *ngIf="isWrongCredentials">Invalid Credentials</span>
+
                 </div>
                 <input
                   type="text"
                   formControlName="email"
                   placeholder="Enter Username"
                   class="input input-bordered w-full max-w-xs"
+                  [ngClass]="
+                    loginForm.controls['email'].touched &&
+                      !loginForm.controls['email'].value ? 'input-error' : (isWrongCredentials ? 'input-error' : '')
+                  "
                 />
               </label>
               <label class="form-control w-full max-w-xs">
                 <div class="label">
                   <span class="label-text">Password</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      loginForm.controls['password'].touched &&
+                      !loginForm.controls['password'].value
+                    "
+                    >Required</span
+                  >
+                  <span class="label-text text-error" *ngIf="isWrongCredentials">Invalid Credentials</span>
                 </div>
                 <input
                   type="password"
                   formControlName="password"
                   placeholder="Enter Password"
                   class="input input-bordered w-full max-w-xs"
+                  [ngClass]="loginForm.controls['password'].touched && !loginForm.controls['password'].value ? 'input-error' : (isWrongCredentials ? 'input-error' : '')"
                 />
               </label>
               <button
                 class="mt-3 btn btn-block btn-xs sm:btn-sm md:btn-md"
                 type="submit"
+                [disabled]="loginForm.invalid"
               >
                 <div *ngIf="isLoadingButton()">
                   <svg
@@ -109,6 +134,7 @@ import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent {
   loginSubscription: Subscription = new Subscription();
   loginForm: FormGroup;
+  isWrongCredentials: boolean = false;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -134,6 +160,8 @@ export class LoginComponent {
                 'Invalid Credentials',
                 'Invalid Credentials'
               );
+              this.isLoadingButton.set(false);
+              this.isWrongCredentials = true;
             }
             return throwError(error);
           })

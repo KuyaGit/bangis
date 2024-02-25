@@ -22,12 +22,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Clinic Name</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      account.controls['name'].touched &&
+                      !account.controls['name'].value
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="name"
                   placeholder="Ex. Petify Clinic"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      account.controls['name'].touched &&
+                      !account.controls['name'].value
+                  }"
                 />
               </label>
             </div>
@@ -35,12 +48,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Username</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      account.controls['email'].touched &&
+                      !account.controls['email'].value
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="email"
                   placeholder="Username"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      account.controls['email'].touched &&
+                      !account.controls['email'].value
+                  }"
                 />
               </label>
             </div>
@@ -48,12 +74,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Password</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      account.controls['password'].touched &&
+                      !account.controls['password'].value
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="password"
                   placeholder="Password"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      account.controls['password'].touched &&
+                      !account.controls['password'].value
+                  }"
                 />
               </label>
             </div>
@@ -61,10 +100,22 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Account Type</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      account.controls['accountType'].touched &&
+                      !account.controls['accountType'].value">
+                      Required
+                  </span>
                 </div>
                 <select
                   class="select select-bordered w-full"
                   formControlName="accountType"
+                  [ngClass]="{
+                    'select-error':
+                      account.controls['accountType'].touched &&
+                      !account.controls['accountType'].value
+                  }"
                 >
                   <option value="" disabled selected>
                     Please Select Account Type
@@ -79,10 +130,22 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Address</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      account.controls['address'].touched &&
+                      !account.controls['address'].value
+                    "
+                    >Required</span>
                 </div>
                 <select
                   class="select select-bordered w-full"
                   formControlName="address"
+                  [ngClass]="{
+                    'select-error':
+                      account.controls['address'].touched &&
+                      !account.controls['address'].value
+                  }"
                 >
                   <option value="" disabled selected>
                     Please Select Address
@@ -99,7 +162,8 @@
           </div>
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button
-              type="button"
+              [disabled]="!account.invalid"
+              type="submit"
               class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
               [ngClass]="themeColor"
               (click)="addAccount()"
