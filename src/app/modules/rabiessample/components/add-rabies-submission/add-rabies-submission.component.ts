@@ -172,8 +172,12 @@ export class AddRabiesSubmissionComponent implements OnInit {
     if (!isNextPage) {
       return this.currentStep--;
     }
+    if(this.behaviorChanges.length == 0) {
+      this.behaviorChanges.push(this.behaviorChanges[0]);
+    }
     return this.currentStep++;
   }
+
   renderForm() {
     this.rabiesSampleForm = this._fb.group({
       sampleIDFrom: this.accountID,
@@ -230,11 +234,7 @@ export class AddRabiesSubmissionComponent implements OnInit {
       if (index > -1) {
         this.arrayofDescription.splice(index, 1);
       }
-      if (this.arrayofDescription.length === 0) {
-        this.arrayofDescription.push('None');
-      }
     }
-    console.log(this.arrayofDescription);
   }
   arrayofIllness: any[] = [];
   onCheckboxChangeofOtherIllnessEvent($event: any) {
@@ -248,14 +248,17 @@ export class AddRabiesSubmissionComponent implements OnInit {
       if (index > -1) {
         this.arrayofIllness.splice(index, 1);
       }
-      if (this.arrayofDescription.length === 0) {
-        this.arrayofIllness.push('None');
-      }
     }
-    console.log(this.arrayofIllness);
   }
   addRabiesSample() {
     this.isLoadingButton.set(true);
+    if(this.arrayofDescription.length == 0) {
+      this.arrayofDescription.push('None');
+    }
+    if(this.arrayofIllness.length == 0) {
+      this.arrayofIllness.push('None');
+    }
+    console.log(this.arrayofDescription, this.arrayofIllness)
     this.subsciption.add(
       this._rabiesSampleS.addRabiesSampleSubmission(this.rabiesSampleForm.value, this.arrayofDescription, this.arrayofIllness)
       .pipe(

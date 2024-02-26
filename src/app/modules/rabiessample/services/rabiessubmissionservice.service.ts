@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
+import { Rabiessubmissioninterface } from '../models/rabiessubmissioninterface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class RabiessubmissionserviceService {
 
   http = inject(HttpClient);
   rabiesList = signal<any[]>([]);
-
+  rabiesInfo = signal<Rabiessubmissioninterface[]>([]);
   private url = environment.baseUrl;
 
   addRabiesSampleSubmission(data: any, behaviorChanges : any, otherIllness: any): Observable<any> {
@@ -26,6 +27,12 @@ export class RabiessubmissionserviceService {
       );
   }
 
+  getRabiesSampleSubmissionById(id: number): Observable<any> {
+    return this.http.get(`${this.url}/rabiessample/view/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   getAllRabiesSampleSubmission(): Observable<any> {
     return this.http.get(`${this.url}/rabiessample`)

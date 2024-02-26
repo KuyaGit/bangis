@@ -50,7 +50,7 @@
         @for(rabies of _rabiesS.rabiesList(); track $index){
         <tr>
           <td>
-            <div class="flex justify-center py-1">{{ rabies.sampleId }}</div>
+            <div class="flex justify-center py-1">{{ rabies.id }}</div>
           </td>
           <td>
             <div class="font-bold flex justify-center py-1">
@@ -79,17 +79,16 @@
             </div>
           </td>
 
-          <td class="w-10">
-            <div class="dropdown dropdown-left 2xl:dropdown-left">
-              <div tabindex="0" role="button" class="btn m-1">Action</div>
-              <ul
-                tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
-              >
-                <!-- <li><a (click)="openViewModal(rabies.id)">View</a></li>
-                <li><a (click)="openEditModal(rabies.id)">Edit</a></li> -->
-              </ul>
-            </div>
+          <td class="w-10 flex">
+            <button class="btn btn-square btn-sm ml-1" (click)="openViewRabiesSampleModal(rabies.id)">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+            <button class="btn btn-square btn-sm ml-1">
+              <i class="fa-solid fa-edit"></i>
+            </button>
+            <button class="btn btn-square btn-sm ml-1">
+              <i class="fa-solid fa-print"></i>
+            </button>
           </td>
         </tr>
         } @empty {
@@ -108,4 +107,10 @@
   (modalEvent)="this.modalAddRabiesSubmission.set($event)"
   (getAllMethod)="this.getAllRabiesSubmission()"
 />
+} @else if (modalViewRabiesSample()) {
+  <app-viewrabiessample
+    (modalEvent)="this.modalViewRabiesSample.set($event)"
+    (getAllMethod)="this.getAllRabiesSubmission()"
+    [information]="this.information"
+    />
 }
