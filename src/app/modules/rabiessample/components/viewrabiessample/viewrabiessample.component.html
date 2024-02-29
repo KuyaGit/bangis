@@ -221,9 +221,10 @@
                         <span class="label-text">Date of Death</span>
                       </div>
                       <input
-                        type="date"
-                        formControlName="dateOfDeath"
+                        type="text"
+                        [value]="rabiesSampleForm.get('dateOfDeath')?.value | date: 'MMM dd, yyyy'"
                         class="input input-bordered w-full"
+                        disabled
                       />
                     </label>
                   </div>
@@ -279,7 +280,7 @@
                         <span class="label-text">Please Specify</span>
                       </div>
                       <input
-                        type="number"
+                        type="text"
                         formControlName="otherVaccinationHistory"
                         placeholder="Enter Vaccine"
                         class="input input-bordered w-full"
@@ -294,9 +295,10 @@
                         <span class="label-text">Date of Vaccination</span>
                       </div>
                       <input
-                        type="date"
-                        formControlName="otherDateofVaccination"
+                        type="text"
+                        [value]="rabiesSampleForm.get('dateofLastvaccination')?.value | date: 'MMM dd, yyyy'"
                         class="input input-bordered w-full"
+                        disabled
                       />
                     </label>
                   </div>
@@ -333,9 +335,10 @@
                           <span class="label-text">Date of Vaccination</span>
                         </div>
                         <input
-                          type="date"
-                          formControlName="dateOfVaccinationpuppies"
+                          type="text"
+                          [value]="rabiesSampleForm.get('dateOfVaccinationpuppies')?.value | date: 'MMM dd, yyyy'"
                           class="input input-bordered w-full"
+                          disabled
                         />
                       </label>
                     </div>
@@ -567,9 +570,10 @@
                         <span class="label-text">Date Bitten</span>
                       </div>
                       <input
-                        type="date"
-                        formControlName="victimDateBitten"
+                        type="text"
+                        [value]="rabiesSampleForm.get('victimDateBitten')?.value | date: 'MMM dd, yyyy'"
                         class="input input-bordered w-full"
+                        disabled
                       />
                     </label>
                   </div>
@@ -596,64 +600,28 @@
                       <div class="label">
                         <span class="label-text">Site of Exposure</span>
                       </div>
-                      <select
-                        class="select select-bordered w-full"
-                        [formControlName]="
-                          rabiesSampleForm.get('siteOfBite')?.value == 'others'
-                            ? 'siteOfExposureOther'
-                            : 'siteOfBite'
-                        "
-                      >
-                        <option value="" disabled selected>
-                          Please Select
-                        </option>
-                        <option
-                          *ngFor="let item of siteofExposure"
-                          [value]="item.value"
-                        >
-                          {{ item.value }}
-                        </option>
-                      </select>
-                    </label>
-                  </div>
-                </div>
-                <ng-container
-                  *ngIf="rabiesSampleForm.get('siteOfBite')?.value == 'Others'"
-                >
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">Please Specify</span>
-                      </div>
                       <input
                         type="text"
                         formControlName="siteOfBite"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
-                        ngDis
-                      />
+                        />
                     </label>
                   </div>
-                </ng-container>
+                </div>
+
                 <div>
                   <div class="sm:flex sm:items-center w-full">
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Nature of Exposure</span>
                       </div>
-                      <select
-                        class="select select-bordered w-full"
+                      <input
+                        type="text"
                         formControlName="natureofExposured"
-                      >
-                        <option value="" disabled selected>
-                          Please Select
-                        </option>
-                        <option
-                          *ngFor="let item of natureofExposure"
-                        >
-                          {{ item.value }}
-                        </option>
-                      </select>
+                        placeholder="Type Here"
+                        class="input input-bordered w-full"
+                        />
                     </label>
                   </div>
                 </div>
@@ -757,7 +725,7 @@
                     </div>
                     <input
                       type="text"
-                      formControlName="otherVictim"
+                      formControlName="otherVictims"
                       placeholder="Type Here"
                       class="input input-bordered w-full"
                       ngDis
@@ -772,38 +740,7 @@
                       <div class="label">
                         <span class="label-text">Treatment Recieved</span>
                       </div>
-                      <select
-                        class="select select-bordered w-full"
-                        [formControlName]="
-                          rabiesSampleForm.get('treatmentRecieved')?.value ==
-                          'others'
-                            ? 'treatmentRecieved'
-                            : 'treatmentRecievedOther'
-                        "
-                      >
-                        <option value="" disabled selected>
-                          Please Select
-                        </option>
-                        <option value="Anti Rabies">Anti Rabies</option>
-                        <option value="Anti Tetanus">Anti Tetanus</option>
-                        <option value="Others">Other</option>
-                      </select>
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">Others Specify:</span>
-                      </div>
-                      <input
-                        type="text"
-                        formControlName="treatmentRecieved"
-                        placeholder="Type Here"
-                        class="input input-bordered w-full"
-                        ngDis
-                      />
+                      <input type="text" [value]="rabiesSampleForm.get('treatmentRecieved')?.value"  placeholder="Type Here" class="input input-bordered w-full" disabled/>
                     </label>
                   </div>
                 </div>
@@ -830,11 +767,11 @@
                         <span class="label-text">Date</span>
                       </div>
                       <input
-                        type="date"
-                        formControlName="DateofTreatment"
+                        type="text"
+                        [value]="rabiesSampleForm.get('DateofTreatment')?.value | date: 'MMM dd, yyyy'"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
-                        ngDis
+                        disabled
                       />
                     </label>
                   </div>

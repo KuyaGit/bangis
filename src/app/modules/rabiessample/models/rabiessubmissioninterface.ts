@@ -33,8 +33,9 @@ export interface Rabiessubmissioninterface {
   treatmentRecieved: string;
   treatmentRecievedType: string;
   DateofTreatment: Date;
-  sampleId: number;
+  sampleId: string;
   explainProvoked: string;
+  createdAt: Date;
   behaviorChanges: [
     {
       id: number;
@@ -51,4 +52,5 @@ export interface Rabiessubmissioninterface {
       value: string;
     }
   ];
+  testMethod: string;
 }

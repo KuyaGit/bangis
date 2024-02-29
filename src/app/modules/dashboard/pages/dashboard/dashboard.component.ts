@@ -108,8 +108,16 @@ export class DashboardComponent implements OnInit {
       return this.totalVaccinated.set(res.animalVaccinationIDFrom);
     });
   }
-  getTotalConfirmedrRabies(): number {
-    return 30;
+  totalConfirmedRabies = signal<number>(0);
+  getTotalConfirmedrRabiesByAccount(id: number) {
+    this._dashboardS.getTotalRabiesSubmissionbyAccount(id).subscribe((res: any) => {
+      this.totalConfirmedRabies.set(res.diagnosis);
+    });
+  }
+  getTotalConfirmedRabiesCountAll() {
+    this._dashboardS.getAllCountRabiesPositive().subscribe((res: any) => {
+      this.totalConfirmedRabies.set(res.diagnosis);
+    });
   }
   ifAbtc() {
     forkJoin([
@@ -142,15 +150,16 @@ export class DashboardComponent implements OnInit {
         this.pieGraph.set(true);
       }, 2000);
     } else if (this._authS.userInfo?.accountType === 'agri') {
-      this.getTotalConfirmedrRabies();
       this.getTotalVaccinated(this.accountID);
       this.getTotalRabiesSubmissionbyAccount();
+      this.getTotalConfirmedRabiesCountAll();
       this.ifAgri();
       setTimeout(() => {
         this.pieGraph.set(true);
       }, 2000);
     } else if (this._authS.userInfo?.accountType === 'lab') {
       this.getTotalRabiesSubmissionbyAccount();
+      this.getTotalConfirmedrRabiesByAccount(Number(this.accountID));
     }
   }
 }

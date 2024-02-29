@@ -24,6 +24,7 @@ import { RabiessubmissionserviceService } from '../../services/rabiessubmissions
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { AlertService } from '../../../../core/services/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment.development';
 
 export interface RabiesSample {
   id: number;
@@ -60,7 +61,7 @@ export class AddRabiesSubmissionComponent implements OnInit {
   _alertS = inject(AlertService)
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllMethod = new EventEmitter<Subscription>();
-  themeColor = 'bg-green-600 hover:bg-green-800';
+  themeColor = localStorage.getItem(environment.theme);
   behaviorChanges: RabiesSample[] = [
     { id: 1, name: 'Restlessness', value: 'Restlessness', isChecked: false },
     {
@@ -212,7 +213,7 @@ export class AddRabiesSubmissionComponent implements OnInit {
       locationofBite: ['', Validators.required],
       siteOfExposureOther: [''],
       locationofBiteOther: [''],
-      otherVictim: [''],
+      otherVictims: [''],
       treatmentRecieved: ['', Validators.required],
       treatmentRecievedOther: [''],
       treatmentRecievedType: ['', Validators.required],
@@ -258,7 +259,6 @@ export class AddRabiesSubmissionComponent implements OnInit {
     if(this.arrayofIllness.length == 0) {
       this.arrayofIllness.push('None');
     }
-    console.log(this.arrayofDescription, this.arrayofIllness)
     this.subsciption.add(
       this._rabiesSampleS.addRabiesSampleSubmission(this.rabiesSampleForm.value, this.arrayofDescription, this.arrayofIllness)
       .pipe(

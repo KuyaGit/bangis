@@ -3,6 +3,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { Rabiessubmissioninterface } from '../models/rabiessubmissioninterface';
+import { Labresultinterface } from '../models/labresultinterface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,12 @@ export class RabiessubmissionserviceService {
 
   addRabiesSampleSubmission(data: any, behaviorChanges : any, otherIllness: any): Observable<any> {
     return this.http.post(`${this.url}/rabiessample`, { data, behaviorChanges, otherIllness })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  addRabiesResult(data: Labresultinterface): Observable<any> {
+    return this.http.post(`${this.url}/rabiessample/add/result`, data)
       .pipe(
         catchError(this.handleError)
       );

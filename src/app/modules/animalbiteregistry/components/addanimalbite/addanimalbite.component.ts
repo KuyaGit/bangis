@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject, signal } from '@angular/core';
 import { DatePickerComponent } from '../../../../core/components/date-picker/date-picker.component';
 import {
   FormBuilder,
@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, catchError } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AlertService } from '../../../../core/services/alert.service';
 import { HumanvaccineService } from '../../../humanvacination/services/humanvaccine.service';
@@ -17,6 +17,8 @@ import { HVacModel } from '../../../humanvacination/models/hvac.interface';
 import { AnimalbiteService } from '../../services/animalbite.service';
 import { AdddatabtnComponent } from '../../../../core/components/adddatabtn/adddatabtn.component';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
+import { environment } from '../../../../../environments/environment.development';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-addanimalbite',
@@ -44,6 +46,8 @@ export class AddanimalbiteComponent implements OnInit {
   _auth = inject(AuthService);
   _aBitevac = inject(AnimalbiteService);
   accountID = this._auth.userInfo?.id;
+  themeColor = localStorage.getItem(environment.theme)
+  subsciption : Subscription = new Subscription();
   constructor() {
     this.animalBiteForm = this.fb.group({
       animalBiteIDFrom: this.accountID,
@@ -76,19 +80,41 @@ export class AddanimalbiteComponent implements OnInit {
     });
   }
 
-
-  addAnimalBiteObservable!: Observable<any>;
+  isLoadingButton = signal<boolean>(false);
   addAnimalBite() {
+    this.isLoadingButton.set(true);
     const formValue = this.animalBiteForm.value;
-    // Loop through form controls with 'date' in their name and convert them to ISO strings if they have values
     Object.keys(formValue).forEach(key => {
       if (key.startsWith('date')) {
         formValue[key] = formValue[key] ? new Date(formValue[key]).toISOString() : null;
       }
-    });
-
-    this.addAnimalBiteObservable = this._aBitevac.postPatientInfo(formValue);
+    })
+    this.subsciption.add(
+      // Loop through form controls with 'date' in their name and convert them to ISO strings if they have values
+      this._aBitevac.postPatientInfo(formValue)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 400) {
+            this.isLoadingButton.set(false);
+            this._alert.handleError(error.error['message']);
+            this.closemodaladd();
+          }
+          throw error; // rethrow the error to continue handling it in the subscribe block
+        })
+      ).subscribe((res: any) => {
+          this.isLoadingButton.set(false);
+          if(res.AnimalBiteId) {
+            this.animalBiteForm.reset()
+            this.isLoadingButton.set(false);
+            this.emitGetAll();
+            this.closemodaladd();
+            this._alert.handleSuccess('Successfully Added');
+          }
+      })
+    );
   }
+
+
 
   closemodaladd() {
     this.modalEvent.emit(false);
@@ -96,7 +122,7 @@ export class AddanimalbiteComponent implements OnInit {
 
   subscription: Subscription = new Subscription();
   emitGetAll() {
-    this.subscription.add(this.getAllMethod.emit(this.subscription));
+    this.getAllMethod.emit(this.subscription);
   }
   ngOnInit(): void {
     this._hvac

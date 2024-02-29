@@ -12,47 +12,77 @@ import { AlertService } from '../../../../core/services/alert.service';
 import { ViewAnimalinjectionComponent } from '../../../animalinjection/components/view-animalinjection/view-animalinjection.component';
 import { ViewrabiessampleComponent } from '../../components/viewrabiessample/viewrabiessample.component';
 import { Rabiessubmissioninterface } from '../../models/rabiessubmissioninterface';
+import { ClinicallabresultComponent } from '../../components/clinicallabresult/clinicallabresult.component';
+import { Labresultinterface } from '../../models/labresultinterface';
 
 @Component({
   selector: 'app-rabiessubmissionlist',
   standalone: true,
-  imports: [FullPageLoaderComponent, ExportexcelbtnComponent, AddRabiesSubmissionComponent, CommonModule, ViewrabiessampleComponent],
+  imports: [
+    FullPageLoaderComponent,
+    ExportexcelbtnComponent,
+    AddRabiesSubmissionComponent,
+    CommonModule,
+    ViewrabiessampleComponent,
+    ClinicallabresultComponent,
+  ],
   templateUrl: './rabiessubmissionlist.component.html',
-  styleUrl: './rabiessubmissionlist.component.scss'
+  styleUrl: './rabiessubmissionlist.component.scss',
 })
-export class RabiessubmissionlistComponent implements OnInit{
-  modalAddRabiesSubmission= signal<boolean>(false);
-  themeColor = localStorage.getItem(environment.theme)
+export class RabiessubmissionlistComponent implements OnInit {
+  modalAddRabiesSubmission = signal<boolean>(false);
+  themeColor = localStorage.getItem(environment.theme);
   subscription = new Subscription();
-  fileName = 'rabies_submission_list.xlsx'
-  _authS = inject(AuthService)
+  fileName = 'rabies_submission_list.xlsx';
+  _authS = inject(AuthService);
   _rabiesS = inject(RabiessubmissionserviceService);
   _alertS = inject(AlertService);
-  accountID = this._authS.userInfo?.id
+  accountID = this._authS.userInfo?.id;
 
   modalViewRabiesSample = signal<boolean>(false);
-  information !: Rabiessubmissioninterface;
+  modalClinicalLabResult = signal<boolean>(false);
+  information!: Rabiessubmissioninterface | Labresultinterface;
   openViewRabiesSampleModal(id: number) {
-    this._rabiesS.getRabiesSampleSubmissionById(id).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          this._alertS.handleError('Rabies Sample not found');
-        }
-        throw error;
-      })
-    ).subscribe((res: any) => {
-      this.information = res;
-      this.modalViewRabiesSample.set(true);
-    });
+    this._rabiesS
+      .getRabiesSampleSubmissionById(id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            this._alertS.handleError('Rabies Sample not found');
+          }
+          throw error;
+        })
+      )
+      .subscribe((res: any) => {
+        this.information = res;
+        this.modalViewRabiesSample.set(true);
+      });
+  }
+  openClinicalLabUpdate(id: number) {
+    this._rabiesS
+      .getRabiesSampleSubmissionById(id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            this._alertS.handleError('Rabies Sample not found');
+          }
+          throw error;
+        })
+      )
+      .subscribe((res: any) => {
+        this.information = res;
+        this.modalClinicalLabResult.set(true);
+      });
   }
   openAddRabiesSubmissionModal() {
     this.modalAddRabiesSubmission.set(true);
   }
-
   getAllRabiesSubmission() {
-      this._rabiesS.getAllRabiesSampleSubmissionByAccount(Number(this.accountID)).subscribe((res: any) => {
+    this._rabiesS
+      .getAllRabiesSampleSubmissionByAccount(Number(this.accountID))
+      .subscribe((res: any) => {
         this._rabiesS.rabiesList.set(res);
-      })
+      });
   }
   ngOnInit(): void {
     this.getAllRabiesSubmission();

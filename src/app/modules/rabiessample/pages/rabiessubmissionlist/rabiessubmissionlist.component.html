@@ -83,7 +83,7 @@
             <button class="btn btn-square btn-sm ml-1" (click)="openViewRabiesSampleModal(rabies.id)">
               <i class="fa-solid fa-eye"></i>
             </button>
-            <button class="btn btn-square btn-sm ml-1">
+            <button class="btn btn-square btn-sm ml-1" (click)="openClinicalLabUpdate(rabies.id)">
               <i class="fa-solid fa-edit"></i>
             </button>
             <button class="btn btn-square btn-sm ml-1">
@@ -113,4 +113,10 @@
     (getAllMethod)="this.getAllRabiesSubmission()"
     [information]="this.information"
     />
+} @else if (modalClinicalLabResult()) {
+  <app-clinicallabresult *ngIf="this.information"
+    (modalEvent)="this.modalClinicalLabResult.set($event)"
+    (getAllMethod)="this.getAllRabiesSubmission()"
+    [information]="this.information"
+  />
 }

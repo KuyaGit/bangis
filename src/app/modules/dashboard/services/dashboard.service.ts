@@ -58,4 +58,10 @@ export class DashboardService {
     return this.http.get(`${this.url}/animalvacinated/vaccinated/count`)
   }
 
+  getAllCountRabiesPositive() : Observable<any> {
+    return this.http.get(`${this.url}/rabiessample/confirmed/rabies/count`)
+  }
+  getAllCountRabiesPositiveByAccount(id: number) : Observable<any> {
+    return this.http.get(`${this.url}/rabiessample/confirmed/rabies/count/${id}`)
+  }
 }

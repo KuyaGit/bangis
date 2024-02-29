@@ -295,7 +295,7 @@
                       </div>
                       <input
                         type="date"
-                        formControlName="otherDateofVaccination"
+                        formControlName="dateofLastvaccination"
                         class="input input-bordered w-full"
                       />
                     </label>
@@ -783,7 +783,7 @@
                     </div>
                     <input
                       type="text"
-                      formControlName="otherVictim"
+                      formControlName="otherVictims"
                       placeholder="Type Here"
                       class="input input-bordered w-full"
                       ngDis
@@ -817,7 +817,7 @@
                     </label>
                   </div>
                 </div>
-                <div>
+                <div *ngIf="rabiesSampleForm.controls['treatmentRecieved'].value == 'Others'">
                   <div class="sm:flex sm:items-center w-full">
                     <label class="form-control w-full">
                       <div class="label">
@@ -825,7 +825,7 @@
                       </div>
                       <input
                         type="text"
-                        formControlName="treatmentRecieved"
+                        [formControlName]="rabiesSampleForm.controls['treatmentRecievedOther'].value === 'Others' ? 'treatmentRecieved' : 'treatmentRecievedOther'"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
                         ngDis
