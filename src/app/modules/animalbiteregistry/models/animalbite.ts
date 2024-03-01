@@ -1,5 +1,5 @@
 export interface AnimalbiteInterface {
-  id: number,
+  AnimalBiteId: number,
   animalBiteIDFrom : number
   // Patient Information
   patientName : string

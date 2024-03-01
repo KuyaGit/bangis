@@ -30,6 +30,12 @@ export class AnimalbiteService {
         catchError(this.handleError)
         );
   }
+  getAnimalBiteById(id: number): Observable<AnimalbiteInterface> {
+    return this.http.get<AnimalbiteInterface>(`${environment.baseUrl}/animalbite/view/${id}`)
+  }
+  update(id: number, data: AnimalbiteInterface) : Observable<AnimalbiteInterface> {
+    return this.http.put<AnimalbiteInterface>(`${environment.baseUrl}/animalbite/update/${id}`, data)
+  }
   private handleError(error: HttpErrorResponse) {
     console.error(error);
     return throwError(() => error);

@@ -51,16 +51,14 @@ export class AnimalbitelistComponent implements OnInit {
   subsciption: Subscription = new Subscription();
   accountID = this._auth.userInfo?.id;
   themeColor = localStorage.getItem(environment.theme)?.toString();
-  loadingColor = this._auth.loadingColor()
+  loadingColor = this._auth.loadingColor();
   // Methods
   getAllAnimalBite() {
     if (this._auth.userInfo?.accountType === 'agri') {
       this.subsciption.add(
-        this._animalbite
-          .getAllPatient()
-          .subscribe((res) => {
-            this._animalbite.aniList.set(res);
-          })
+        this._animalbite.getAllPatient().subscribe((res) => {
+          this._animalbite.aniList.set(res);
+        })
       );
     } else {
       this.subsciption.add(
@@ -74,10 +72,16 @@ export class AnimalbitelistComponent implements OnInit {
   }
 
   openViewModal(id: number) {
-    this.modalView.set(true);
+    this._animalbite.getAnimalBiteById(id).subscribe((res) => {
+      this.animalBiteInfo = res;
+      this.modalView.set(true);
+    });
   }
   openEditModal(id: number) {
-    this.modalEdit.set(true);
+    this._animalbite.getAnimalBiteById(id).subscribe((res) => {
+      this.animalBiteInfo = res;
+      this.modalEdit.set(true);
+    });
   }
   delete(id: number) {
     console.log(id);

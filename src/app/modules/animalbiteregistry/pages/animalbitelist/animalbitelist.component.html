@@ -93,7 +93,7 @@
 @if (modalAdd()) {
 <app-addanimalbite
   (modalEvent)="this.modalAdd.set($event)"
-  (getAllUsersMethod)="getAllAnimalBite()"
+  (getAllMethod)="getAllAnimalBite()"
 />
 } @else if (modalView()) {
 <app-viewanimalbite
@@ -105,5 +105,6 @@
 <app-editanimalbite
   (modalEvent)="this.modalEdit.set($event)"
   (getAllMethod)="getAllAnimalBite()"
+  [animalBiteInfo]="animalBiteInfo"
 />
 }

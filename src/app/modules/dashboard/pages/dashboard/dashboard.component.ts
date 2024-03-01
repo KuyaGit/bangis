@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit {
   }
   totalConfirmedRabies = signal<number>(0);
   getTotalConfirmedrRabiesByAccount(id: number) {
-    this._dashboardS.getTotalRabiesSubmissionbyAccount(id).subscribe((res: any) => {
+    this._dashboardS.getAllCountRabiesPositiveByAccount(id).subscribe((res: any) => {
       this.totalConfirmedRabies.set(res.diagnosis);
     });
   }
