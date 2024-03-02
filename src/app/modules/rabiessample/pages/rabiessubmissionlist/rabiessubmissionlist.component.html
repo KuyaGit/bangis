@@ -42,7 +42,6 @@
           <th class="py-1">Species</th>
           <th class="py-1">Breed</th>
           <th class="py-1">Type of Ownership</th>
-          <th class="py-1">Treatment Received</th>
           <th class="py-1">Action</th>
         </tr>
       </thead>
@@ -73,12 +72,6 @@
               {{ rabies.typeOfOwnership }}
             </div>
           </td>
-          <td>
-            <div class="flex flex-row justify-center items-center p-1">
-              {{ rabies.treatmentRecieved }}
-            </div>
-          </td>
-
           <td class="w-10 flex">
             <button class="btn btn-square btn-sm ml-1" (click)="openViewRabiesSampleModal(rabies.id)">
               <i class="fa-solid fa-eye"></i>
