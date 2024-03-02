@@ -20,7 +20,7 @@ import { HumanvaccineService } from '../../../humanvacination/services/humanvacc
 import { AuthService } from '../../../../core/services/auth.service';
 import { AnimalbiteService } from '../../services/animalbite.service';
 import { environment } from '../../../../../environments/environment.development';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -33,6 +33,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     CommonModule,
     LoadingbuttonComponent,
   ],
+  providers: [DatePipe],
   templateUrl: './editanimalbite.component.html',
   styleUrl: './editanimalbite.component.scss',
 })
@@ -51,10 +52,11 @@ export class EditanimalbiteComponent implements OnInit {
   themeColor = localStorage.getItem(environment.theme);
   subsciption: Subscription = new Subscription();
   isLoadingButton = signal<boolean>(false);
+  animalBiteId: number = 0;
   constructor() {
     this.animalBiteForm = this._fb.group({
-      animalBiteIDFrom: this.accountID,
-      animalbiteId: [],
+      // animalBiteFrom: this.accountID,
+      AnimalBiteId: [],
       patientName: [{ value: '', disabled: true }],
       Address: [{ value: '', disabled: true }],
       age: [{ value: '', disabled: true }],
@@ -85,11 +87,14 @@ export class EditanimalbiteComponent implements OnInit {
   }
 
   updateAnimalBite() {
+    const formValue = this.animalBiteForm.value;
+    Object.keys(formValue).forEach(key => {
+      if (key.startsWith('date')) {
+        formValue[key] = formValue[key] ? new Date(formValue[key]).toISOString() : null;
+      }
+    })
     this._aBitevac
-      .update(
-        this.animalBiteForm.get('animalBiteId')?.value,
-        this.animalBiteForm.value
-      )
+      .update(this.animalBiteId, formValue)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           if (err.status === 400) {
@@ -108,6 +113,7 @@ export class EditanimalbiteComponent implements OnInit {
 
   ngOnInit(): void {
     this.animalBiteForm.patchValue(this.animalBiteInfo);
+    this.animalBiteId = this.animalBiteInfo.AnimalBiteId;
     this._hvac
       .getAllHumanVaccineByAccount(this._auth.userInfo?.id)
       .subscribe((res: any) => {

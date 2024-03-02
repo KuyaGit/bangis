@@ -86,7 +86,7 @@ export class AddanimalbiteComponent implements OnInit {
     const formValue = this.animalBiteForm.value;
     Object.keys(formValue).forEach(key => {
       if (key.startsWith('date')) {
-        formValue[key] = formValue[key] ? new Date(formValue[key]).toISOString() : null;
+        formValue[key] = formValue[key] ? new Date(formValue[key]).toISOString() : '';
       }
     })
     this.subsciption.add(

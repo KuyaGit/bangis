@@ -288,82 +288,156 @@
                   </label>
                 </div>
               </div>
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">D3 </span>
-                    </div>
-                    <input
-                      type="text"
-                      [value]="
-                        animalBiteForm.get('dateOfSecondVaccine')?.value
-                          | date : 'MMM, dd, yyyy'
-                      "
-                      placeholder="D3"
-                      class="input input-bordered w-full"
-                      disabled
-                    />
-                  </label>
+              @if (animalBiteInfo.dateSecondVaccine === null){
+                <div>
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">D3 </span>
+                      </div>
+                      <input
+                        type="date"
+                        placeholder="D3"
+                        class="input input-bordered w-full"
+                        formControlName="dateOfSecondVaccine"
+                      />
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">D7 </span>
-                    </div>
-                    <input
-                      type="text"
-                      [value]="
-                        animalBiteForm.get('dateOfThirdVaccine')?.value
-                          | date : 'MMM, dd, yyyy'
-                      "
-                      placeholder="D7"
-                      class="input input-bordered w-full"
-                      disabled
-                    />
-                  </label>
+              } @else {
+                <div>
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">D3 </span>
+                      </div>
+                      <input
+                        type="text"
+                        [value]="
+                          animalBiteForm.get('dateOfSecondVaccine')?.value
+                            | date : 'MMM, dd, yyyy'
+                        "
+                        placeholder="D3"
+                        class="input input-bordered w-full"
+                        disabled
+                      />
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">D14(1M)</span>
-                    </div>
-                    <input
-                      type="text"
-                      [value]="
-                        animalBiteForm.get('dateOfFourthVaccine')?.value
-                          | date : 'MMM, dd, yyyy'
-                      "
-                      placeholder="D14(1M)"
-                      class="input input-bordered w-full"
-                      disabled
-                    />
-                  </label>
+              }
+              @if (!animalBiteInfo.dateOfSecondVaccine){
+                <div>
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">D7 </span>
+                      </div>
+                      <input
+                        type="date"
+                        placeholder="D3"
+                        class="input input-bordered w-full"
+                        formControlName="dateOfThirdVaccine"
+                      />
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">D28</span>
-                    </div>
-                    <input
-                      type="text"
-                      [value]="
-                        animalBiteForm.get('dateOfFifthVaccine')?.value
-                          | date : 'MMM, dd, yyyy'
-                      "
-                      placeholder="D28"
-                      class="input input-bordered w-full"
-                      disabled
-                    />
-                  </label>
+              } @else {
+                <div>
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">D7 </span>
+                      </div>
+                      <input
+                        type="text"
+                        [value]="
+                          animalBiteForm.get('dateOfThirdVaccine')?.value
+                            | date : 'MMM, dd, yyyy'
+                        "
+                        placeholder="D7"
+                        class="input input-bordered w-full"
+                        disabled
+                      />
+                    </label>
+                  </div>
                 </div>
-              </div>
+              }
+              @if (!animalBiteInfo.dateOfThirdVaccine) {
+                <div>
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">D14(1M) </span>
+                      </div>
+                      <input
+                        type="date"
+                        placeholder="D3"
+                        class="input input-bordered w-full"
+                        formControlName="dateOfFourthVaccine"
+                      />
+                    </label>
+                  </div>
+                </div>
+              } @else {
+                <div>
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">D7 </span>
+                      </div>
+                      <input
+                        type="text"
+                        [value]="
+                          animalBiteForm.get('dateOfThirdVaccine')?.value
+                            | date : 'MMM, dd, yyyy'
+                        "
+                        placeholder="D7"
+                        class="input input-bordered w-full"
+                        disabled
+                      />
+                    </label>
+                  </div>
+                </div>
+              }
+              @if (!animalBiteInfo.dateOfFourthVaccine) {
+                <div>
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">D28 </span>
+                      </div>
+                      <input
+                        type="date"
+                        placeholder="D3"
+                        class="input input-bordered w-full"
+                        formControlName="dateOfFifthVaccine"
+                      />
+                    </label>
+                  </div>
+                </div>
+              }
+              @else {
+                <div>
+                  <div class="sm:flex sm:items-center w-full">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">D28 </span>
+                      </div>
+                      <input
+                        type="text"
+                        [value]="
+                          animalBiteForm.get('dateFifthVaccine')?.value
+                            | date : 'MMM, dd, yyyy'
+                        "
+                        placeholder="D28"
+                        class="input input-bordered w-full"
+                        disabled
+                      />
+                    </label>
+                  </div>
+                </div>
+              }
+
             </div>
             <h1
               class="text-2xl flex items-start font-extrabold text-slate-600 mb-2 mt-4"
@@ -396,7 +470,7 @@
                   </label>
                 </div>
               </div>
-              @if (animalBiteForm.get('brandNameFirstVaccine')?.value)
+              @if (animalBiteInfo.brandNameFirstVaccine)
               {
               <div>
                 <div class="sm:flex sm:items-center w-full">
