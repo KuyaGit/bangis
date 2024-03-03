@@ -50,7 +50,7 @@ export class EditanimalbiteComponent implements OnInit {
   _aBitevac = inject(AnimalbiteService);
   accountID = this._auth.userInfo?.id;
   themeColor = localStorage.getItem(environment.theme);
-  subsciption: Subscription = new Subscription();
+  subscription: Subscription = new Subscription();
   isLoadingButton = signal<boolean>(false);
   animalBiteId: number = 0;
   constructor() {
@@ -107,11 +107,72 @@ export class EditanimalbiteComponent implements OnInit {
         if (res) {
           this._alert.handleSuccess('Vaccine Updated Successfully');
           this.animalBiteForm.reset();
+          this.modalEvent.emit(false);
+
         }
       });
   }
-
+  emitGetAll() {
+    this.getAllMethod.emit(this.subscription);
+  }
+  hasFirstVaccine : boolean = false
+  hasSecondVaccine : boolean = false
+  hasThirdVaccine : boolean = false
+  hasFourthVaccine : boolean = false
+  hasFifthVaccine : boolean = false
+  date1st: string = ''
+  getFirstVaccine(){
+    let firstVac: string = this.animalBiteInfo.dateOfFirstVaccine
+    if(firstVac && firstVac !== null) {
+      this.hasFirstVaccine = true
+      this.date1st = firstVac
+    }
+    else{
+      this.hasFirstVaccine = false
+    }
+  }
+  getSecondVaccine() {
+    let secondVac: string = this.animalBiteInfo.dateOfSecondVaccine
+    if(secondVac && secondVac !== null) {
+      this.hasSecondVaccine = true
+    }
+    else{
+      this.hasSecondVaccine = false
+    }
+  }
+  getThirdVaccine() {
+    let thirdVac: string = this.animalBiteInfo.dateOfThirdVaccine
+    if(thirdVac && thirdVac !== null) {
+      this.hasThirdVaccine = true
+    }
+    else{
+      this.hasThirdVaccine = false
+    }
+  }
+  getFourthVaccine(){
+    let fourthVac: string = this.animalBiteInfo.dateOfFourthVaccine
+    if(fourthVac && fourthVac !== null) {
+      this.hasFourthVaccine = true
+    }
+    else{
+      this.hasFourthVaccine = false
+    }
+  }
+  getFifthVac() {
+    let fiftVac = this.animalBiteInfo.dateOfFifthVaccine
+    if(fiftVac && fiftVac !== null) {
+      this.hasFifthVaccine = true
+    }
+    else{
+      this.hasFifthVaccine = false
+    }
+  }
   ngOnInit(): void {
+    this.getFirstVaccine()
+    this.getSecondVaccine()
+    this.getThirdVaccine()
+    this.getFourthVaccine()
+    this.getFifthVac()
     this.animalBiteForm.patchValue(this.animalBiteInfo);
     this.animalBiteId = this.animalBiteInfo.AnimalBiteId;
     this._hvac
