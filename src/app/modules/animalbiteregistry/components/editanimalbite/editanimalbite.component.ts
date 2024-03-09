@@ -8,6 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -85,14 +86,110 @@ export class EditanimalbiteComponent implements OnInit {
       remarks: [{ value: '', disabled: true }],
     });
   }
-
+  get form(): { [key: string]: AbstractControl } {
+    return this.animalBiteForm.controls;
+  }
+  isBrandSecondRequired: boolean = false;
+  isBrandThirdRequired: boolean = false;
+  isBrandFourthRequired: boolean = false;
+  isBrandFifthRequired: boolean = false;
   updateAnimalBite() {
-    const formValue = this.animalBiteForm.value;
-    Object.keys(formValue).forEach(key => {
-      if (key.startsWith('date')) {
-        formValue[key] = formValue[key] ? new Date(formValue[key]).toISOString() : null;
+    if (
+      this.hasFirstVaccine &&
+      !this.hasSecondVaccine &&
+      !this.hasThirdVaccine &&
+      !this.hasFourthVaccine &&
+      !this.hasFifthVaccine
+    ) {
+      console.log('has first vaccine need update 2nd vaccine');
+      if (!this.animalBiteForm.controls['brandNameSecondVaccine'].value) {
+        this._alert.handleError(
+          'Please provide the brand name of the second vaccine'
+        );
+        this.isBrandSecondRequired = true;
+      } else {
+        this.update();
       }
-    })
+    } else if (
+      this.hasFirstVaccine &&
+      this.hasSecondVaccine &&
+      !this.hasThirdVaccine &&
+      !this.hasFourthVaccine &&
+      !this.hasFifthVaccine
+    ) {
+      if (this.animalBiteForm.get('brandNameThirdVaccine')?.value == null) {
+        this._alert.handleError(
+          'Please provide the brand name of the third vaccine'
+        );
+        this.isBrandThirdRequired = true;
+      } else {
+        this.update();
+      }
+    } else if (
+      this.hasFirstVaccine &&
+      this.hasSecondVaccine &&
+      this.hasThirdVaccine &&
+      !this.hasFourthVaccine
+    ) {
+      if (!this.animalBiteForm.controls['brandNameFourthVaccine'].value) {
+        this._alert.handleError(
+          'Please provide the brand name of the fourth vaccine'
+        );
+        this.isBrandFourthRequired = true;
+      } else {
+        const formValue = this.animalBiteForm.value;
+        Object.keys(formValue).forEach((key) => {
+          if (key.startsWith('date')) {
+            formValue[key] = formValue[key]
+              ? new Date(formValue[key]).toISOString()
+              : null;
+          }
+        });
+        this._aBitevac
+          .update(this.animalBiteId, formValue)
+          .pipe(
+            catchError((err: HttpErrorResponse) => {
+              if (err.status === 400) {
+                this._alert.handleError(err.error['message']);
+              }
+              throw err; // rethrow the error to continue handling it in the subscribe block
+            })
+          )
+          .subscribe((res: any) => {
+            if (res) {
+              this._alert.handleSuccess('Vaccine Updated Successfully');
+              this.animalBiteForm.reset();
+              this.modalEvent.emit(false);
+            }
+          });
+      }
+    } else if (
+      this.hasFirstVaccine &&
+      this.hasSecondVaccine &&
+      this.hasThirdVaccine &&
+      this.hasFourthVaccine
+    ) {
+      if (this.animalBiteForm.controls['brandNameFifthVaccine'].value == null) {
+        this._alert.handleError(
+          'Please provide the brand name of the fifth vaccine'
+        );
+        this.isBrandFifthRequired = true;
+      } else {
+        this.update();
+      }
+    } else {
+      this._alert.handleError('You dont have any changes to update');
+    }
+  }
+  update() {
+    const formValue = this.animalBiteForm.value;
+    Object.keys(formValue).forEach((key) => {
+      if (key.startsWith('date')) {
+        formValue[key] = formValue[key]
+          ? new Date(formValue[key]).toISOString()
+          : null;
+      }
+    });
     this._aBitevac
       .update(this.animalBiteId, formValue)
       .pipe(
@@ -108,71 +205,66 @@ export class EditanimalbiteComponent implements OnInit {
           this._alert.handleSuccess('Vaccine Updated Successfully');
           this.animalBiteForm.reset();
           this.modalEvent.emit(false);
-
         }
       });
   }
   emitGetAll() {
     this.getAllMethod.emit(this.subscription);
   }
-  hasFirstVaccine : boolean = false
-  hasSecondVaccine : boolean = false
-  hasThirdVaccine : boolean = false
-  hasFourthVaccine : boolean = false
-  hasFifthVaccine : boolean = false
-  date1st: string = ''
-  getFirstVaccine(){
-    let firstVac: string = this.animalBiteInfo.dateOfFirstVaccine
-    if(firstVac && firstVac !== null) {
-      this.hasFirstVaccine = true
-      this.date1st = firstVac
-    }
-    else{
-      this.hasFirstVaccine = false
+  hasFirstVaccine: boolean = false;
+  hasSecondVaccine: boolean = false;
+  hasThirdVaccine: boolean = false;
+  hasFourthVaccine: boolean = false;
+  hasFifthVaccine: boolean = false;
+  date1st: string = '';
+  getFirstVaccine() {
+    let firstVac: string = this.animalBiteInfo.dateOfFirstVaccine;
+    if (firstVac && firstVac !== null) {
+      this.hasFirstVaccine = true;
+      this.date1st = firstVac;
+    } else {
+      this.hasFirstVaccine = false;
     }
   }
   getSecondVaccine() {
-    let secondVac: string = this.animalBiteInfo.dateOfSecondVaccine
-    if(secondVac && secondVac !== null) {
-      this.hasSecondVaccine = true
-    }
-    else{
-      this.hasSecondVaccine = false
+    let secondVac: string = this.animalBiteInfo.dateOfSecondVaccine;
+    if (secondVac && secondVac !== null) {
+      this.hasSecondVaccine = true;
+    } else {
+      this.hasSecondVaccine = false;
     }
   }
   getThirdVaccine() {
-    let thirdVac: string = this.animalBiteInfo.dateOfThirdVaccine
-    if(thirdVac && thirdVac !== null) {
-      this.hasThirdVaccine = true
-    }
-    else{
-      this.hasThirdVaccine = false
+    let thirdVac: string = this.animalBiteInfo.dateOfThirdVaccine;
+    if (thirdVac && thirdVac !== null) {
+      this.hasThirdVaccine = true;
+    } else {
+      this.hasThirdVaccine = false;
     }
   }
-  getFourthVaccine(){
-    let fourthVac: string = this.animalBiteInfo.dateOfFourthVaccine
-    if(fourthVac && fourthVac !== null) {
-      this.hasFourthVaccine = true
-    }
-    else{
-      this.hasFourthVaccine = false
+  getFourthVaccine() {
+    let fourthVac: string = this.animalBiteInfo.dateOfFourthVaccine;
+    if (fourthVac && fourthVac !== null) {
+      this.hasFourthVaccine = true;
+    } else {
+      this.hasFourthVaccine = false;
     }
   }
   getFifthVac() {
-    let fiftVac = this.animalBiteInfo.dateOfFifthVaccine
-    if(fiftVac && fiftVac !== null) {
-      this.hasFifthVaccine = true
-    }
-    else{
-      this.hasFifthVaccine = false
+    let fiftVac = this.animalBiteInfo.dateOfFifthVaccine;
+    if (fiftVac && fiftVac !== null) {
+      this.hasFifthVaccine = true;
+    } else {
+      this.hasFifthVaccine = false;
     }
   }
+
   ngOnInit(): void {
-    this.getFirstVaccine()
-    this.getSecondVaccine()
-    this.getThirdVaccine()
-    this.getFourthVaccine()
-    this.getFifthVac()
+    this.getFirstVaccine();
+    this.getSecondVaccine();
+    this.getThirdVaccine();
+    this.getFourthVaccine();
+    this.getFifthVac();
     this.animalBiteForm.patchValue(this.animalBiteInfo);
     this.animalBiteId = this.animalBiteInfo.AnimalBiteId;
     this._hvac
@@ -180,5 +272,12 @@ export class EditanimalbiteComponent implements OnInit {
       .subscribe((res: any) => {
         this._hvac.HVacs.set(res);
       });
+    console.log(
+      this.hasFirstVaccine,
+      this.hasSecondVaccine,
+      this.hasThirdVaccine,
+      this.hasFourthVaccine,
+      this.hasFifthVaccine
+    );
   }
 }

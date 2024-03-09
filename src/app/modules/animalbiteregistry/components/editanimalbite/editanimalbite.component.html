@@ -296,7 +296,7 @@
                     </div>
                     <input
                       type="date"
-                      placeholder="D3"
+                      placeholder="None"
                       class="input input-bordered w-full"
                       formControlName="dateOfSecondVaccine"
                     />
@@ -316,7 +316,7 @@
                         animalBiteForm.get('dateOfSecondVaccine')?.value
                           | date : 'MMM, dd, yyyy'
                       "
-                      placeholder="D3"
+                      placeholder="None"
                       class="input input-bordered w-full"
                       disabled
                     />
@@ -324,21 +324,21 @@
                 </div>
               </div>
               } @if (hasSecondVaccine && !hasThirdVaccine){
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">D7 </span>
-                      </div>
-                      <input
-                        type="date"
-                        placeholder="D3"
-                        class="input input-bordered w-full"
-                        formControlName="dateOfThirdVaccine"
-                      />
-                    </label>
-                  </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D7 </span>
+                    </div>
+                    <input
+                      type="date"
+                      placeholder="None"
+                      class="input input-bordered w-full"
+                      formControlName="dateOfThirdVaccine"
+                    />
+                  </label>
                 </div>
+              </div>
               } @else if(hasThirdVaccine){
               <div>
                 <div class="sm:flex sm:items-center w-full">
@@ -352,7 +352,7 @@
                         animalBiteForm.get('dateOfThirdVaccine')?.value
                           | date : 'MMM, dd, yyyy'
                       "
-                      placeholder="D7"
+                      placeholder="None"
                       class="input input-bordered w-full"
                       disabled
                     />
@@ -360,27 +360,26 @@
                 </div>
               </div>
               } @else {
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">D7</span>
-                      </div>
-                      <input
-                        type="text"
-                        [value]="
-                          animalBiteForm.get('dateOfFourthVaccine')?.value
-                            | date : 'MMM, dd, yyyy'
-                        "
-                        placeholder="D7"
-                        class="input input-bordered w-full"
-                        disabled
-                      />
-                    </label>
-                  </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D7</span>
+                    </div>
+                    <input
+                      type="text"
+                      [value]="
+                        animalBiteForm.get('dateOfFourthVaccine')?.value
+                          | date : 'MMM, dd, yyyy'
+                      "
+                      placeholder="None"
+                      class="input input-bordered w-full"
+                      disabled
+                    />
+                  </label>
                 </div>
-              }
-              @if (hasThirdVaccine && !hasFourthVaccine) {
+              </div>
+              } @if (hasThirdVaccine && !hasFourthVaccine) {
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
@@ -389,7 +388,7 @@
                     </div>
                     <input
                       type="date"
-                      placeholder="D3"
+                      placeholder="None"
                       class="input input-bordered w-full"
                       formControlName="dateOfFourthVaccine"
                     />
@@ -397,56 +396,55 @@
                 </div>
               </div>
               } @else if(hasFourthVaccine){
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">D14(1M)</span>
-                      </div>
-                      <input
-                        type="text"
-                        [value]="
-                          animalBiteForm.get('dateOfFourthVaccine')?.value
-                            | date : 'MMM, dd, yyyy'
-                        "
-                        placeholder="D14(1M)"
-                        class="input input-bordered w-full"
-                        disabled
-                      />
-                    </label>
-                  </div>
-                </div>
-              } @else {
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">D14(1M)</span>
-                      </div>
-                      <input
-                        type="text"
-                        [value]="
-                          animalBiteForm.get('dateOfFourthVaccine')?.value
-                            | date : 'MMM, dd, yyyy'
-                        "
-                        placeholder="D14(1M)"
-                        class="input input-bordered w-full"
-                        disabled
-                      />
-                    </label>
-                  </div>
-                </div>
-              }
-              @if (hasFourthVaccine && !hasFifthVaccine) {
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">D28 </span>
+                      <span class="label-text">D14(1M)</span>
+                    </div>
+                    <input
+                      type="text"
+                      [value]="
+                        animalBiteForm.get('dateOfFourthVaccine')?.value
+                          | date : 'MMM, dd, yyyy'
+                      "
+                      placeholder="None"
+                      class="input input-bordered w-full"
+                      disabled
+                    />
+                  </label>
+                </div>
+              </div>
+              } @else {
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D14(1M)</span>
+                    </div>
+                    <input
+                      type="text"
+                      [value]="
+                        animalBiteForm.get('dateOfFourthVaccine')?.value
+                          | date : 'MMM, dd, yyyy'
+                      "
+                      placeholder="None"
+                      class="input input-bordered w-full"
+                      disabled
+                    />
+                  </label>
+                </div>
+              </div>
+              } @if (hasFourthVaccine && !hasFifthVaccine) {
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D28</span>
                     </div>
                     <input
                       type="date"
-                      placeholder="D3"
+                      placeholder="None"
                       class="input input-bordered w-full"
                       formControlName="dateOfFifthVaccine"
                     />
@@ -458,7 +456,7 @@
                 <div class="sm:flex sm:items-center `w-full">
                   <label class="form-control w-full">
                     <div class="label">
-                      <span class="label-text">D28 </span>
+                      <span class="label-text">D28</span>
                     </div>
                     <input
                       type="text"
@@ -466,7 +464,7 @@
                         animalBiteForm.get('dateOfFifthVaccine')?.value
                           | date : 'MMM, dd, yyyy'
                       "
-                      placeholder="D28"
+                      placeholder="None"
                       class="input input-bordered w-full"
                       disabled
                     />
@@ -474,25 +472,25 @@
                 </div>
               </div>
               } @else {
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">D28</span>
-                      </div>
-                      <input
-                        type="text"
-                        [value]="
-                          animalBiteForm.get('dateOfFourthVaccine')?.value
-                            | date : 'MMM, dd, yyyy'
-                        "
-                        placeholder="D28"
-                        class="input input-bordered w-full"
-                        disabled
-                      />
-                    </label>
-                  </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">D28</span>
+                    </div>
+                    <input
+                      type="text"
+                      [value]="
+                        animalBiteForm.get('dateOfFifthVaccine')?.value
+                          | date : 'MMM, dd, yyyy'
+                      "
+                      placeholder="None"
+                      class="input input-bordered w-full"
+                      disabled
+                    />
+                  </label>
                 </div>
+              </div>
               }
             </div>
             <h1
@@ -532,13 +530,23 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Second Vaccine Used</span>
+                      <span
+                        class="label-text text-error"
+                        *ngIf="isBrandSecondRequired"
+                        >Required</span>
                     </div>
                     <select
                       type="number"
                       class="select select-bordered w-full disabled"
                       formControlName="brandNameSecondVaccine"
                     >
-                      <option value="" disabled selected>Please Select</option>
+                      <option
+                        [value]="animalBiteInfo.brandNameSecondVaccine"
+                        disabled
+                        selected
+                      >
+                        Please Select
+                      </option>
                       <option
                         *ngFor="let item of _hvac.HVacs()"
                         [value]="+item.Hid"
@@ -561,32 +569,17 @@
                       class="select select-bordered w-full disabled"
                       disabled
                     >
-                    <option *ngFor="let item of _hvac.HVacs()" [value]="this.animalBiteInfo.brandNameSecondVaccine">
-                      {{ item.vacName }}
-                    </option>
+                      <option
+                        *ngFor="let item of _hvac.HVacs()"
+                        [value]="this.animalBiteInfo.brandNameSecondVaccine"
+                      >
+                        {{ item.vacName }}
+                      </option>
                     </select>
                   </label>
                 </div>
               </div>
               }@else {
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">Second Vaccine Used</span>
-                      </div>
-                      <select
-                        type="number"
-                        class="select select-bordered w-full"
-                        disabled
-                      >
-                        <option>None</option>
-                      </select>
-                    </label>
-                  </div>
-                </div>
-              }
-              @if (hasSecondVaccine && !hasThirdVaccine) {
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
@@ -595,11 +588,38 @@
                     </div>
                     <select
                       type="number"
+                      class="select select-bordered w-full"
+                      disabled
+                    >
+                      <option>None</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              } @if (hasSecondVaccine && !hasThirdVaccine) {
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Third Vaccine Used</span>
+                      <span
+                        class="label-text text-error"
+                        *ngIf="isBrandThirdRequired"
+                        >Required</span
+                      >
+                    </div>
+                    <select
                       class="select select-bordered w-full disabled"
                       formControlName="brandNameThirdVaccine"
                       placeholder="Please Select"
                     >
-                      <option value="" disabled selected>Please Select</option>
+                      <option
+                        [value]="animalBiteInfo.brandNameThirdVaccine"
+                        disabled
+                        selected
+                      >
+                        Please Select
+                      </option>
                       <option
                         *ngFor="let item of _hvac.HVacs()"
                         [value]="+item.Hid"
@@ -635,38 +655,45 @@
                   </label>
                 </div>
               </div>
-            }
-              @else {
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">Fifth Vaccine Used</span>
-                      </div>
-                      <select
-                        type="number"
-                        class="select select-bordered w-full"
-                        disabled
-                      >
-                        <option>None</option>
-                      </select>
-                    </label>
-                  </div>
+              } @else {
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Third Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full"
+                      disabled
+                    >
+                      <option>None</option>
+                    </select>
+                  </label>
                 </div>
-              }
-              @if (hasThirdVaccine && !hasFourthVaccine) {
+              </div>
+              } @if (hasThirdVaccine && !hasFourthVaccine) {
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Fourth Vaccine Used</span>
+                      <span
+                        class="label-text text-error"
+                        *ngIf="isBrandFourthRequired"
+                        >Required</span
+                      >
                     </div>
                     <select
-                      type="number"
                       class="select select-bordered w-full disabled"
                       formControlName="brandNameFourthVaccine"
                     >
-                      <option value="" disabled selected>Please Select</option>
+                      <option
+                        [value]="animalBiteInfo.brandNameFourthVaccine"
+                        selected
+                      >
+                        Please Select
+                      </option>
                       <option
                         *ngFor="let item of _hvac.HVacs()"
                         [value]="+item.Hid"
@@ -678,53 +705,65 @@
                 </div>
               </div>
               }@else if(hasFourthVaccine){
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">Fourth Vaccine Used</span>
-                      </div>
-                      <select
-                        type="number"
-                        class="select select-bordered w-full"
-                        disabled
-                      >
-                        <option *ngFor="let item of _hvac.HVacs()">{{item.vacName}}</option>
-                      </select>
-                    </label>
-                  </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Fourth Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full"
+                      disabled
+                    >
+                      <option *ngFor="let item of _hvac.HVacs()">
+                        {{ item.vacName }}
+                      </option>
+                    </select>
+                  </label>
                 </div>
-              }
-              @else{
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">Fourth Vaccine Used</span>
-                      </div>
-                      <select
-                        type="number"
-                        class="select select-bordered w-full"
-                        disabled
-                      >
-                        <option>None</option>
-                      </select>
-                    </label>
-                  </div>
+              </div>
+              } @else{
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Fourth Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full"
+                      disabled
+                    >
+                      <option>None</option>
+                    </select>
+                  </label>
                 </div>
+              </div>
               } @if (hasFourthVaccine && !hasFifthVaccine){
               <div>
                 <div class="sm:flex sm:items-center w-full">
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Fifth Vaccine Used</span>
+                      <span
+                        class="label-text text-error"
+                        *ngIf="animalBiteForm.controls['brandNameFifthVaccine'].errors?.['required']"
+                        >Required</span
+                      >
                     </div>
                     <select
                       type="number"
                       class="select select-bordered w-full"
                       formControlName="brandNameFifthVaccine"
                     >
-                      <option value="" disabled selected>Please Select</option>
+                      <option
+                        [value]="animalBiteInfo.brandNameFifthVaccine"
+                        disabled
+                        selected
+                      >
+                        Please Select
+                      </option>
                       <option
                         *ngFor="let item of _hvac.HVacs()"
                         [value]="+item.Hid"
@@ -745,7 +784,6 @@
                     <select
                       type="number"
                       class="select select-bordered w-full"
-
                       disabled
                     >
                       <option
@@ -759,29 +797,29 @@
                 </div>
               </div>
               } @else {
-                <div>
-                  <div class="sm:flex sm:items-center w-full">
-                    <label class="form-control w-full">
-                      <div class="label">
-                        <span class="label-text">Fifth Vaccine Used</span>
-                      </div>
-                      <select
-                        type="number"
-                        class="select select-bordered w-full"
-                        disabled
-                      >
-                        <option>None</option>
-                      </select>
-                    </label>
-                  </div>
+              <div>
+                <div class="sm:flex sm:items-center w-full">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Fifth Vaccine Used</span>
+                    </div>
+                    <select
+                      type="number"
+                      class="select select-bordered w-full"
+                      disabled
+                    >
+                      <option>None</option>
+                    </select>
+                  </label>
                 </div>
+              </div>
               }
             </div>
           </div>
 
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button
-              type="button"
+              type="submit"
               class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
               [ngClass]="themeColor"
               (click)="updateAnimalBite()"

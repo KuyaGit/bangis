@@ -10,7 +10,7 @@ import { AddanimalbiteComponent } from '../../components/addanimalbite/addanimal
 import { EditanimalbiteComponent } from '../../components/editanimalbite/editanimalbite.component';
 import { ViewanimalbiteComponent } from '../../components/viewanimalbite/viewanimalbite.component';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { AnimalbiteService } from '../../services/animalbite.service';
 import { HasRoleDirective } from '../../../../hasRole.directive';
 import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
@@ -57,6 +57,9 @@ export class AnimalbitelistComponent implements OnInit {
     if (this._auth.userInfo?.accountType === 'agri') {
       this.subsciption.add(
         this._animalbite.getAllPatient().subscribe((res) => {
+          res.sort((a, b)=> {
+            return a.AnimalBiteId - b.AnimalBiteId
+          })
           this._animalbite.aniList.set(res);
         })
       );
@@ -65,6 +68,9 @@ export class AnimalbitelistComponent implements OnInit {
         this._animalbite
           .getAllPatientsByAbtc(Number(this.accountID))
           .subscribe((res) => {
+            res.sort((a, b) => {
+              return a.AnimalBiteId - b.AnimalBiteId
+            });
             this._animalbite.aniList.set(res);
           })
       );

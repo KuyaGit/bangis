@@ -13,9 +13,14 @@
 
 .user-table {
   max-height: 70vh;
+  height: 70vh;
 }
 
 .table-body {
   overflow-y: auto;
   max-height: 70vh;
+}
+
+.card {
+  height: 80vh;
 }
