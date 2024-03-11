@@ -79,6 +79,18 @@ export const homeRoute: Route[] = [
     },
   },
   {
+    path: 'rabieslab',
+    title: 'Rabies Lab',
+    loadComponent: () =>
+      import('../labresults/pages/resulttable/resulttable.component').then(
+        (m) => m.ResulttableComponent
+      ),
+    canActivate: [hasRoleGuard],
+    data: {
+      roles: ['lab', 'agri'],
+    },
+  },
+  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
