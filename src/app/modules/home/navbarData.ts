@@ -41,10 +41,10 @@ export const navbarData = [
     icon: 'fa-solid fa-syringe',
     label: 'Rabies Samples',
   },
-  // {
-  //   appHasRole: ['lab', 'agri'],
-  //   routerLink: 'rabieslab',
-  //   icon: 'fa-solid fa-syringe',
-  //   label: 'Clinical Lab',
-  // }
+  {
+    appHasRole: ['lab', 'agri'],
+    routerLink: 'rabieslab',
+    icon: 'fa-solid fa-syringe',
+    label: 'Clinical Lab',
+  }
 ];
