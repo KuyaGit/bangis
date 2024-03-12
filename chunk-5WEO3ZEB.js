@@ -1,1 +1,0 @@
-import{Ya as a,Z as o,Za as r,hb as i,nb as s}from"./chunk-Y3XAB6BA.js";var m=(()=>{let e=class e{};e.\u0275fac=function(n){return new(n||e)},e.\u0275cmp=o({type:e,selectors:[["app-resulttable"]],standalone:!0,features:[s],decls:2,vars:0,template:function(n,p){n&1&&(a(0,"p"),i(1,"resulttable works!"),r())}});let t=e;return t})();export{m as ResulttableComponent};
