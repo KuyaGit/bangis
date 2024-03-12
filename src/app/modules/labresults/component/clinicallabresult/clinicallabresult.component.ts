@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject, signal } from '@angular/core';
-import { Rabiessubmissioninterface } from '../../models/rabiessubmissioninterface';
+import { Rabiessubmissioninterface } from '../../../rabiessample/models/rabiessubmissioninterface';
 import {
   FormBuilder,
   FormGroup,
@@ -10,9 +10,9 @@ import {
 import { Subscription, delay } from 'rxjs';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { CommonModule } from '@angular/common';
-import { Labresultinterface } from '../../models/labresultinterface';
+import { Labresultinterface } from '../../../rabiessample/models/labresultinterface';
 import { environment } from '../../../../../environments/environment.development';
-import { RabiessubmissionserviceService } from '../../services/rabiessubmissionservice.service';
+import { RabiessubmissionserviceService } from '../../../rabiessample/services/rabiessubmissionservice.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { AlertService } from '../../../../core/services/alert.service';
@@ -29,7 +29,7 @@ import { AlertService } from '../../../../core/services/alert.service';
   templateUrl: './clinicallabresult.component.html',
   styleUrl: './clinicallabresult.component.scss',
 })
-export class ClinicallabresultComponent implements OnInit{
+export class ClinicallabresultComponent{
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllMethod = new EventEmitter<Subscription>();
   @Input() information!: Rabiessubmissioninterface | Labresultinterface | any
@@ -64,6 +64,7 @@ export class ClinicallabresultComponent implements OnInit{
       age: [''],
     });
   }
+  isRequired: boolean = false;
   addLabResult() {
     console.log('add lab result')
     this.isLoadingButton.set(true);
@@ -83,14 +84,5 @@ export class ClinicallabresultComponent implements OnInit{
 
       }
     });
-  }
-  ngOnInit(): void {
-    console.log(this.information);
-    this.labForm.patchValue(this.information)
-    this.labForm.get('dateReceived')?.setValue(this.information.dateReceived)
-    this.labForm.get('gender')?.setValue(this.information.gender)
-    this.labForm.get('sampleIdFrom')?.setValue(this.information.sampleId)
-    console.log(this.labForm.value);
-    console.log(this.themeColor)
   }
 }

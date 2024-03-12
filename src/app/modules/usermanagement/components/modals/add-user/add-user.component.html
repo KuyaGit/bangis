@@ -26,7 +26,7 @@
                     class="label-text text-error"
                     *ngIf="
                       account.controls['name'].touched &&
-                      !account.controls['name'].value
+                      !account.controls['name'].value || isRequired
                     "
                     >Required</span
                   >
@@ -39,7 +39,7 @@
                   [ngClass]="{
                     'input-error':
                       account.controls['name'].touched &&
-                      !account.controls['name'].value
+                      !account.controls['name'].value || isRequired
                   }"
                 />
               </label>
@@ -52,7 +52,7 @@
                     class="label-text text-error"
                     *ngIf="
                       account.controls['email'].touched &&
-                      !account.controls['email'].value
+                      !account.controls['email'].value || isRequired
                     "
                     >Required</span
                   >
@@ -65,7 +65,7 @@
                   [ngClass]="{
                     'input-error':
                       account.controls['email'].touched &&
-                      !account.controls['email'].value
+                      !account.controls['email'].value || isRequired
                   }"
                 />
               </label>
@@ -78,7 +78,7 @@
                     class="label-text text-error"
                     *ngIf="
                       account.controls['password'].touched &&
-                      !account.controls['password'].value
+                      !account.controls['password'].value || isRequired
                     "
                     >Required</span
                   >
@@ -91,7 +91,7 @@
                   [ngClass]="{
                     'input-error':
                       account.controls['password'].touched &&
-                      !account.controls['password'].value
+                      !account.controls['password'].value || isRequired
                   }"
                 />
               </label>
@@ -104,7 +104,7 @@
                     class="label-text text-error"
                     *ngIf="
                       account.controls['accountType'].touched &&
-                      !account.controls['accountType'].value">
+                      !account.controls['accountType'].value || isRequired">
                       Required
                   </span>
                 </div>
@@ -114,7 +114,7 @@
                   [ngClass]="{
                     'select-error':
                       account.controls['accountType'].touched &&
-                      !account.controls['accountType'].value
+                      !account.controls['accountType'].value || isRequired
                   }"
                 >
                   <option value="" disabled selected>
@@ -134,7 +134,7 @@
                     class="label-text text-error"
                     *ngIf="
                       account.controls['address'].touched &&
-                      !account.controls['address'].value
+                      !account.controls['address'].value || isRequired
                     "
                     >Required</span>
                 </div>
@@ -144,7 +144,7 @@
                   [ngClass]="{
                     'select-error':
                       account.controls['address'].touched &&
-                      !account.controls['address'].value
+                      !account.controls['address'].value || isRequired
                   }"
                 >
                   <option value="" disabled selected>

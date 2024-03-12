@@ -1,8 +1,6 @@
 import {
   Component,
   EventEmitter,
-  Inject,
-  Input,
   OnInit,
   Output,
   inject,
@@ -49,6 +47,7 @@ export class AddUserComponent implements OnInit {
   _municipality = inject(MunicipalityService);
   private UserSubscription: Subscription = new Subscription();
   municipipalities: municipalityNames[] = [];
+  isRequired: boolean = false;
   constructor() {
     this.account = this._form.group({
       name: [''],
@@ -72,6 +71,11 @@ export class AddUserComponent implements OnInit {
     this.modalEvent.emit(false);
   }
   addAccount() {
+    if(!this.account.controls['name'].value || !this.account.controls['email'].value || !this.account.controls['password'].value || !this.account.controls['address'].value || !this.account.controls['accountType'].value) {
+      this._alert.handleError('All fields are required');
+      this.isRequired = true;
+      return;
+    }
     this.isLoadingButton.set(true);
     this._user.createUser(this.account.value)
     .pipe(

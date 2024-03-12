@@ -36,7 +36,7 @@
                       class="label-text text-error"
                       *ngIf="
                         labForm.controls['labAccession'].touched &&
-                        !labForm.controls['labAccession'].value
+                        !labForm.controls['labAccession'].value || isRequired
                       "
                       >Required</span
                     >
@@ -49,7 +49,7 @@
                     [ngClass]="{
                       'input-error':
                         labForm.controls['labAccession'].touched &&
-                        !labForm.controls['labAccession'].value
+                        !labForm.controls['labAccession'].value || isRequired
                     }"
                   />
                 </label>
@@ -59,11 +59,24 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Date Recieved</span>
+                      <span
+                      class="label-text text-error"
+                      *ngIf="
+                        labForm.controls['dateRecieved'].touched &&
+                        !labForm.controls['dateRecieved'].value || isRequired
+                      "
+                      >Required</span
+                    >
                     </div>
                     <input
-                      type="text"
+                      formControlName="dateRecieved"
+                      type="date"
                       class="input input-bordered w-full"
-                      [value]="labForm.get('dateRecieved')?.value | date: 'MMM dd, yyyy'"
+                      [ngClass]="{
+                        'input-error':
+                          labForm.controls['dateRecieved'].touched &&
+                          !labForm.controls['dateRecieved'].value || isRequired
+                      }"
                     />
                   </label>
                 </div>
@@ -85,7 +98,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['owner'].touched &&
-                          !labForm.controls['owner'].value
+                          !labForm.controls['owner'].value || isRequired
                         "
                         >Required</span
                       >
@@ -98,7 +111,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['owner'].touched &&
-                          !labForm.controls['owner'].value
+                          !labForm.controls['owner'].value || isRequired
                       }"
                     />
                   </label>
@@ -113,7 +126,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['address'].touched &&
-                          !labForm.controls['address'].value
+                          !labForm.controls['address'].value || isRequired
                         "
                         >Required</span
                       >
@@ -126,7 +139,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['address'].touched &&
-                          !labForm.controls['address'].value
+                          !labForm.controls['address'].value || isRequired
                       }"
                     />
                   </label>
@@ -141,7 +154,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['contactNumber'].touched &&
-                          !labForm.controls['contactNumber'].value
+                          !labForm.controls['contactNumber'].value || isRequired
                         "
                         >Required</span
                       >
@@ -154,7 +167,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['contactNumber'].touched &&
-                          !labForm.controls['contactNumber'].value
+                          !labForm.controls['contactNumber'].value || isRequired
                       }"
                     />
                   </label>
@@ -171,7 +184,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['sender'].touched &&
-                          !labForm.controls['sender'].value
+                          !labForm.controls['sender'].value || isRequired
                         "
                         >Required</span
                       >
@@ -184,7 +197,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['sender'].touched &&
-                          !labForm.controls['sender'].value
+                          !labForm.controls['sender'].value || isRequired
                       }"
                     />
                   </label>
@@ -199,7 +212,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['senderAddress'].touched &&
-                          !labForm.controls['senderAddress'].value
+                          !labForm.controls['senderAddress'].value || isRequired
                         "
                         >Required</span
                       >
@@ -212,7 +225,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['address'].touched &&
-                          !labForm.controls['address'].value
+                          !labForm.controls['address'].value || isRequired
                       }"
                     />
                   </label>
@@ -227,7 +240,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['email'].touched &&
-                          !labForm.controls['email'].value
+                          !labForm.controls['email'].value || isRequired
                         "
                         >Required</span
                       >
@@ -240,7 +253,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['email'].touched &&
-                          !labForm.controls['email'].value
+                          !labForm.controls['email'].value || isRequired
                       }"
                     />
                   </label>
@@ -262,7 +275,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['specimen'].touched &&
-                          !labForm.controls['specimen'].value
+                          !labForm.controls['specimen'].value || isRequired
                         "
                       >
                         Required
@@ -276,7 +289,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['specimen'].touched &&
-                          !labForm.controls['specimen'].value
+                          !labForm.controls['specimen'].value || isRequired
                       }"
                     />
                   </label>
@@ -287,13 +300,18 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Species</span>
+                      <span
+                        class="label-text text-error"
+                        *ngIf="
+                          labForm.controls['species'].touched &&
+                          !labForm.controls['species'].value || isRequired
+                        ">Required</span>
                     </div>
                     <input
                       type="string"
-                      [value]="labForm.controls['species'].value"
+                      formControlName="species"
                       placeholder="Enter Species"
                       class="input input-bordered w-full"
-                      disabled
                     />
                   </label>
                 </div>
@@ -306,10 +324,14 @@
                     </div>
                     <input
                       type="string"
-                      [value]="labForm.controls['breed'].value.toUpperCase()"
+                      formControlName="breed"
                       placeholder="Enter Breed"
                       class="input input-bordered w-full"
-                      disabled
+                      [ngClass]="{
+                        'input-error':
+                          labForm.controls['breed'].touched &&
+                          !labForm.controls['breed'].value || isRequired
+                      }"
                     />
                   </label>
                 </div>
@@ -324,10 +346,14 @@
                     </div>
                     <input
                       type="string"
-                      [value]="labForm.controls['age'].value"
-                      placeholder="Enter Specimen"
+                      formControlName="age"
+                      placeholder="Enter Age"
                       class="input input-bordered w-full"
-                      disabled
+                      [ngClass]="{
+                        'input-error':
+                          labForm.controls['age'].touched &&
+                          !labForm.controls['age'].value || isRequired
+                      }"
                     />
                   </label>
                 </div>
@@ -340,10 +366,14 @@
                     </div>
                     <input
                       type="string"
-                      [value]="labForm.controls['gender'].value.toUpperCase()"
-                      placeholder="Enter Species"
+                      formControlName="gender"
+                      placeholder="Enter Sex"
                       class="input input-bordered w-full"
-                      disabled
+                      [ngClass]="{
+                        'input-error':
+                        labForm.controls['gender'].touched &&
+                        !labForm.controls['gender'].value || isRequired
+                      }"
                     />
                   </label>
                 </div>
@@ -363,7 +393,7 @@
                       class="label-text text-error"
                       *ngIf="
                         labForm.controls['testMethod'].touched &&
-                        !labForm.controls['testMethod'].value
+                        !labForm.controls['testMethod'].value || isRequired
                       "
                     >
                       Required
@@ -377,7 +407,7 @@
                     [ngClass]="{
                       'input-error':
                         labForm.controls['testMethod'].touched &&
-                        !labForm.controls['testMethod'].value
+                        !labForm.controls['testMethod'].value || isRequired
                     }"
                   />
                 </label>
@@ -395,7 +425,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['fat'].touched &&
-                          !labForm.controls['fat'].value
+                          !labForm.controls['fat'].value || isRequired
                         "
                         >Required
                       </span>
@@ -408,7 +438,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['fat'].touched &&
-                          !labForm.controls['fat'].value
+                          !labForm.controls['fat'].value || isRequired
                       }"
                     />
                   </label>
@@ -423,7 +453,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['recommendation'].touched &&
-                          !labForm.controls['recommendation'].value
+                          !labForm.controls['recommendation'].value || isRequired
                         "
                         >Required</span
                       >
@@ -436,7 +466,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['recommendation'].touched &&
-                          !labForm.controls['recommendation'].value
+                          !labForm.controls['recommendation'].value || isRequired
                       }"
                     />
                   </label>
@@ -455,7 +485,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['diagnosis'].touched &&
-                          !labForm.controls['diagnosis'].value
+                          !labForm.controls['diagnosis'].value || isRequired
                       }"
                       formControlName="diagnosis"
                     >
@@ -477,7 +507,7 @@
                         class="label-text text-error"
                         *ngIf="
                           labForm.controls['remarks'].touched &&
-                          !labForm.controls['remarks'].value
+                          !labForm.controls['remarks'].value || isRequired
                         "
                         >Required</span
                       >
@@ -490,7 +520,7 @@
                       [ngClass]="{
                         'input-error':
                           labForm.controls['remarks'].touched &&
-                          !labForm.controls['remarks'].value
+                          !labForm.controls['remarks'].value || isRequired
                       }"
                     />
                   </label>

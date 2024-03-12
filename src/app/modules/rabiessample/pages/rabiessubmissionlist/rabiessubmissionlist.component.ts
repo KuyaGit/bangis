@@ -12,7 +12,7 @@ import { AlertService } from '../../../../core/services/alert.service';
 import { ViewAnimalinjectionComponent } from '../../../animalinjection/components/view-animalinjection/view-animalinjection.component';
 import { ViewrabiessampleComponent } from '../../components/viewrabiessample/viewrabiessample.component';
 import { Rabiessubmissioninterface } from '../../models/rabiessubmissioninterface';
-import { ClinicallabresultComponent } from '../../components/clinicallabresult/clinicallabresult.component';
+import { ClinicallabresultComponent } from '../../../labresults/component/clinicallabresult/clinicallabresult.component';
 import { Labresultinterface } from '../../models/labresultinterface';
 
 @Component({

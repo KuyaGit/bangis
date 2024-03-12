@@ -44,6 +44,7 @@ export class AddComponent {
 
   isLoadingButton = signal<boolean>(false);
   themeColor = localStorage.getItem(environment.theme)?.toString();
+  isRequired: boolean = false;
   constructor() {
     this.aVacForm = this._fb.group({
       AiD: ['', Validators.required],
@@ -55,10 +56,16 @@ export class AddComponent {
       aVacID: this._auth.userInfo?.id,
     });
   }
+
   setExpiryDate(selectedDate: Date) {
     this.aVacForm.controls['expiryDate'].setValue(selectedDate);
   }
   addAvac() {
+    if(!this.aVacForm.controls['vacName'].value || !this.aVacForm.controls['brandName'].value || !this.aVacForm.controls['stockQuantity'].value || !this.aVacForm.controls['dosage'].value || !this.aVacForm.controls['expiryDate'].value) {
+      this._alert.handleError('All fields are required');
+      this.isRequired = true;
+      return;
+    }
     this._avac.addAvac(this.aVacForm.value).pipe(
       catchError((err : HttpErrorResponse) => {
         if (err.status === 400) {

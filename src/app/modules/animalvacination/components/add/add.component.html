@@ -22,12 +22,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Vaccine Name</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      aVacForm.controls['vacName'].touched &&
+                      !aVacForm.controls['vacName'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="vacName"
                   placeholder="Vaccine Name"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      aVacForm.controls['vacName'].touched &&
+                      !aVacForm.controls['vacName'].value || isRequired
+                  }"
                 />
               </label>
             </div>
@@ -35,12 +48,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Brand Name</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      aVacForm.controls['brandName'].touched &&
+                      !aVacForm.controls['brandName'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="brandName"
                   placeholder="Brand Name"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      aVacForm.controls['brandName'].touched &&
+                      !aVacForm.controls['brandName'].value || isRequired
+                  }"
                 />
               </label>
             </div>
@@ -48,12 +74,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Quantity</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      aVacForm.controls['stockQuantity'].touched &&
+                      !aVacForm.controls['stockQuantity'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="number"
                   formControlName="stockQuantity"
                   placeholder="Quantity"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      aVacForm.controls['stockQuantity'].touched &&
+                      !aVacForm.controls['stockQuantity'].value || isRequired
+                  }"
                 />
               </label>
             </div>
@@ -61,12 +100,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Dosage</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      aVacForm.controls['dosage'].touched &&
+                      !aVacForm.controls['dosage'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="dosage"
                   placeholder="Dosage"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      aVacForm.controls['dosage'].touched &&
+                      !aVacForm.controls['dosage'].value || isRequired
+                  }"
                 />
               </label>
             </div>
@@ -74,30 +126,43 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Expiry Date</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      aVacForm.controls['expiryDate'].touched &&
+                      !aVacForm.controls['expiryDate'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="date"
                   formControlName="expiryDate"
                   placeholder="Expiry Date"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      aVacForm.controls['expiryDate'].touched &&
+                      !aVacForm.controls['expiryDate'].value || isRequired
+                  }"
                 />
               </label>
             </div>
           </div>
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button
-              type="button"
-              class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
-              [ngClass]="themeColor"
-              (click)="addAvac()"
-            >
-              <app-loadingbutton *ngIf="isLoadingButton()" />
-              <span *ngIf="!isLoadingButton()"> Add Data</span>
-            </button>
+                type="button"
+                class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                [ngClass]="themeColor"
+                (click)="addAvac()"
+              >
+                <app-loadingbutton *ngIf="isLoadingButton()" />
+                <span *ngIf="!isLoadingButton()"> Add </span>
+              </button>
             <button
               type="button"
               class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-              (click)="this.modalEvent.emit(false)"
+              (click)="this.modalEvent.emit(false); aVacForm.reset()"
             >
               Cancel
             </button>

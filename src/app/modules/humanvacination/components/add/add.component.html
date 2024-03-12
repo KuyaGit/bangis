@@ -22,12 +22,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Vaccine Name</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      HVacineForm.controls['vacName'].touched &&
+                      !HVacineForm.controls['vacName'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="vacName"
                   placeholder="Vaccine Name"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      HVacineForm.controls['vacName'].touched &&
+                      !HVacineForm.controls['vacName'].value || isRequired
+                  }"
                 />
               </label>
             </div>
@@ -35,12 +48,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Brand Name</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      HVacineForm.controls['brandName'].touched &&
+                      !HVacineForm.controls['brandName'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="brandName"
                   placeholder="Brand Name"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      HVacineForm.controls['brandName'].touched &&
+                      !HVacineForm.controls['brandName'].value || isRequired
+                  }"
                 />
               </label>
             </div>
@@ -48,12 +74,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Quantity</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      HVacineForm.controls['stockQuantity'].touched &&
+                      !HVacineForm.controls['stockQuantity'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="number"
                   formControlName="stockQuantity"
                   placeholder="Quantity"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      HVacineForm.controls['stockQuantity'].touched &&
+                      !HVacineForm.controls['stockQuantity'].value || isRequired
+                  }"
                 />
               </label>
             </div>
@@ -61,12 +100,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Dosage</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      HVacineForm.controls['dosage'].touched &&
+                      !HVacineForm.controls['dosage'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="text"
                   formControlName="dosage"
                   placeholder="Dosage"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      HVacineForm.controls['dosage'].touched &&
+                      !HVacineForm.controls['dosage'].value || isRequired
+                  }"
                 />
               </label>
             </div>
@@ -74,12 +126,25 @@
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text">Expiry Date</span>
+                  <span
+                    class="label-text text-error"
+                    *ngIf="
+                      HVacineForm.controls['expiryDate'].touched &&
+                      !HVacineForm.controls['expiryDate'].value || isRequired
+                    "
+                    >Required</span
+                  >
                 </div>
                 <input
                   type="date"
                   formControlName="expiryDate"
                   placeholder="Expiry Date"
                   class="input input-bordered w-full"
+                  [ngClass]="{
+                    'input-error':
+                      HVacineForm.controls['expiryDate'].touched &&
+                      !HVacineForm.controls['expiryDate'].value || isRequired
+                  }"
                 />
               </label>
             </div>
