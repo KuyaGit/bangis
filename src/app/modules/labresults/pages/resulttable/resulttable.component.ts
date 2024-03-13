@@ -42,7 +42,7 @@ export class ResulttableComponent implements OnInit {
   }
   openEditModal(id: any) {}
   getAllLabResults() {
-    if (this._authS.userInfo?.accountType == 'agri') {
+    if (this._authS.userInfo?.accountType === 'agri') {
       this._labservice.getAllLabResults().subscribe((res: any) => {
         this._labservice.results.set(res);
       });

@@ -99,7 +99,6 @@ export class DashboardComponent implements OnInit {
     } else {
       this._dashboardS.getCountRabiesSubmission().subscribe((res: any) => {
         this.countRabiesSubmission.set(res.sampleId);
-        console.log(res);
       });
     }
   }

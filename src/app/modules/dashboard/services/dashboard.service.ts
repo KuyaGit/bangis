@@ -62,7 +62,6 @@ export class DashboardService {
     return this.http.get(`${this.url}/rabiessample/confirmed/rabies/count`)
   }
   getAllCountRabiesPositiveByAccount(id: number) : Observable<any> {
-    console.log(id)
     return this.http.get(`${this.url}/rabiessample/confirmed/rabies/count/${id}`)
   }
 }

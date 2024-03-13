@@ -78,11 +78,18 @@ export class RabiessubmissionlistComponent implements OnInit {
     this.modalAddRabiesSubmission.set(true);
   }
   getAllRabiesSubmission() {
-    this._rabiesS
+    if(this._authS.userInfo?.accountType === 'agri'){
+      this._rabiesS.getAllRabiesSampleSubmission().subscribe((res: any) => {
+        this._rabiesS.rabiesList.set(res);
+      })
+    } else{
+      this._rabiesS
       .getAllRabiesSampleSubmissionByAccount(Number(this.accountID))
       .subscribe((res: any) => {
         this._rabiesS.rabiesList.set(res);
       });
+    }
+
   }
   ngOnInit(): void {
     this.getAllRabiesSubmission();

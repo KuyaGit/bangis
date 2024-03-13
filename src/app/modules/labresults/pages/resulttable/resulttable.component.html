@@ -60,7 +60,12 @@
           </td>
           <td class="w-10">
             <div class="dropdown dropdown-left 2xl:dropdown-left">
-              <div tabindex="0" role="button" class="btn m-1">Action</div>
+              @if (this._authS.userInfo?.accountType === 'agri') {
+                <button class="btn btn-square btn-sm ml-1" (click)="openViewModal(user.labId)">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              } @else{
+                <div tabindex="0" role="button" class="btn m-1">Action</div>
               <ul
                 tabindex="0"
                 class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
@@ -69,7 +74,9 @@
                 <li><a (click)="openEditModal(user.labId)">Edit</a></li>
                 <!-- <li><a (click)="deleteUser(user.id)">Delete</a></li> -->
               </ul>
-            </div>
+              }
+
+              </div>
           </td>
         </tr>
         } @empty {
