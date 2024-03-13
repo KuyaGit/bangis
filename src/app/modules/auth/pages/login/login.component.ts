@@ -32,14 +32,14 @@ import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
   ],
   template: `
     <div class="container">
-      <div class="flex ...">
-        <div class="basis-3/4">
+      <div class="flex ... max-sm:flex max-sm:justify-center max-sm:h-full max-sm:w-full">
+        <div class="sm:basis-3/4 max-sm:hidden">
           <img src="assets/bg.png" class="image-bg" alt="" />
         </div>
         <div
-          class="basis-1/4 flex  content-center flex-wrap w-full pr-20 items-center justify-center"
+          class="md:basis-1/4 flex max-sm:pt-40 content-center flex-wrap w-full md:pr-20 items-center justify-center"
         >
-          <div div class="flex items-center content-center flex-col w-3/4">
+          <div class="flex items-center content-center flex-col w-3/4 max-sm:h-[100vh]">
             <div>
               <h1 class="w-full font-bold text-2xl">
                 BANGIS: BATANGAS ANIMAL BITE MANAGEMENT GATEWAY INFORMATION
