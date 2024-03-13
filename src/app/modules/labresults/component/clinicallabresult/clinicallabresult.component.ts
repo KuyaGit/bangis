@@ -16,6 +16,8 @@ import { RabiessubmissionserviceService } from '../../../rabiessample/services/r
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { AlertService } from '../../../../core/services/alert.service';
+import { LabservicesService } from '../../services/labservices.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-clinicallabresult',
@@ -40,9 +42,12 @@ export class ClinicallabresultComponent{
   _alertS = inject(AlertService)
   themeColor = localStorage.getItem(environment.theme);
   isLoadingButton = signal<boolean>(false);
-
+  _authS = inject(AuthService)
+  _labS = inject(LabservicesService)
+  accountID = this._authS.userInfo?.id;
   constructor() {
     this.labForm = this._fb.group({
+      accountFromID: this.accountID,
       sampleIdFrom: [''],
       specimen: ['', Validators.required],
       testMethod: ['', Validators.required],
@@ -66,9 +71,8 @@ export class ClinicallabresultComponent{
   }
   isRequired: boolean = false;
   addLabResult() {
-    console.log('add lab result')
     this.isLoadingButton.set(true);
-    this._rabiesS.addRabiesResult(this.labForm.value).pipe(
+    this._labS.addRabiesResult(this.labForm.value).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 404) {
           this.isLoadingButton.set(false);

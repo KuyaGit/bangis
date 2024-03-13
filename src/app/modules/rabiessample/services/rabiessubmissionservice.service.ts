@@ -21,12 +21,7 @@ export class RabiessubmissionserviceService {
         catchError(this.handleError)
       );
   }
-  addRabiesResult(data: Labresultinterface): Observable<any> {
-    return this.http.post(`${this.url}/rabiessample/add/result`, data)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  
   getAllRabiesSampleSubmissionByAccount(id: number){
     return this.http.get(`${this.url}/rabiessample/${id}`)
       .pipe(

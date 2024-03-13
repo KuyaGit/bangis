@@ -34,9 +34,8 @@
     <table class="table-auto table user-table">
       <thead class="text-stone-600">
         <tr class="sticky top-0 bg-white">
-          <th class="py-1 text-center">UserID</th>
           <th class="py-1 text-center">Name</th>
-          <th class="py-1 text-center">Username</th>
+          <th class="py-1 text-center">Email</th>
           <th class="py-1 text-center">Address</th>
           <th class="py-1 text-center">Role</th>
           <th class="py-1 text-center">Action</th>
@@ -46,10 +45,7 @@
         @for(user of _labservice.results(); track $index){
         <tr>
           <td>
-            <div class="flex justify-center py-1">{{ user.id }}</div>
-          </td>
-          <td>
-            <div class="font-bold flex justify-center py-1">{{ user.name }}</div>
+            <div class="font-bold flex justify-center py-1">{{ user.owner }}</div>
           </td>
           <td>
             <div class="flex justify-center py-1">{{ user.email }}</div>
@@ -59,7 +55,7 @@
           </td>
           <td>
             <div class="flex flex-row justify-center items-center p-1">
-              {{ user.accountType.toUpperCase() }}
+              {{ user.diagnosis }}
             </div>
           </td>
           <td class="w-10">
@@ -69,8 +65,8 @@
                 tabindex="0"
                 class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
               >
-                <li><a (click)="openViewModal(user.id)">View</a></li>
-                <li><a (click)="openEditModal(user.id)">Edit</a></li>
+                <li><a (click)="openViewModal(user.labId)">View</a></li>
+                <li><a (click)="openEditModal(user.labId)">Edit</a></li>
                 <!-- <li><a (click)="deleteUser(user.id)">Delete</a></li> -->
               </ul>
             </div>
@@ -90,13 +86,14 @@
   (getAllMethod)="getAllLabResults()"
 />
 }
- <!-- @else if (modalView()) {
-<app-view-user
+@else if (modalView()) {
+<app-viewlabresult
   (modalEvent)="this.modalView.set($event)"
-  (getAllUsersMethod)="getAllUsers()"
-  [userInfo]="userDetails"
+  (getAllMethod)="getAllLabResults()"
+  [information]="labresult"
 />
-} @else if (modalEdit()) {
+}
+<!-- @else if (modalEdit()) {
 <app-edit-user
   (modalEvent)="this.modalEdit.set($event)"
   (getAllUsersMethod)="getAllUsers()"

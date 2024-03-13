@@ -32,25 +32,12 @@
                 <label class="form-control w-full">
                   <div class="label">
                     <span class="label-text">Lab Accession</span>
-                    <span
-                      class="label-text text-error"
-                      *ngIf="
-                        labForm.controls['labAccession'].touched &&
-                        !labForm.controls['labAccession'].value || isRequired
-                      "
-                      >Required</span
-                    >
                   </div>
                   <input
                     type="string"
                     formControlName="labAccession"
                     placeholder="Enter Lab Accession"
                     class="input input-bordered w-full"
-                    [ngClass]="{
-                      'input-error':
-                        labForm.controls['labAccession'].touched &&
-                        !labForm.controls['labAccession'].value || isRequired
-                    }"
                   />
                 </label>
               </div>
@@ -59,24 +46,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Date Recieved</span>
-                      <span
-                      class="label-text text-error"
-                      *ngIf="
-                        labForm.controls['dateRecieved'].touched &&
-                        !labForm.controls['dateRecieved'].value || isRequired
-                      "
-                      >Required</span
-                    >
                     </div>
                     <input
-                      formControlName="dateRecieved"
-                      type="date"
+                      [value]="labForm.get('dateReported')?.value | date: 'MMM dd, yyyy'"
+                      type="text"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['dateRecieved'].touched &&
-                          !labForm.controls['dateRecieved'].value || isRequired
-                      }"
+                      disabled
                     />
                   </label>
                 </div>
@@ -94,25 +69,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Owner</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['owner'].touched &&
-                          !labForm.controls['owner'].value || isRequired
-                        "
-                        >Required</span
-                      >
                     </div>
                     <input
                       type="string"
                       formControlName="owner"
                       placeholder="Enter Owner"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['owner'].touched &&
-                          !labForm.controls['owner'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -122,25 +84,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Address</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['address'].touched &&
-                          !labForm.controls['address'].value || isRequired
-                        "
-                        >Required</span
-                      >
                     </div>
                     <input
                       type="string"
                       formControlName="address"
                       placeholder="Enter Address"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['address'].touched &&
-                          !labForm.controls['address'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -150,25 +99,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Contact Number</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['contactNumber'].touched &&
-                          !labForm.controls['contactNumber'].value || isRequired
-                        "
-                        >Required</span
-                      >
                     </div>
                     <input
                       type="string"
                       formControlName="contactNumber"
                       placeholder="Enter Contact Number"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['contactNumber'].touched &&
-                          !labForm.controls['contactNumber'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -180,25 +116,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Sender</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['sender'].touched &&
-                          !labForm.controls['sender'].value || isRequired
-                        "
-                        >Required</span
-                      >
                     </div>
                     <input
                       type="string"
                       formControlName="sender"
                       placeholder="Enter Sender"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['sender'].touched &&
-                          !labForm.controls['sender'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -208,25 +131,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Sender Address</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['senderAddress'].touched &&
-                          !labForm.controls['senderAddress'].value || isRequired
-                        "
-                        >Required</span
-                      >
                     </div>
                     <input
                       type="string"
                       formControlName="senderAddress"
                       placeholder="Enter Address"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['address'].touched &&
-                          !labForm.controls['address'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -236,25 +146,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Email</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['email'].touched &&
-                          !labForm.controls['email'].value || isRequired
-                        "
-                        >Required</span
-                      >
                     </div>
                     <input
                       type="string"
                       formControlName="email"
                       placeholder="Enter Email"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['email'].touched &&
-                          !labForm.controls['email'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -271,26 +168,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Specimen</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['specimen'].touched &&
-                          !labForm.controls['specimen'].value || isRequired
-                        "
-                      >
-                        Required
-                      </span>
                     </div>
                     <input
                       type="string"
                       formControlName="specimen"
                       placeholder="Enter Specimen"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['specimen'].touched &&
-                          !labForm.controls['specimen'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -300,12 +183,6 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Species</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['species'].touched &&
-                          !labForm.controls['species'].value || isRequired
-                        ">Required</span>
                     </div>
                     <input
                       type="string"
@@ -327,11 +204,6 @@
                       formControlName="breed"
                       placeholder="Enter Breed"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['breed'].touched &&
-                          !labForm.controls['breed'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -349,11 +221,6 @@
                       formControlName="age"
                       placeholder="Enter Age"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['age'].touched &&
-                          !labForm.controls['age'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -369,11 +236,6 @@
                       formControlName="gender"
                       placeholder="Enter Sex"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                        labForm.controls['gender'].touched &&
-                        !labForm.controls['gender'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -389,26 +251,13 @@
                 <label class="form-control w-full">
                   <div class="label">
                     <span class="label-text">Test Method</span>
-                    <span
-                      class="label-text text-error"
-                      *ngIf="
-                        labForm.controls['testMethod'].touched &&
-                        !labForm.controls['testMethod'].value || isRequired
-                      "
-                    >
-                      Required
-                    </span>
                   </div>
                   <input
                     type="string"
                     formControlName="testMethod"
                     placeholder="Enter Species"
                     class="input input-bordered w-full"
-                    [ngClass]="{
-                      'input-error':
-                        labForm.controls['testMethod'].touched &&
-                        !labForm.controls['testMethod'].value || isRequired
-                    }"
+
                   />
                 </label>
               </div>
@@ -421,25 +270,12 @@
                       <span class="label-text"
                         >Flourescent Antibody Test(FAT):</span
                       >
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['fat'].touched &&
-                          !labForm.controls['fat'].value || isRequired
-                        "
-                        >Required
-                      </span>
                     </div>
                     <input
                       type="string"
                       formControlName="fat"
                       placeholder="Enter  FAT"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['fat'].touched &&
-                          !labForm.controls['fat'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -449,25 +285,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Recommendation</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['recommendation'].touched &&
-                          !labForm.controls['recommendation'].value || isRequired
-                        "
-                        >Required</span
-                      >
                     </div>
                     <input
                       type="string"
                       formControlName="recommendation"
                       placeholder="Enter  Recommendation"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['recommendation'].touched &&
-                          !labForm.controls['recommendation'].value || isRequired
-                      }"
                     />
                   </label>
                 </div>
@@ -482,11 +305,6 @@
                     </div>
                     <select
                       class="select select-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['diagnosis'].touched &&
-                          !labForm.controls['diagnosis'].value || isRequired
-                      }"
                       formControlName="diagnosis"
                     >
                       <option value="" disabled selected>
@@ -503,25 +321,13 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Remarks</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          labForm.controls['remarks'].touched &&
-                          !labForm.controls['remarks'].value || isRequired
-                        "
-                        >Required</span
-                      >
                     </div>
                     <input
                       type="string"
                       formControlName="remarks"
                       placeholder="Enter  Remarks"
                       class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          labForm.controls['remarks'].touched &&
-                          !labForm.controls['remarks'].value || isRequired
-                      }"
+
                     />
                   </label>
                 </div>
@@ -529,19 +335,10 @@
             </div>
           </div>
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-            <button
-              [disabled]="!labForm.valid"
-              type="submit"
-              class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
-              [ngClass]="themeColor"
-              (click)="addLabResult()"
-            >
-              <app-loadingbutton *ngIf="isLoadingButton()" />
-              <span *ngIf="!isLoadingButton()">Add Result</span>
-            </button>
+
             <button
               type="button"
-              class="mt-3 mr-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+              class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
               (click)="this.modalEvent.emit(false)"
             >
               Cancel
