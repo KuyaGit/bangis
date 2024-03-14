@@ -19,6 +19,7 @@ export class ViewComponent implements OnInit{
   fb = inject(FormBuilder)
 
   ngOnInit(): void {
+    console.log(this.aVacInfo)
     this.thisaVacForm();
     this.aVacForm.patchValue(this.aVacInfo);
   }
@@ -33,7 +34,6 @@ export class ViewComponent implements OnInit{
       expiryDate: [''],
       aVacID: [''],
     });
-
   }
   closemodalview() {
     this.modalEvent.emit(false);

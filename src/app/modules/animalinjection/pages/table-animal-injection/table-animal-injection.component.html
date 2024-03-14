@@ -38,10 +38,7 @@
           <th class="py-1">Species</th>
           <th class="py-2">Breed</th>
           <th class="py-2">Vaccinator</th>
-          <ng-container *appHasRole="['agri']">
-            <th class="py-2">Action</th>
-          </ng-container>
-
+          <th class="py-2">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -70,24 +67,25 @@
               {{ items.vaccinator }}
             </div>
           </td>
-          <ng-container *appHasRole="['agri']">
-            <td class="flex justify-center">
-              <div class="dropdown dropdown-left">
-                <div tabindex="0" role="button" class="btn m-1">Action</div>
-                <ul
-                  tabindex="0"
-                  class="dropdown-content menu p-2 shadow bg-base-200 rounded-box w-40"
-                >
-                  <li><a (click)="openAvacInjectViewModal(items.animalVaccinationId)">View</a></li>
-                  <li>
-                    <a (click)="openAvacEditInjectModal()">
-                      Edit Data
-                    </a>
-                  </li>
-                </ul>
-              </div>
+          @if (this._auth.userInfo?.accountType == 'agri') {
+            <td class="w-1 flex">
+              <button class="btn btn-square btn-sm ml-1" (click)="openAvacInjectViewModal(items.animalVaccinationId)">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+              <button class="btn btn-square btn-sm ml-1" (click)="openAvacEditInjectModal(items.animalVaccinationId)">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="btn btn-square btn-sm ml-1 mr-1" >
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </td>
-          </ng-container>
+            } @else {
+              <td class="w-10 flex items-center justify-center">
+              <button class="btn btn-square btn-sm ml-1" (click)="openAvacInjectViewModal(items.animalVaccinationId)">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </td>
+            }
 
         </tr>
         } @empty {

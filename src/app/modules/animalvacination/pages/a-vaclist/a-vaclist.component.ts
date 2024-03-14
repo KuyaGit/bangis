@@ -63,6 +63,7 @@ export class AVaclistComponent implements OnInit {
   openAvacViewModal(AiD: number) {
     this.subAvac.add(
       this._avac.getVaccineById(AiD).subscribe((response) => {
+        console.log(response)
         this.vacInfo = response;
         this.avacModalView.set(true);
       })

@@ -32,7 +32,7 @@ export class AnimalinjectionService {
     return this._http.post(`${this.url}/animalvacinated`, data)
   }
   getAvacInjectInfoByID(id: number): Observable<any> {
-    return this._http.get(`${this.url}/animalvacinated/${id}`)
+    return this._http.get(`${this.url}/animalvacinated/view/${id}`)
   }
 
   editAnimalInjection(data: Animalinjection, id: number): Observable<any> {

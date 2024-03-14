@@ -23,7 +23,7 @@ import { environment } from '../../../../../environments/environment.development
     ViewAnimalinjectionComponent,
     HasRoleDirective,
     ExportexcelbtnComponent,
-    FullPageLoaderComponent
+    FullPageLoaderComponent,
   ],
 
   templateUrl: './table-animal-injection.component.html',
@@ -36,7 +36,7 @@ export class TableAnimalInjectionComponent implements OnInit {
   avacModalAddInject = signal(false);
 
   // Baryabols
-  fileName : string = 'animalvaccinated.xlsx'
+  fileName: string = 'animalvaccinated.xlsx';
   themeColor = localStorage.getItem(environment.theme)?.toString();
   // Injections
   _avacInjectList = inject(AnimalinjectionService);
@@ -44,17 +44,24 @@ export class TableAnimalInjectionComponent implements OnInit {
   // Subscriptions
   subscription: Subscription = new Subscription();
   // Method
-  animalInjectionInfo: Animalinjection[] = [];
+  animalInjectionInfo!: any;
   openAvacInjectViewModal(id: number): void {
     this.subscription.add(
-      this._avacInjectList.getAvacInjectInfoByID(id).subscribe((res: Animalinjection[])=>{
-        this.animalInjectionInfo = res;
+      this._avacInjectList
+        .getAvacInjectInfoByID(id)
+        .subscribe((res: Animalinjection[]) => {
+          this.animalInjectionInfo = res;
+          this.avacModalViewInject.set(true);
+        })
+    );
+  }
+  openAvacEditInjectModal(id:number) {
+    this.subscription.add(
+      this._avacInjectList.getAvacInjectInfoByID(id).subscribe((res:any) => {
+        this.animalInjectionInfo = res
+        this.avacModalEditInject.set(true)
       })
     )
-    this.avacModalViewInject.set(true);
-  }
-  openAvacEditInjectModal() {
-    this.avacModalEditInject.set(true);
   }
 
   getAllAnimalVacinated() {

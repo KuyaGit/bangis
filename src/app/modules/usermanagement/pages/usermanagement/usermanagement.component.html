@@ -62,19 +62,17 @@
               {{ user.accountType.toUpperCase() }}
             </div>
           </td>
-          <td class="w-10">
-            <div class="dropdown dropdown-left 2xl:dropdown-left">
-              <div tabindex="0" role="button" class="btn m-1">Action</div>
-              <ul
-                tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-24"
-              >
-                <li><a (click)="openViewModal(user.id)">View</a></li>
-                <li><a (click)="openEditModal(user.id)">Edit</a></li>
-                <li><a (click)="deleteUser(user.id)">Delete</a></li>
-              </ul>
-            </div>
-          </td>
+          <td class="w-10 flex ">
+                <button class="btn btn-square btn-sm ml-1" (click)="openViewModal(user.id)">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <button class="btn btn-square btn-sm ml-1" (click)="openEditModal(user.id)">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="btn btn-square btn-sm ml-1 mr-1" (click)="deleteUser(user.id)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+        </td>
         </tr>
         } @empty {
         <tr>
