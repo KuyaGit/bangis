@@ -2,36 +2,37 @@
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
-
-      <app-exportexcelbtn [data]="this._labservice.results()" [fileName]="fileName" [themeColor]="themeColor"/>
+      <app-exportexcelbtn
+        [data]="this._labservice.results()"
+        [fileName]="fileName"
+        [themeColor]="themeColor"
+      />
       <button
-      [ngClass]="themeColor"
-      class="btn  text-white ml-3 border-none"
-      (click)="this.modalAdd.set(true)"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
+        [ngClass]="themeColor"
+        class="btn text-white ml-3 border-none"
+        (click)="this.modalAdd.set(true)"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 6v12m6-6H6"
-        />
-      </svg>
-      Add Account
-    </button>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 6v12m6-6H6"
+          />
+        </svg>
+        Add Account
+      </button>
     </div>
-
-
   </div>
   <div class="card max-h-[450px] overflow-auto">
     <!-- <div class="relative"> -->
-    <table class="table-auto table user-table">
+    <table class="table-auto table">
       <thead class="text-stone-600">
         <tr class="sticky top-0 bg-white">
           <th class="py-1 text-center">Name</th>
@@ -45,7 +46,9 @@
         @for(user of _labservice.results(); track $index){
         <tr>
           <td>
-            <div class="font-bold flex justify-center py-1">{{ user.owner }}</div>
+            <div class="font-bold flex justify-center py-1">
+              {{ user.owner }}
+            </div>
           </td>
           <td>
             <div class="flex justify-center py-1">{{ user.email }}</div>
@@ -58,23 +61,39 @@
               {{ user.diagnosis }}
             </div>
           </td>
-          <td class="w-10 flex ">
-              @if (this._authS.userInfo?.accountType === 'agri') {
-                <button class="btn btn-square btn-sm ml-1" (click)="openViewModal(user.labId)">
-                  <i class="fa-solid fa-eye"></i>
-                </button>
-              } @else{
-                  <button class="btn btn-square btn-sm ml-1" (click)="openViewModal(user.labId)">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
-                  <button class="btn btn-square btn-sm ml-1" (click)="openEditModal(user.labId)">
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                  <button class="btn btn-square btn-sm ml-1 mr-1" >
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-              }
+          @if (this._authS.userInfo?.accountType === 'agri') {
+
+          <td class="w-2 p-3">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openViewModal(user.labId)"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
           </td>
+          } @else {
+          <td class="w-2 p-3">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openViewModal(user.labId)"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </button>
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openEditModal(user.labId)"
+              >
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="btn btn-square btn-sm ml-1 mr-1">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </td>
+          }
         </tr>
         } @empty {
         <tr>
@@ -84,22 +103,22 @@
       </tbody>
     </table>
   </div>
-@if (modalAdd()) {
-<app-clinicallabresult
-  (modalEvent)="this.modalAdd.set($event)"
-  (getAllMethod)="getAllLabResults()"
-/>
-}
-@else if (modalView()) {
-<app-viewlabresult
-  (modalEvent)="this.modalView.set($event)"
-  (getAllMethod)="getAllLabResults()"
-  [information]="labresult"
-/>
-}
-<!-- @else if (modalEdit()) {
+  @if (modalAdd()) {
+  <app-clinicallabresult
+    (modalEvent)="this.modalAdd.set($event)"
+    (getAllMethod)="getAllLabResults()"
+  />
+  } @else if (modalView()) {
+  <app-viewlabresult
+    (modalEvent)="this.modalView.set($event)"
+    (getAllMethod)="getAllLabResults()"
+    [information]="labresult"
+  />
+  }
+  <!-- @else if (modalEdit()) {
 <app-edit-user
   (modalEvent)="this.modalEdit.set($event)"
   (getAllUsersMethod)="getAllUsers()"
 />
 } -->
+</div>

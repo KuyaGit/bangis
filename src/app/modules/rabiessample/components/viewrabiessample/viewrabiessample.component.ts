@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs';
 import { RabiessubmissionserviceService } from '../../services/rabiessubmissionservice.service';
 import { Rabiessubmissioninterface } from '../../models/rabiessubmissioninterface';
 import { Labresultinterface } from '../../models/labresultinterface';
+import { environment } from '../../../../../environments/environment.development';
 
 export interface behaviorChanges {
   id: number;
@@ -65,7 +66,7 @@ export class ViewrabiessampleComponent {
   @Input() information!: Rabiessubmissioninterface | Labresultinterface;
   rabiesSampleForm!: FormGroup;
   subscription: Subscription = new Subscription();
-
+  themeColor = localStorage.getItem(environment.theme)
   currentStep: number = 1;
   isLoadingButton = signal<boolean>(false);
 
@@ -120,7 +121,7 @@ export class ViewrabiessampleComponent {
       locationofBite: [{ value: '', disabled: true }],
       siteOfExposureOther: [''],
       locationofBiteOther: [''],
-      otherVictims: [''],
+      otherVictims: [{ value: '', disabled: true }],
       treatmentRecieved: [{ value: '', disabled: true }],
       treatmentRecievedOther: [''],
       treatmentRecievedType: [{ value: '', disabled: true }],

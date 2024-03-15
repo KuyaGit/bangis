@@ -9,7 +9,7 @@
       />
       <button
         *ngIf="_authS.userInfo?.accountType == 'lab'"
-        class="btn  border-none  text-white ml-3"
+        class="btn border-none text-white ml-3"
         [ngClass]="themeColor"
         (click)="this.modalAddRabiesSubmission.set(true)"
       >
@@ -42,7 +42,7 @@
           <th class="py-1">Species</th>
           <th class="py-1">Breed</th>
           <th class="py-1">Type of Ownership</th>
-          <th class="py-1">Action</th>
+          <th class="py-1 sticky right-0">Action</th>
         </tr>
       </thead>
       <tbody class="table-body">
@@ -73,19 +73,28 @@
             </div>
           </td>
           @if (this._authS.userInfo?.accountType == 'agri') {
-          <td class="w-1">
-            <button class="btn btn-square btn-sm ml-1" (click)="openViewRabiesSampleModal(rabies.id)">
-              <i class="fa-solid fa-eye"></i>
-            </button>
+          <td class="w-2 p-3">
+            <div class="flex items-center justify-center content-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openViewRabiesSampleModal(rabies.id)"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
           </td>
           } @else {
-            <td class="w-10 flex items-center">
-            <button class="btn btn-square btn-sm ml-1" (click)="openViewRabiesSampleModal(rabies.id)">
-              <i class="fa-solid fa-eye"></i>
-            </button>
+          <td class="w-2 p-3 sticky right-0">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm"
+                (click)="openViewRabiesSampleModal(rabies.id)"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
           </td>
           }
-
         </tr>
         } @empty {
         <tr>
@@ -104,15 +113,16 @@
   (getAllMethod)="this.getAllRabiesSubmission()"
 />
 } @else if (modalViewRabiesSample()) {
-  <app-viewrabiessample
-    (modalEvent)="this.modalViewRabiesSample.set($event)"
-    (getAllMethod)="this.getAllRabiesSubmission()"
-    [information]="this.information"
-    />
+<app-viewrabiessample
+  (modalEvent)="this.modalViewRabiesSample.set($event)"
+  (getAllMethod)="this.getAllRabiesSubmission()"
+  [information]="this.information"
+/>
 } @else if (modalClinicalLabResult()) {
-  <app-clinicallabresult *ngIf="this.information"
-    (modalEvent)="this.modalClinicalLabResult.set($event)"
-    (getAllMethod)="this.getAllRabiesSubmission()"
-    [information]="this.information"
-  />
+<app-clinicallabresult
+  *ngIf="this.information"
+  (modalEvent)="this.modalClinicalLabResult.set($event)"
+  (getAllMethod)="this.getAllRabiesSubmission()"
+  [information]="this.information"
+/>
 }

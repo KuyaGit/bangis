@@ -56,7 +56,7 @@ export class ViewAnimalinjectionComponent implements OnInit {
       age: [{ value: '', disabled: true }],
       color: [{ value: '', disabled: true }],
       registerId: [{ value: '', disabled: true }],
-      neutured: [{ value: '', disabled: true }],
+      neutered: [{ value: '', disabled: true }],
       origin: [{ value: '', disabled: true }],
       remarks: [{ value: '', disabled: true }],
       vaccinator: [{ value: '', disabled: true }],

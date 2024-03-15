@@ -3,34 +3,36 @@
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
       <button
-      class="btn border-none  text-white"
-      [ngClass]="themeColor"
-      (click)="this.avacModalAdd.set(true)"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
+        class="btn border-none text-white"
+        [ngClass]="themeColor"
+        (click)="this.avacModalAdd.set(true)"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 6v12m6-6H6"
-        />
-      </svg>
-      Add Data
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 6v12m6-6H6"
+          />
+        </svg>
+        Add Data
       </button>
-      <app-exportexcelbtn [data]="this._avac.avacList()" [fileName]="fileName" [themeColor]="themeColor"/>
+      <app-exportexcelbtn
+        [data]="this._avac.avacList()"
+        [fileName]="fileName"
+        [themeColor]="themeColor"
+      />
     </div>
-
-
   </div>
   <div class="card overflow-y-scroll overflow-x-hidden">
     <!-- <div class="relative"> -->
-    <table class="table-auto user-table">
+    <table class="table-zebra table user-table">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
           <th class="py-1">Vaccine Name</th>
@@ -68,24 +70,40 @@
             </div>
           </td>
           @if (this._auth.userInfo?.accountType == 'abtc') {
-            <td class="w-1 flex items-center justify-center">
-              <button class="btn btn-square btn-sm ml-1" (click)="openAvacViewModal(vaccine.Aid)">
+          <td class="w-2 p-3">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openAvacViewModal(vaccine.Aid)"
+              >
                 <i class="fa-solid fa-eye"></i>
               </button>
-              <button class="btn btn-square btn-sm ml-1" (click)="openAvacEditModal(vaccine.Aid)">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openAvacEditModal(vaccine.Aid)"
+              >
                 <i class="fa-solid fa-pen"></i>
               </button>
-              <button class="btn btn-square btn-sm ml-1 mr-1" (click)="(vaccine.Aid)">
+              <button
+                class="btn btn-square btn-sm ml-1 mr-1"
+                (click)="(vaccine.Aid)"
+              >
                 <i class="fa-solid fa-trash"></i>
               </button>
-            </td>
-            } @else {
-              <td class="w-10 flex items-center">
-              <button class="btn btn-square btn-sm ml-1" (click)="openAvacViewModal(vaccine.Aid)">
+            </div>
+          </td>
+          } @else {
+          <td class="w-2 p-3">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openAvacViewModal(vaccine.Aid)"
+              >
                 <i class="fa-solid fa-eye"></i>
               </button>
-            </td>
-            }
+            </div>
+          </td>
+          }
         </tr>
         } @empty {
         <tr>

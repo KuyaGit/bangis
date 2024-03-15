@@ -26,13 +26,13 @@ export class ViewComponent implements OnInit{
 
   thisaVacForm() {
     this.aVacForm = this.fb.group({
-      AiD: [''],
-      vacName: [''],
-      brandName: [''],
-      stockQuantity: [''],
-      dosage: [''],
-      expiryDate: [''],
-      aVacID: [''],
+      AiD: [{ value: '', disabled: true }],
+      vacName: [{ value: '', disabled: true }],
+      brandName: [{ value: '', disabled: true }],
+      stockQuantity: [{ value: '', disabled: true }],
+      dosage: [{ value: '', disabled: true }],
+      expiryDate: [{ value: '', disabled: true }],
+      aVacID: [{ value: '', disabled: true }],
     });
   }
   closemodalview() {

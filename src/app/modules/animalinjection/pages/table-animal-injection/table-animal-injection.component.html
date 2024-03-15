@@ -1,13 +1,15 @@
 <app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
-    <div class="search w-full flex items-center justify-start">
-      <app-exportexcelbtn [data]="this._avacInjectList.avacInjectList()" [fileName]="fileName" [themeColor]="themeColor"/>
-    </div>
-
-    <button
+    <div class="search w-full flex items-center gap-1">
+      <app-exportexcelbtn
+        [data]="this._avacInjectList.avacInjectList()"
+        [fileName]="fileName"
+        [themeColor]="themeColor"
+      />
+      <button
       *appHasRole="['agri']"
-      class="btn  text-white add-button"
+      class="btn text-white add-button"
       [ngClass]="themeColor"
       (click)="this.avacModalAddInject.set(true)"
     >
@@ -27,10 +29,13 @@
       </svg>
       Add Data
     </button>
+    </div>
+
+
   </div>
   <div class="card overflow-y-scroll overflow-x-hidden">
     <!-- <div class="relative"> -->
-    <table class="table-auto user-table table-zebra">
+    <table class="table user-table">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
           <th class="py-1">Owner Name</th>
@@ -38,7 +43,7 @@
           <th class="py-1">Species</th>
           <th class="py-2">Breed</th>
           <th class="py-2">Vaccinator</th>
-          <th class="py-2">Action</th>
+          <th class="py-2 sticky right-0">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -68,25 +73,37 @@
             </div>
           </td>
           @if (this._auth.userInfo?.accountType == 'agri') {
-            <td class="w-1 flex">
-              <button class="btn btn-square btn-sm ml-1" (click)="openAvacInjectViewModal(items.animalVaccinationId)">
+          <td class="w-2 p-3 sticky right-0">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openAvacInjectViewModal(items.animalVaccinationId)"
+              >
                 <i class="fa-solid fa-eye"></i>
               </button>
-              <button class="btn btn-square btn-sm ml-1" (click)="openAvacEditInjectModal(items.animalVaccinationId)">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openAvacEditInjectModal(items.animalVaccinationId)"
+              >
                 <i class="fa-solid fa-pen"></i>
               </button>
-              <button class="btn btn-square btn-sm ml-1 mr-1" >
+              <button class="btn btn-square btn-sm ml-1 mr-1">
                 <i class="fa-solid fa-trash"></i>
               </button>
-            </td>
-            } @else {
-              <td class="w-10 flex items-center justify-center">
-              <button class="btn btn-square btn-sm ml-1" (click)="openAvacInjectViewModal(items.animalVaccinationId)">
-                <i class="fa-solid fa-eye"></i>
-              </button>
-            </td>
-            }
-
+            </div>
+          </td>
+          } @else {
+            <td class="w-2 p-3 sticky right-0">
+              <div class="flex justify-center">
+                <button
+                  class="btn btn-square btn-sm ml-1"
+                  (click)="openAvacInjectViewModal(items.animalVaccinationId)"
+                >
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+          </td>
+          }
         </tr>
         } @empty {
         <tr>
@@ -104,16 +121,16 @@
   (getAllAnimalVaccinated)="getAllAnimalVacinated()"
 />
 
-}
-@else if (avacModalViewInject()) {
-  <app-view-animalinjection
-    (modalEvent)="this.avacModalViewInject.set($event)"
-    (getAllAnimalVaccinated)="getAllAnimalVacinated()"
-    [aInjectionInfo]="animalInjectionInfo" />
-}
-@else if(avacModalEditInject()){
-  <app-edit-animalinjection
-    (modalEvent)="this.avacModalEditInject.set($event)"
-    (getAllAnimalVaccinated)="getAllAnimalVacinated()"
-    [aInjectionInfo]="animalInjectionInfo" />
+} @else if (avacModalViewInject()) {
+<app-view-animalinjection
+  (modalEvent)="this.avacModalViewInject.set($event)"
+  (getAllAnimalVaccinated)="getAllAnimalVacinated()"
+  [aInjectionInfo]="animalInjectionInfo"
+/>
+} @else if(avacModalEditInject()){
+<app-edit-animalinjection
+  (modalEvent)="this.avacModalEditInject.set($event)"
+  (getAllAnimalVaccinated)="getAllAnimalVacinated()"
+  [aInjectionInfo]="animalInjectionInfo"
+/>
 }

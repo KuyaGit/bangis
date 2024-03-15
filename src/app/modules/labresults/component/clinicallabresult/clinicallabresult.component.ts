@@ -72,6 +72,11 @@ export class ClinicallabresultComponent{
   isRequired: boolean = false;
   addLabResult() {
     this.isLoadingButton.set(true);
+    if(this.labForm.invalid){
+      this._alertS.handleError('Please fill in all required fields');
+      this.isRequired = true;
+      this.isLoadingButton.set(false);
+    }
     this._labS.addRabiesResult(this.labForm.value).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 404) {

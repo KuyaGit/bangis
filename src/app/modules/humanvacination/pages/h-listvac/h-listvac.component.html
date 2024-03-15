@@ -23,21 +23,24 @@
         </svg>
         Add Data
       </button>
-      <app-exportexcelbtn [data]="this._hvac.HVacs()" [fileName]="fileName" [themeColor]="themeColor"/>
-
+      <app-exportexcelbtn
+        [data]="this._hvac.HVacs()"
+        [fileName]="fileName"
+        [themeColor]="themeColor"
+      />
     </div>
   </div>
 
   <div class="card overflow-y-scroll overflow-x-hidden">
-    <table class="table-auto user-table table-zebra">
+    <table class="table user-table">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
-          <th class=" py-1">Vaccine Name</th>
-          <th class=" py-1">Brand Name</th>
-          <th class=" py-1">Stock Quantity</th>
-          <th class=" py-1">Dosage</th>
-          <th class=" py-1">Date Expired</th>
-          <th class=" py-1">Action</th>
+          <th class="py-1">Vaccine Name</th>
+          <th class="py-1">Brand Name</th>
+          <th class="py-1">Stock Quantity</th>
+          <th class="py-1">Dosage</th>
+          <th class="py-1">Date Expired</th>
+          <th class="py-1 sticky right-0 bg-white top">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -66,22 +69,41 @@
               {{ vaccine.expiryDate | date : "MMM, dd, yyyy" }}
             </div>
           </td>
-          <td class="w-10">
-            <div class="dropdown dropdown-left">
-              <div tabindex="0" role="button" class="btn m-1">Action</div>
-              <ul
-                tabindex="0"
-                class="dropdown-content z-[1] menu p-2 drop-shadow-md bg-base-200 rounded-box w-40"
+          @if (this._auth.userInfo?.accountType == 'abtc') {
+          <td class="w-2 p-3 sticky right-0">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openHVacViewModal(vaccine.Hid)"
               >
-                <li><a (click)="openHVacViewModal(vaccine.Hid)">View</a></li>
-                <li>
-                  <a (click)="openHVacEditModal(vaccine.Hid)"
-                    >Edit Stocks Quantity</a
-                  >
-                </li>
-              </ul>
+                <i class="fa-solid fa-eye"></i>
+              </button>
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openHVacEditModal(vaccine.Hid)"
+              >
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button
+                class="btn btn-square btn-sm ml-1 mr-1"
+                (click)="(vaccine.Hid)"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </div>
           </td>
+          } @else {
+          <td class="w-2 p-3">
+            <div class="flex justify-center items-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openHVacViewModal(vaccine.Hid)"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </td>
+          }
         </tr>
         } @empty {
         <tr>

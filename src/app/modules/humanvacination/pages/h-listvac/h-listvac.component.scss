@@ -23,3 +23,12 @@
 .card {
   max-height: 80vh;
 }
+
+table tbody tr:last-child{
+  position: sticky;
+  top: 0;
+  background-color: #f5f6f8;
+}
+.top{
+  z-index: 1;
+}

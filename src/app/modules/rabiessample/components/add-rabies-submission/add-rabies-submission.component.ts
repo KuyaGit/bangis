@@ -41,7 +41,7 @@ export interface RabiesSample {
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    LoadingbuttonComponent
+    LoadingbuttonComponent,
   ],
   templateUrl: './add-rabies-submission.component.html',
   styleUrl: './add-rabies-submission.component.scss',
@@ -56,9 +56,9 @@ export class AddRabiesSubmissionComponent implements OnInit {
 
   addRabies$!: Observable<any>;
   subsciption: Subscription = new Subscription();
-
-  _rabiesSampleS = inject(RabiessubmissionserviceService)
-  _alertS = inject(AlertService)
+  isRequired: boolean = false;
+  _rabiesSampleS = inject(RabiessubmissionserviceService);
+  _alertS = inject(AlertService);
   @Output() modalEvent = new EventEmitter<boolean>();
   @Output() getAllMethod = new EventEmitter<Subscription>();
   themeColor = localStorage.getItem(environment.theme);
@@ -133,31 +133,51 @@ export class AddRabiesSubmissionComponent implements OnInit {
       isChecked: false,
     },
   ];
+  isFirstRequired: boolean = false;
   incrementCurrentStep() {
-    this.currentStep++;
+    if (
+      !this.rabiesSampleForm.get('residence')?.value ||
+      !this.rabiesSampleForm.get('species')?.value ||
+      !this.rabiesSampleForm.get('breed')?.value ||
+      !this.rabiesSampleForm.get('gender')?.value ||
+      !this.rabiesSampleForm.get('age')?.value ||
+      !this.rabiesSampleForm.get('typeOfOwnership')?.value ||
+      !this.rabiesSampleForm.get('petManagement')?.value ||
+      !this.rabiesSampleForm.get('causeOfDeath')?.value ||
+      !this.rabiesSampleForm.get('dateOfDeath')?.value ||
+      !this.rabiesSampleForm.get('timeOfDeath')?.value ||
+      !this.rabiesSampleForm.get('dateofLastvaccination')?.value ||
+      !this.rabiesSampleForm.get('otherVaccinationHistory')?.value ||
+      !this.rabiesSampleForm.get('contactWithAnimal')?.value
+    ) {
+      this.isFirstRequired = true;
+      this._alertS.handleError('Please fill in all required fields');
+    } else {
+      this.currentStep++;
+    }
   }
   decrementCurrentStep() {
     this.currentStep--;
   }
   siteofExposure: any[] = [
-    {value: 'Head'},
-    {value: 'Neck'},
-    {value: 'Trunk'},
-    {value: 'Upper Extremities'},
-    {value: 'Lower Extremities'},
-    {value: 'Upper Extremities'},
-    {value: 'Lower Extremities'},
-    {value: 'Others'}
+    { value: 'Head' },
+    { value: 'Neck' },
+    { value: 'Trunk' },
+    { value: 'Upper Extremities' },
+    { value: 'Lower Extremities' },
+    { value: 'Upper Extremities' },
+    { value: 'Lower Extremities' },
+    { value: 'Others' },
   ];
   natureofExposure: any[] = [
-    {value: 'Bite'},
-    {value: 'Scratch'},
-    {value: 'Non-Bite'},
-    {value: 'Single'},
-    {value: 'Multiple'},
-    {value: 'Mild'},
-    {value: 'Moderate'},
-    {value: 'Severe'},
+    { value: 'Bite' },
+    { value: 'Scratch' },
+    { value: 'Non-Bite' },
+    { value: 'Single' },
+    { value: 'Multiple' },
+    { value: 'Mild' },
+    { value: 'Moderate' },
+    { value: 'Severe' },
   ];
 
   emitGetAll() {
@@ -173,7 +193,7 @@ export class AddRabiesSubmissionComponent implements OnInit {
     if (!isNextPage) {
       return this.currentStep--;
     }
-    if(this.behaviorChanges.length == 0) {
+    if (this.behaviorChanges.length == 0) {
       this.behaviorChanges.push(this.behaviorChanges[0]);
     }
     return this.currentStep++;
@@ -220,6 +240,9 @@ export class AddRabiesSubmissionComponent implements OnInit {
       DateofTreatment: ['', Validators.required],
       sampleId: ['', Validators.required],
       explainProvoked: ['', Validators.required],
+      otherVaccinationHistoryOther: [''],
+      causeOfDeathOther: [''],
+      whereContactOthers: [''],
     });
   }
 
@@ -252,34 +275,86 @@ export class AddRabiesSubmissionComponent implements OnInit {
     }
   }
   addRabiesSample() {
+    // causeOfDeathOther || whereContactOthers || treatmentRecievedOther || otherVaccinationHistoryOther || siteOfExposureOther || locationofBiteOther
+    if(
+      !this.rabiesSampleForm.get('victimName')?.value ||
+      !this.rabiesSampleForm.get('victimAge')?.value ||
+      !this.rabiesSampleForm.get('victimGender')?.value ||
+      !this.rabiesSampleForm.get('victimBarangay')?.value ||
+      !this.rabiesSampleForm.get('victimMunicipality')?.value ||
+      !this.rabiesSampleForm.get('victimProvince')?.value ||
+      !this.rabiesSampleForm.get('victimDateBitten')?.value ||
+      !this.rabiesSampleForm.get('victimTimeBitten')?.value ||
+      !this.rabiesSampleForm.get('siteOfBite')?.value ||
+      !this.rabiesSampleForm.get('natureofExposured')?.value ||
+      !this.rabiesSampleForm.get('biteProvoked')?.value ||
+      !this.rabiesSampleForm.get('locationofBite')?.value ||
+      !this.rabiesSampleForm.get('treatmentRecieved')?.value ||
+      !this.rabiesSampleForm.get('treatmentRecievedType')?.value ||
+      !this.rabiesSampleForm.get('DateofTreatment')?.value
+    ){
+      this._alertS.handleError('Please fill in all required fields');
+      this.isRequired = true;
+      this.isLoadingButton.set(false);
+      return;
+    }
+    if(this.rabiesSampleForm.controls['causeOfDeathOther'].value){
+      this.rabiesSampleForm.controls['causeOfDeath'].setValue(this.rabiesSampleForm.controls['causeOfDeathOther'].value);
+    }
+    if(this.rabiesSampleForm.controls['whereContactOthers'].value){
+      this.rabiesSampleForm.controls['whereContact'].setValue(this.rabiesSampleForm.controls['whereContactOthers'].value);
+    }
+    if(this.rabiesSampleForm.controls['treatmentRecievedOther'].value){
+      this.rabiesSampleForm.controls['treatmentRecieved'].setValue(this.rabiesSampleForm.controls['treatmentRecievedOther'].value);
+    }
+    if(this.rabiesSampleForm.controls['otherVaccinationHistoryOther'].value){
+      this.rabiesSampleForm.controls['otherVaccinationHistory'].setValue(this.rabiesSampleForm.controls['otherVaccinationHistoryOther'].value);
+    }
+    if(this.rabiesSampleForm.controls['siteOfExposureOther'].value){
+      this.rabiesSampleForm.controls['siteOfBite'].setValue(this.rabiesSampleForm.controls['siteOfExposureOther'].value);
+    }
+    if(this.rabiesSampleForm.controls['locationofBiteOther'].value){
+      this.rabiesSampleForm.controls['locationofBite'].setValue(this.rabiesSampleForm.controls['locationofBiteOther'].value);
+    }
+    if (this.rabiesSampleForm.invalid) {
+      this._alertS.handleError('Please fill in all required fields');
+      this.isRequired = true;
+      this.isLoadingButton.set(false);
+    }
     this.isLoadingButton.set(true);
-    if(this.arrayofDescription.length == 0) {
+    if (this.arrayofDescription.length == 0) {
       this.arrayofDescription.push('None');
     }
-    if(this.arrayofIllness.length == 0) {
+    if (this.arrayofIllness.length == 0) {
       this.arrayofIllness.push('None');
     }
     this.subsciption.add(
-      this._rabiesSampleS.addRabiesSampleSubmission(this.rabiesSampleForm.value, this.arrayofDescription, this.arrayofIllness)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 400) {
-            this.isLoadingButton.set(false);
-            this._alertS.handleError(error.error['message']);
-            this.closeModalAdd();
-          }
-          throw error; // rethrow the error to continue handling it in the subscribe block
-        })
-      ).subscribe((res: any) => {
+      this._rabiesSampleS
+        .addRabiesSampleSubmission(
+          this.rabiesSampleForm.value,
+          this.arrayofDescription,
+          this.arrayofIllness
+        )
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 400) {
+              this.isLoadingButton.set(false);
+              this._alertS.handleError(error.error['message']);
+              this.closeModalAdd();
+            }
+            throw error; // rethrow the error to continue handling it in the subscribe block
+          })
+        )
+        .subscribe((res: any) => {
           this.isLoadingButton.set(false);
-          if(res.id) {
-            this.rabiesSampleForm.reset()
+          if (res.id) {
+            this.rabiesSampleForm.reset();
             this.isLoadingButton.set(false);
             this.closeModalAdd();
             this._alertS.handleSuccess('Successfully Added');
             this.emitGetAll();
           }
-      })
+        })
     );
   }
   // Push the value changes

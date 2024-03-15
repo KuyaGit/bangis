@@ -93,7 +93,7 @@ export class EditAnimalinjectionComponent implements OnInit{
       age: ['',[Validators.required, Validators.pattern("^[0-9]*$")]],
       color: ['',Validators.required],
       registerId: ['',[Validators.required, Validators.pattern("^[0-9]*$")]],
-      neutured : ['',Validators.required],
+      neutered : ['',Validators.required],
       origin : ['',Validators.required],
       remarks : ['',Validators.required],
       vaccinator : ['',Validators.required],

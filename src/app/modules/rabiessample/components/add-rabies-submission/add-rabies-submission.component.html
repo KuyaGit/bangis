@@ -23,21 +23,6 @@
             class="bg-white h-[90vh] px-4 pb-4 pt-5 sm:p-6 sm:pb-4 md:overflow-x-scroll md:h-[70vh]"
           >
             <ng-container *ngIf="currentStep == 1">
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">Patiend ID</span>
-                    </div>
-                    <input
-                      type="string"
-                      formControlName="sampleId"
-                      placeholder="Enter Residence(in 15 days)"
-                      class="input input-bordered w-full"
-                    />
-                  </label>
-                </div>
-              </div>
               <h1
                 class="text-2xl flex items-start font-extrabold text-slate-600 mb-2"
               >
@@ -49,12 +34,27 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Residence of Animal</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['residence'].touched &&
+                              !rabiesSampleForm.controls['residence'].value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         formControlName="residence"
                         placeholder="Enter Residence(in 15 days)"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['residence'].touched &&
+                              !rabiesSampleForm.controls['residence'].value) ||
+                            isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -64,12 +64,27 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Species</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['species'].touched &&
+                              !rabiesSampleForm.controls['species'].value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         class="input input-bordered w-full"
                         formControlName="species"
                         placeholder="Enter Address"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['species'].touched &&
+                              !rabiesSampleForm.controls['species'].value) ||
+                            isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -79,12 +94,27 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Breed</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['breed'].touched &&
+                              !rabiesSampleForm.controls['breed'].value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         class="input input-bordered w-full"
                         formControlName="breed"
                         placeholder="Enter Breed"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['breed'].touched &&
+                              !rabiesSampleForm.controls['breed'].value) ||
+                            isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -94,17 +124,31 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Gender</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['gender'].touched &&
+                              !rabiesSampleForm.controls['gender'].value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
                         formControlName="gender"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['gender'].touched &&
+                              !rabiesSampleForm.controls['gender'].value) ||
+                            isFirstRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select Gender
                         </option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                        <option value="other">Other</option>
                       </select>
                     </label>
                   </div>
@@ -114,12 +158,27 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Age(Month)</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['age'].touched &&
+                              !rabiesSampleForm.controls['age'].value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="number"
                         formControlName="age"
                         placeholder="Age"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['age'].touched &&
+                              !rabiesSampleForm.controls['age'].value) ||
+                            isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -131,10 +190,29 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Type of Ownership</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['typeOfOwnership']
+                              .touched &&
+                              !rabiesSampleForm.controls['typeOfOwnership']
+                                .value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
                         formControlName="typeOfOwnership"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['typeOfOwnership']
+                              .touched &&
+                              !rabiesSampleForm.controls['typeOfOwnership']
+                                .value) ||
+                            isFirstRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -151,10 +229,29 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Pet Management</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['petManagement']
+                              .touched &&
+                              !rabiesSampleForm.controls['petManagement']
+                                .value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
                         formControlName="petManagement"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['petManagement']
+                              .touched &&
+                              !rabiesSampleForm.controls['petManagement']
+                                .value) ||
+                            isFirstRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -174,15 +271,29 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Cause of Death</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['causeOfDeath']
+                              .touched &&
+                              !rabiesSampleForm.controls['causeOfDeath']
+                                .value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
-                        [formControlName]="
-                          rabiesSampleForm.get('causeOfDeath')?.value ==
-                          'others'
-                            ? 'causeOfDeathOther'
-                            : 'causeOfDeath'
-                        "
+                        formControlName="causeOfDeath"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['causeOfDeath']
+                              .touched &&
+                              !rabiesSampleForm.controls['causeOfDeath']
+                                .value) ||
+                            isFirstRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -204,12 +315,26 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Please Specify</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isFirstRequired ||
+                            !rabiesSampleForm.controls['causeOfDeathOther']
+                              .value
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
-                        formControlName="causeOfDeath"
+                        formControlName="causeOfDeathOther"
                         placeholder="Enter Cause of Death"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            !rabiesSampleForm.controls['causeOfDeathOther']
+                              .value || isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -219,11 +344,28 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Date of Death</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['dateOfDeath'].touched &&
+                              !rabiesSampleForm.controls['dateOfDeath']
+                                .value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="date"
                         formControlName="dateOfDeath"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['dateOfDeath'].touched &&
+                              !rabiesSampleForm.controls['dateOfDeath']
+                                .value) ||
+                            isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -233,11 +375,28 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Time of Death</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['timeOfDeath'].touched &&
+                              !rabiesSampleForm.controls['timeOfDeath']
+                                .value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="time"
                         formControlName="timeOfDeath"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['timeOfDeath'].touched &&
+                              !rabiesSampleForm.controls['timeOfDeath']
+                                .value) ||
+                            isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -247,15 +406,33 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Vaccination History</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isFirstRequired ||
+                            (this.rabiesSampleForm.controls[
+                              'otherVaccinationHistory'
+                            ].touched &&
+                              !this.rabiesSampleForm.controls[
+                                'otherVaccinationHistory'
+                              ].value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
-                        [formControlName]="
-                          rabiesSampleForm.get('otherVaccinationHistory')
-                            ?.value == 'others'
-                            ? 'otherVaccinationHistoryOther'
-                            : 'otherVaccinationHistory'
-                        "
+                        formControlName="otherVaccinationHistory"
+                        [ngClass]="{
+                          'select-error':
+                            isFirstRequired ||
+                            (this.rabiesSampleForm.controls[
+                              'otherVaccinationHistory'
+                            ].touched &&
+                              !this.rabiesSampleForm.controls[
+                                'otherVaccinationHistory'
+                              ].value)
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -277,12 +454,27 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Please Specify</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            !this.rabiesSampleForm.controls[
+                              'otherVaccinationHistoryOther'
+                            ].value || isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
-                        type="number"
-                        formControlName="otherVaccinationHistory"
+                        type="text"
+                        formControlName="otherVaccinationHistoryOther"
                         placeholder="Enter Vaccine"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            !rabiesSampleForm.controls[
+                              'otherVaccinationHistoryOther'
+                            ].value || isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -292,11 +484,32 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Date of Vaccination</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            (rabiesSampleForm.controls['dateofLastvaccination']
+                              .touched &&
+                              !rabiesSampleForm.controls[
+                                'dateofLastvaccination'
+                              ].value) ||
+                            isFirstRequired
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="date"
                         formControlName="dateofLastvaccination"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['dateofLastvaccination']
+                              .touched &&
+                              !rabiesSampleForm.controls[
+                                'dateofLastvaccination'
+                              ].value) ||
+                            isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -331,11 +544,27 @@
                       <label class="form-control w-full">
                         <div class="label">
                           <span class="label-text">Date of Vaccination</span>
+                          <span
+                            class="label-text text-error"
+                            *ngIf="
+                              isFirstRequired ||
+                              !this.rabiesSampleForm.controls[
+                                'dateOfVaccinationpuppies'
+                              ].value
+                            "
+                            >Required</span
+                          >
                         </div>
                         <input
                           type="date"
                           formControlName="dateOfVaccinationpuppies"
                           class="input input-bordered w-full"
+                          [ngClass]="{
+                            'input-error':
+                              !rabiesSampleForm.controls[
+                                'dateOfVaccinationpuppies'
+                              ].value || isFirstRequired
+                          }"
                         />
                       </label>
                     </div>
@@ -347,10 +576,29 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Contact With Other Animals</span>
+                      <span
+                        class="label-text text-error"
+                        *ngIf="
+                          isFirstRequired ||
+                          (this.rabiesSampleForm.controls['contactWithAnimal']
+                            .touched &&
+                            !this.rabiesSampleForm.controls['contactWithAnimal']
+                              .value)
+                        "
+                        >Required</span
+                      >
                     </div>
                     <select
                       class="select select-bordered w-full"
                       formControlName="contactWithAnimal"
+                      [ngClass]="{
+                        'select-error':
+                          (rabiesSampleForm.controls['contactWithAnimal']
+                            .touched &&
+                            !rabiesSampleForm.controls['contactWithAnimal']
+                              .value) ||
+                          isFirstRequired
+                      }"
                     >
                       <option value="" disabled selected>Please Select</option>
                       <option value="Yes">Yes</option>
@@ -367,14 +615,17 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">If Yes, Where?</span>
+                      <span class="label-text text-error" *ngIf="isFirstRequired || !this.rabiesSampleForm.controls['whereContact'].value"
+                        >Required</span>
                     </div>
                     <select
                       class="select select-bordered w-full"
-                      [formControlName]="
-                        rabiesSampleForm.get('whereContact')?.value == 'others'
-                          ? 'whereContactOthers'
-                          : 'whereContact'
-                      "
+                      formControlName="whereContact"
+                      [ngClass]="{
+                        'select-error':
+                          !rabiesSampleForm.controls['whereContact'].value ||
+                          isFirstRequired
+                      }"
                     >
                       <option value="" disabled selected>Please Select</option>
                       <option value="household">Household</option>
@@ -392,12 +643,26 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Please Specify</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isFirstRequired ||
+                            !rabiesSampleForm.controls['whereContactOthers']
+                              .value
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
-                        formControlName="whereContact"
+                        formControlName="whereContactOthers"
                         placeholder="Enter Where?"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            !rabiesSampleForm.controls['whereContactOthers']
+                              .value || isFirstRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -490,13 +755,29 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Name</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['victimName']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['victimName']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         formControlName="victimName"
                         placeholder="Enter Name"
                         class="input input-bordered w-full"
-                        ngDis
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['victimName'].touched &&
+                              !rabiesSampleForm.controls['victimName'].value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -506,12 +787,29 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Age</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['victimAge']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['victimAge']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="number"
                         class="input input-bordered w-full"
                         formControlName="victimAge"
-                        placeholder="Enter Address"
+                        placeholder="Enter Age"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['victimAge'].touched &&
+                              !rabiesSampleForm.controls['victimAge'].value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -521,10 +819,29 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Gender</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['victimGender']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['victimGender']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
                         formControlName="victimGender"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['victimGender']
+                              .touched &&
+                              !rabiesSampleForm.controls['victimGender']
+                                .value) ||
+                            isRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -542,13 +859,31 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Barangay</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['victimBarangay']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['victimBarangay']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         formControlName="victimBarangay"
                         placeholder="Enter Barangay"
                         class="input input-bordered w-full"
-                        ngDis
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['victimBarangay']
+                              .touched &&
+                              !rabiesSampleForm.controls['victimBarangay']
+                                .value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -558,12 +893,33 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">City/Municipality</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls[
+                              'victimMunicipality'
+                            ].touched &&
+                              !this.rabiesSampleForm.controls[
+                                'victimMunicipality'
+                              ].value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         class="input input-bordered w-full"
                         formControlName="victimMunicipality"
                         placeholder="Enter Municipality"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['victimMunicipality']
+                              .touched &&
+                              !rabiesSampleForm.controls['victimMunicipality']
+                                .value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -573,12 +929,31 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Province</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['victimProvince']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['victimProvince']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         class="input input-bordered w-full"
                         formControlName="victimProvince"
                         placeholder="Enter Province"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['victimProvince']
+                              .touched &&
+                              !rabiesSampleForm.controls['victimProvince']
+                                .value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -590,11 +965,31 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Date Bitten</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['victimDateBitten']
+                              .touched &&
+                              !this.rabiesSampleForm.controls[
+                                'victimDateBitten'
+                              ].value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="date"
                         formControlName="victimDateBitten"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['victimDateBitten']
+                              .touched &&
+                              !rabiesSampleForm.controls['victimDateBitten']
+                                .value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -604,11 +999,31 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Time Bitten</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['victimTimeBitten']
+                              .touched &&
+                              !this.rabiesSampleForm.controls[
+                                'victimTimeBitten'
+                              ].value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="time"
                         formControlName="victimTimeBitten"
                         class="input input-bordered w-full"
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['victimTimeBitten']
+                              .touched &&
+                              !rabiesSampleForm.controls['victimTimeBitten']
+                                .value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -620,14 +1035,27 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Site of Exposure</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['siteOfBite']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['siteOfBite']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
-                        [formControlName]="
-                          rabiesSampleForm.get('siteOfBite')?.value == 'others'
-                            ? 'siteOfExposureOther'
-                            : 'siteOfBite'
-                        "
+                        formControlName="siteOfBite"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['siteOfBite'].touched &&
+                              !rabiesSampleForm.controls['siteOfBite'].value) ||
+                            isRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -649,13 +1077,27 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Please Specify</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            !this.rabiesSampleForm.controls[
+                              'siteOfExposureOther'
+                            ].value
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
-                        formControlName="siteOfBite"
+                        formControlName="siteOfExposureOther"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
-                        ngDis
+                        [ngClass]="{
+                          'input-error':
+                            !rabiesSampleForm.controls['siteOfExposureOther']
+                              .value || isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -665,10 +1107,30 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Nature of Exposure</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['natureofExposured']
+                              .touched &&
+                              !this.rabiesSampleForm.controls[
+                                'natureofExposured'
+                              ].value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
                         formControlName="natureofExposured"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['natureofExposured']
+                              .touched &&
+                              !rabiesSampleForm.controls['natureofExposured']
+                                .value) ||
+                            isRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -690,16 +1152,35 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Bite Provoke</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['biteProvoked']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['biteProvoked']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
                         formControlName="biteProvoked"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['biteProvoked']
+                              .touched &&
+                              !rabiesSampleForm.controls['biteProvoked']
+                                .value) ||
+                            isRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
                         </option>
                         <option value="Yes">Yes</option>
-                        <option value="Yes">No</option>
+                        <option value="No">No</option>
                       </select>
                     </label>
                   </div>
@@ -713,13 +1194,26 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">If Yes?, Explain</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            !this.rabiesSampleForm.controls['explainProvoked']
+                              .value
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         formControlName="explainProvoked"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
-                        ngDis
+                        [ngClass]="{
+                          'input-error':
+                            !rabiesSampleForm.controls['explainProvoked']
+                              .value || isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -731,10 +1225,29 @@
                         <span class="label-text"
                           >Location of Bite Incident</span
                         >
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['locationofBite']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['locationofBite']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
                         formControlName="locationofBite"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['locationofBite']
+                              .touched &&
+                              !rabiesSampleForm.controls['locationofBite']
+                                .value) ||
+                            isRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -756,18 +1269,27 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Others Specify:</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            !this.rabiesSampleForm.controls[
+                              'locationofBiteOther'
+                            ].value
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
-                        [formControlName]="
-                          rabiesSampleForm.controls['locationofBite'].value ===
-                          'Others'
-                            ? 'locationofBite'
-                            : 'locationofBiteOther'
-                        "
+                        formControlName="locationofBiteOther"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
-                        ngDis
+                        [ngClass]="{
+                          'input-error':
+                            !rabiesSampleForm.controls['locationofBiteOther']
+                              .value || isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -797,15 +1319,30 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Treatment Recieved</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['treatmentRecieved']
+                              .touched &&
+                              !this.rabiesSampleForm.controls[
+                                'treatmentRecieved'
+                              ].value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <select
                         class="select select-bordered w-full"
-                        [formControlName]="
-                          rabiesSampleForm.get('treatmentRecieved')?.value ==
-                          'others'
-                            ? 'treatmentRecieved'
-                            : 'treatmentRecievedOther'
-                        "
+                        formControlName="treatmentRecieved"
+                        [ngClass]="{
+                          'select-error':
+                            (rabiesSampleForm.controls['treatmentRecieved']
+                              .touched &&
+                              !rabiesSampleForm.controls['treatmentRecieved']
+                                .value) ||
+                            isRequired
+                        }"
                       >
                         <option value="" disabled selected>
                           Please Select
@@ -817,18 +1354,37 @@
                     </label>
                   </div>
                 </div>
-                <div *ngIf="rabiesSampleForm.controls['treatmentRecieved'].value == 'Others'">
+                <div
+                  *ngIf="
+                    rabiesSampleForm.controls['treatmentRecieved'].value ==
+                    'Others'
+                  "
+                >
                   <div class="sm:flex sm:items-center w-full">
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Others Specify:</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            !this.rabiesSampleForm.controls[
+                              'treatmentRecievedOther'
+                            ].value
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
-                        [formControlName]="rabiesSampleForm.controls['treatmentRecievedOther'].value === 'Others' ? 'treatmentRecieved' : 'treatmentRecievedOther'"
+                        formControlName="treatmentRecievedOther"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
-                        ngDis
+                        [ngClass]="{
+                          'input-error':
+                            !rabiesSampleForm.controls['treatmentRecievedOther']
+                              .value || isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -838,13 +1394,34 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Type</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls[
+                              'treatmentRecievedType'
+                            ].touched &&
+                              !this.rabiesSampleForm.controls[
+                                'treatmentRecievedType'
+                              ].value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="text"
                         formControlName="treatmentRecievedType"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
-                        ngDis
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['treatmentRecievedType']
+                              .touched &&
+                              !rabiesSampleForm.controls[
+                                'treatmentRecievedType'
+                              ].value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
@@ -854,13 +1431,31 @@
                     <label class="form-control w-full">
                       <div class="label">
                         <span class="label-text">Date</span>
+                        <span
+                          class="label-text text-error"
+                          *ngIf="
+                            isRequired ||
+                            (this.rabiesSampleForm.controls['DateofTreatment']
+                              .touched &&
+                              !this.rabiesSampleForm.controls['DateofTreatment']
+                                .value)
+                          "
+                          >Required</span
+                        >
                       </div>
                       <input
                         type="date"
                         formControlName="DateofTreatment"
                         placeholder="Type Here"
                         class="input input-bordered w-full"
-                        ngDis
+                        [ngClass]="{
+                          'input-error':
+                            (rabiesSampleForm.controls['DateofTreatment']
+                              .touched &&
+                              !rabiesSampleForm.controls['DateofTreatment']
+                                .value) ||
+                            isRequired
+                        }"
                       />
                     </label>
                   </div>
