@@ -405,35 +405,29 @@
                   </label>
                 </div>
               </div>
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">Sex</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          (labForm.controls['gender'].touched &&
-                            !labForm.controls['gender'].value) ||
-                          isRequired
-                        "
-                        >Required</span
-                      >
-                    </div>
-                    <input
-                      type="string"
-                      formControlName="gender"
-                      placeholder="Enter Sex"
-                      class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          (labForm.controls['gender'].touched &&
-                            !labForm.controls['gender'].value) ||
-                          isRequired
-                      }"
-                    />
-                  </label>
-                </div>
+              <div class="sm:flex sm:items-center w-full">
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Sex</span>
+                    <span class="label-text text-error" *ngIf="isRequired || !this.labForm.controls['gender'].value && this.labForm.controls['gender'].touched">Required</span>
+                  </div>
+                  <select
+                    class="select select-bordered w-full"
+                    [ngClass]="{
+                      'select-error':
+                        (labForm.controls['gender'].touched &&
+                          !labForm.controls['gender'].value) ||
+                        isRequired
+                    }"
+                    formControlName="gender"
+                  >
+                    <option value="" disabled selected>
+                      Please Select Gender
+                    </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </label>
               </div>
             </div>
             <h1

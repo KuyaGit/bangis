@@ -30,7 +30,7 @@
       </button>
     </div>
   </div>
-  <div class="card max-h-[450px] overflow-auto">
+  <div class="card max-h-[450px] overflow-y-scroll">
     <!-- <div class="relative"> -->
     <table class="table-auto table">
       <thead class="text-stone-600">
@@ -61,19 +61,7 @@
               {{ user.diagnosis }}
             </div>
           </td>
-          @if (this._authS.userInfo?.accountType === 'agri') {
-
-          <td class="w-2 p-3">
-            <div class="flex justify-center">
-              <button
-                class="btn btn-square btn-sm ml-1"
-                (click)="openViewModal(user.labId)"
-              >
-                <i class="fa-solid fa-eye"></i>
-              </button>
-            </div>
-          </td>
-          } @else {
+          @if (this._authS.userInfo?.accountType === 'lab') {
           <td class="w-2 p-3">
             <div class="flex justify-center">
               <button
@@ -90,6 +78,17 @@
               </button>
               <button class="btn btn-square btn-sm ml-1 mr-1">
                 <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </td>
+          } @else {
+          <td class="w-2 p-3">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openViewModal(user.labId)"
+              >
+                <i class="fa-solid fa-eye"></i>
               </button>
             </div>
           </td>
