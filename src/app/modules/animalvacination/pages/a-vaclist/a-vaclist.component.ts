@@ -49,6 +49,9 @@ export class AVaclistComponent implements OnInit {
         this._avac
           .getAllAvacByAccount(this._auth.userInfo?.id)
           .subscribe((res: any) => {
+            res.sort((a: any, b: any) => {
+              return a.AiD - b.AiD;
+            })
             this._avac.avacList.set(res);
           })
       );

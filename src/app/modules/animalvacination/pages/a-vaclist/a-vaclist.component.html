@@ -32,7 +32,7 @@
   </div>
   <div class="card overflow-y-scroll overflow-x-hidden">
     <!-- <div class="relative"> -->
-    <table class="table-zebra table user-table">
+    <table class=" table user-table">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
           <th class="py-1">Vaccine Name</th>
@@ -69,7 +69,7 @@
               {{ vaccine.expiryDate | date : "MMM, dd, yyyy" }}
             </div>
           </td>
-          @if (this._auth.userInfo?.accountType == 'abtc') {
+          @if (this._auth.userInfo?.accountType == 'agri') {
           <td class="w-2 p-3">
             <div class="flex justify-center">
               <button

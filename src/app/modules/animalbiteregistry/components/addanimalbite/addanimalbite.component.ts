@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, inject, signal } from '@angular/core';
 import { DatePickerComponent } from '../../../../core/components/date-picker/date-picker.component';
 import {
   FormBuilder,
@@ -32,6 +32,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   ],
   templateUrl: './addanimalbite.component.html',
   styleUrl: './addanimalbite.component.scss',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AddanimalbiteComponent implements OnInit {
   // Input and Output
@@ -63,9 +64,9 @@ export class AddanimalbiteComponent implements OnInit {
       category: ['', Validators.required],
       washAfterbite: ['', Validators.required],
       dateRigGiven: ['', Validators.required],
-      route: [''],
-      dateOfFirstVaccine: [''],
-      brandNameFirstVaccine: [''],
+      route: ['', Validators.required],
+      dateOfFirstVaccine: ['', Validators.required],
+      brandNameFirstVaccine: ['', Validators.required],
       dateOfSecondVaccine: [{ value: '', disabled: true }],
       brandNameSecondVaccine: [{ value: '', disabled: true }],
       dateOfThirdVaccine: [{ value: '', disabled: true }],
@@ -79,10 +80,16 @@ export class AddanimalbiteComponent implements OnInit {
       remarks: [''],
     });
   }
+  isRequired : boolean = false;
 
   isLoadingButton = signal<boolean>(false);
   addAnimalBite() {
-    this.isLoadingButton.set(true);
+    if(!this.animalBiteForm.controls['patientName'].value || !this.animalBiteForm.controls['Address'].value || !this.animalBiteForm.controls['age'].value || !this.animalBiteForm.controls['sex'].value || !this.animalBiteForm.controls['dateBitten'].value || !this.animalBiteForm.controls['bittenAt'].value || !this.animalBiteForm.controls['typeOfAnimal'].value || !this.animalBiteForm.controls['type'].value || !this.animalBiteForm.controls['siteOfBite'].value || !this.animalBiteForm.controls['category'].value || !this.animalBiteForm.controls['washAfterbite'].value || !this.animalBiteForm.controls['dateRigGiven'].value || !this.animalBiteForm.controls['route'].value || !this.animalBiteForm.controls['dateOfFirstVaccine'].value || !this.animalBiteForm.controls['brandNameFirstVaccine'].value) {
+      this._alert.handleError('Please fill up all required fields');
+      this.isRequired = true;
+      return;
+    } else {
+      this.isLoadingButton.set(true);
     const formValue = this.animalBiteForm.value;
     Object.keys(formValue).forEach(key => {
       if (key.startsWith('date')) {
@@ -112,6 +119,8 @@ export class AddanimalbiteComponent implements OnInit {
           }
       })
     );
+    }
+
   }
 
 

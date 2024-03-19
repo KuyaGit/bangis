@@ -12,6 +12,8 @@ import { ExportexcelbtnComponent } from '../../../../core/components/exportexcel
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
 import { Animalinjection } from '../../models/animalinjection';
 import { environment } from '../../../../../environments/environment.development';
+import { FormsModule } from '@angular/forms';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 
 @Component({
   selector: 'app-table-animal-injection',
@@ -24,6 +26,8 @@ import { environment } from '../../../../../environments/environment.development
     HasRoleDirective,
     ExportexcelbtnComponent,
     FullPageLoaderComponent,
+    FormsModule,
+    LoadingbuttonComponent
   ],
 
   templateUrl: './table-animal-injection.component.html',
@@ -55,28 +59,50 @@ export class TableAnimalInjectionComponent implements OnInit {
         })
     );
   }
-  openAvacEditInjectModal(id:number) {
+  openAvacEditInjectModal(id: number) {
     this.subscription.add(
-      this._avacInjectList.getAvacInjectInfoByID(id).subscribe((res:any) => {
-        this.animalInjectionInfo = res
-        this.avacModalEditInject.set(true)
+      this._avacInjectList.getAvacInjectInfoByID(id).subscribe((res: any) => {
+        this.animalInjectionInfo = res;
+        this.avacModalEditInject.set(true);
       })
-    )
+    );
   }
-
+  searchText: string = '';
+  items: Animalinjection[] = [];
+  isLoadingButton = signal<boolean>(false)
+  applyFilter() {
+    this.isLoadingButton.set(true)
+    if (this.searchText === '') {
+      this.getAllAnimalVacinated();
+      this.isLoadingButton.set(false)
+      return;
+    }
+    this.items = this.items.filter((item) =>
+      item.ownerName.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    this.isLoadingButton.set(false)
+  }
   getAllAnimalVacinated() {
     if (this._auth.userInfo?.accountType == 'agri') {
       this.subscription.add(
         this._avacInjectList
           .getallAvacInjectListByAccount(this._auth.userInfo?.id)
           .subscribe((res: any) => {
+            res.sort((a: any, b: any) => {
+              return a.AnimalInjectionId - b.AnimalInjectionId;
+            });
             this._avacInjectList.avacInjectList.set(res);
+            this.items = this._avacInjectList.avacInjectList();
           })
       );
     } else {
       this.subscription.add(
         this._avacInjectList.getAllAvacInjectList().subscribe((res: any) => {
+          res.sort((a: any, b: any) => {
+            return a.AnimalInjectionId - b.AnimalInjectionId;
+          });
           this._avacInjectList.avacInjectList.set(res);
+          this.items = this._avacInjectList.avacInjectList();
         })
       );
     }

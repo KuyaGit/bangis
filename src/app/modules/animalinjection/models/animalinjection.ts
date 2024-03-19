@@ -1,4 +1,5 @@
 export interface Animalinjection {
+    animalVaccinationId: number;
     animalVaccinationIDFrom : number;
     animalVaccineUsedID : number;
     ownerName : string;

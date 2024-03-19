@@ -17,6 +17,9 @@ import { ExportexcelbtnComponent } from '../../../../core/components/exportexcel
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
 import { environment } from '../../../../../environments/environment.development';
 import { AuthService } from '../../../../core/services/auth.service';
+import { FormsModule } from '@angular/forms';
+import { AnimalbiteInterface } from '../../models/animalbite';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 
 @Component({
   selector: 'app-animalbitelist',
@@ -29,6 +32,8 @@ import { AuthService } from '../../../../core/services/auth.service';
     HasRoleDirective,
     ExportexcelbtnComponent,
     FullPageLoaderComponent,
+    FormsModule,
+    LoadingbuttonComponent
   ],
   templateUrl: './animalbitelist.component.html',
   styleUrl: './animalbitelist.component.scss',
@@ -39,7 +44,7 @@ export class AnimalbitelistComponent implements OnInit {
   modalEdit = signal<boolean>(false);
 
   animalBiteInfo: any;
-
+  isLoadingButton = signal<boolean>(false);
   @Output() getAllAnimalBiteMethod = new EventEmitter<Subscription>();
   @Output() modalEvent = new EventEmitter<boolean>();
   // Dependency Injection
@@ -53,14 +58,16 @@ export class AnimalbitelistComponent implements OnInit {
   themeColor = localStorage.getItem(environment.theme)?.toString();
   loadingColor = this._auth.loadingColor();
   // Methods
+  items: AnimalbiteInterface[] = [];
   getAllAnimalBite() {
     if (this._auth.userInfo?.accountType === 'agri') {
       this.subsciption.add(
         this._animalbite.getAllPatient().subscribe((res) => {
-          res.sort((a, b)=> {
-            return a.AnimalBiteId - b.AnimalBiteId
-          })
+          res.sort((a, b) => {
+            return a.AnimalBiteId - b.AnimalBiteId;
+          });
           this._animalbite.aniList.set(res);
+          this.items = this._animalbite.aniList();
         })
       );
     } else {
@@ -69,9 +76,10 @@ export class AnimalbitelistComponent implements OnInit {
           .getAllPatientsByAbtc(Number(this.accountID))
           .subscribe((res) => {
             res.sort((a, b) => {
-              return a.AnimalBiteId - b.AnimalBiteId
+              return a.AnimalBiteId - b.AnimalBiteId;
             });
             this._animalbite.aniList.set(res);
+            this.items = this._animalbite.aniList();
           })
       );
     }
@@ -92,7 +100,19 @@ export class AnimalbitelistComponent implements OnInit {
   delete(id: number) {
     console.log(id);
   }
-
+  searchText: string = '';
+  applyFilter() {
+    this.isLoadingButton.set(true);
+    if (this.searchText === '') {
+      this.getAllAnimalBite();
+      this.isLoadingButton.set(false);
+      return;
+    }
+    this.items = this.items.filter(item =>
+      item.patientName.toLowerCase().includes(this.searchText.toLowerCase())
+    )
+    this.isLoadingButton.set(false);
+  }
   ngOnInit(): void {
     this.getAllAnimalBite();
     this.loadingColor = this._auth.checkUser();
