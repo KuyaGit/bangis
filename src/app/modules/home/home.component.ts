@@ -165,7 +165,7 @@ import { AvatarComponent } from '../../core/components/avatar/avatar.component';
                       <div class="avatar ">
                         <div class="w-10 rounded-full border border-solid">
                           <img
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src="assets/account.png"
                           />
                         </div>
                       </div>
