@@ -15,7 +15,7 @@
         [ngClass]="themeColor"
         (click)="applyFilter()"
       >
-      <app-loadingbutton *ngIf="isLoadingButton()" />
+        <app-loadingbutton *ngIf="isLoadingButton()" />
         <i class="fa-solid fa-magnifying-glass" *ngIf="!isLoadingButton()"></i>
       </button>
       <app-exportexcelbtn
@@ -42,7 +42,7 @@
             d="M12 6v12m6-6H6"
           />
         </svg>
-        Add Account
+        Add
       </button>
     </div>
   </div>
@@ -87,12 +87,9 @@
                 <i class="fa-solid fa-eye"></i>
               </button>
               <button
-                class="btn btn-square btn-sm ml-1"
-                (click)="openEditModal(user.labId)"
+                class="btn btn-square btn-sm ml-1 mr-1"
+                (click)="deleteResult(user.labId)"
               >
-                <i class="fa-solid fa-pen"></i>
-              </button>
-              <button class="btn btn-square btn-sm ml-1 mr-1">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
@@ -130,10 +127,4 @@
     [information]="labresult"
   />
   }
-  <!-- @else if (modalEdit()) {
-<app-edit-user
-  (modalEvent)="this.modalEdit.set($event)"
-  (getAllUsersMethod)="getAllUsers()"
-/>
-} -->
 </div>

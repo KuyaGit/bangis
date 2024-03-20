@@ -38,6 +38,12 @@ export class LabservicesService {
         catchError(this.handleError)
       );
   }
+  deleteRabiesResult(id: string): Observable<any> {
+    return this.http.put(`${this.url}/clinicallab/archive/${id}` , null)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   private handleError(error: HttpErrorResponse) {
     console.error(error);
     return throwError(() => error);

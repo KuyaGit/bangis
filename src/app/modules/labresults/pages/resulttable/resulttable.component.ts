@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { ViewlabresultComponent } from '../../component/viewlabresult/viewlabresult.component';
 import { FormsModule } from '@angular/forms';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
+import { AlertService } from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-resulttable',
@@ -36,6 +37,7 @@ export class ResulttableComponent implements OnInit {
   subcription: Subscription = new Subscription();
   _labservice = inject(LabservicesService);
   _authS = inject(AuthService);
+  _alert = inject(AlertService)
   accountID = this._authS.userInfo?.id;
   labresult !: Labresult
   openViewModal(id: any) {
@@ -61,6 +63,31 @@ export class ResulttableComponent implements OnInit {
           })
       );
     }
+  }
+  deleteResult(id: string) {
+    this._alert.simpleAlert(
+      'warning',
+      'Warning',
+      'Are you sure you want to archived this Result?',
+      () => {
+        this._labservice.deleteRabiesResult(id).subscribe(
+          (result) => {
+            if (result["labId"] == id) {
+              this._alert.handleSuccess('Result archived successfully');
+              this.getAllLabResults();
+            } else {
+              this._alert.handleError('Failed to archived result');
+            }
+          },
+          (error) => {
+            this._alert.handleError(
+              'An error occurred while arhiving Result'
+            );
+            console.error(error);
+          }
+        );
+      }
+    );
   }
   searchText: string = '';
   items: Labresult[] = [];
