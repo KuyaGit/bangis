@@ -38,4 +38,7 @@ export class AnimalinjectionService {
   editAnimalInjection(data: Animalinjection, id: number): Observable<any> {
     return this._http.put(`${this.url}/animalvacinated/${id}`, data)
   }
+  archivedAnimalInjection(id: number): Observable<any> {
+    return this._http.put(`${this.url}/animalvacinated/archive/${id}`, null)
+  }
 }

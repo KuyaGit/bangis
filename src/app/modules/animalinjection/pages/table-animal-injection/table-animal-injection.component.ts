@@ -14,6 +14,7 @@ import { Animalinjection } from '../../models/animalinjection';
 import { environment } from '../../../../../environments/environment.development';
 import { FormsModule } from '@angular/forms';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
+import { AlertService } from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-table-animal-injection',
@@ -45,6 +46,7 @@ export class TableAnimalInjectionComponent implements OnInit {
   // Injections
   _avacInjectList = inject(AnimalinjectionService);
   _auth = inject(AuthService);
+  _alert = inject(AlertService)
   // Subscriptions
   subscription: Subscription = new Subscription();
   // Method
@@ -81,6 +83,31 @@ export class TableAnimalInjectionComponent implements OnInit {
       item.ownerName.toLowerCase().includes(this.searchText.toLowerCase())
     );
     this.isLoadingButton.set(false)
+  }
+  deleteVacinated(id: number) {
+    this._alert.simpleAlert(
+      'warning',
+      'Warning',
+      'Are you sure you want to archived this Animal Vaccination?',
+      () => {
+        this._avacInjectList.archivedAnimalInjection(id).subscribe(
+          (result) => {
+            if (result["animalVaccinationId"] == id) {
+              this._alert.handleSuccess('Animal Vaccinated archived successfully');
+              this.getAllAnimalVacinated();
+            } else {
+              this._alert.handleError('Failed to archived Animal Vaccination');
+            }
+          },
+          (error) => {
+            this._alert.handleError(
+              'An error occurred while arhiving Animal Vaccination'
+            );
+            console.error(error);
+          }
+        );
+      }
+    );
   }
   getAllAnimalVacinated() {
     if (this._auth.userInfo?.accountType == 'agri') {

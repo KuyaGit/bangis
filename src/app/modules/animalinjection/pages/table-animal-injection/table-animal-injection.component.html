@@ -15,7 +15,7 @@
         [ngClass]="themeColor"
         (click)="applyFilter()"
       >
-      <app-loadingbutton *ngIf="isLoadingButton()" />
+        <app-loadingbutton *ngIf="isLoadingButton()" />
         <i class="fa-solid fa-magnifying-glass" *ngIf="!isLoadingButton()"></i>
       </button>
       <app-exportexcelbtn
@@ -24,30 +24,28 @@
         [themeColor]="themeColor"
       />
       <button
-      *appHasRole="['agri']"
-      class="btn text-white add-button"
-      [ngClass]="themeColor"
-      (click)="this.avacModalAddInject.set(true)"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
+        *appHasRole="['agri']"
+        class="btn text-white add-button"
+        [ngClass]="themeColor"
+        (click)="this.avacModalAddInject.set(true)"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 6v12m6-6H6"
-        />
-      </svg>
-      Add Data
-    </button>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 6v12m6-6H6"
+          />
+        </svg>
+        Add Data
+      </button>
     </div>
-
-
   </div>
   <div class="card overflow-y-scroll overflow-x-hidden">
     <!-- <div class="relative"> -->
@@ -109,21 +107,24 @@
               >
                 <i class="fa-solid fa-pen"></i>
               </button>
-              <button class="btn btn-square btn-sm ml-1 mr-1">
+              <button
+                class="btn btn-square btn-sm ml-1 mr-1"
+                (click)="deleteVacinated(items.animalVaccinationId)"
+              >
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
           </td>
           } @else {
-            <td class="w-2 p-3 sticky right-0">
-              <div class="flex justify-center">
-                <button
-                  class="btn btn-square btn-sm ml-1"
-                  (click)="openAvacInjectViewModal(items.animalVaccinationId)"
-                >
-                  <i class="fa-solid fa-eye"></i>
-                </button>
-              </div>
+          <td class="w-2 p-3 sticky right-0">
+            <div class="flex justify-center">
+              <button
+                class="btn btn-square btn-sm ml-1"
+                (click)="openAvacInjectViewModal(items.animalVaccinationId)"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
           </td>
           }
         </tr>
