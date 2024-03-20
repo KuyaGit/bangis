@@ -14,6 +14,8 @@ import { ViewrabiessampleComponent } from '../../components/viewrabiessample/vie
 import { Rabiessubmissioninterface } from '../../models/rabiessubmissioninterface';
 import { ClinicallabresultComponent } from '../../../labresults/component/clinicallabresult/clinicallabresult.component';
 import { Labresultinterface } from '../../models/labresultinterface';
+import { FormsModule } from '@angular/forms';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 
 @Component({
   selector: 'app-rabiessubmissionlist',
@@ -25,6 +27,8 @@ import { Labresultinterface } from '../../models/labresultinterface';
     CommonModule,
     ViewrabiessampleComponent,
     ClinicallabresultComponent,
+    FormsModule,
+    LoadingbuttonComponent,
   ],
   templateUrl: './rabiessubmissionlist.component.html',
   styleUrl: './rabiessubmissionlist.component.scss',
@@ -78,18 +82,34 @@ export class RabiessubmissionlistComponent implements OnInit {
     this.modalAddRabiesSubmission.set(true);
   }
   getAllRabiesSubmission() {
-    if(this._authS.userInfo?.accountType === 'agri'){
+    if (this._authS.userInfo?.accountType === 'agri') {
       this._rabiesS.getAllRabiesSampleSubmission().subscribe((res: any) => {
         this._rabiesS.rabiesList.set(res);
-      })
-    } else{
-      this._rabiesS
-      .getAllRabiesSampleSubmissionByAccount(Number(this.accountID))
-      .subscribe((res: any) => {
-        this._rabiesS.rabiesList.set(res);
+        this.items = this._rabiesS.rabiesList();
       });
+    } else {
+      this._rabiesS
+        .getAllRabiesSampleSubmissionByAccount(Number(this.accountID))
+        .subscribe((res: any) => {
+          this._rabiesS.rabiesList.set(res);
+          this.items = this._rabiesS.rabiesList();
+        });
     }
-
+  }
+  searchText: string = '';
+  items: Rabiessubmissioninterface[] = [];
+  isLoadingButton = signal<boolean>(false);
+  applyFilter() {
+    this.isLoadingButton.set(true);
+    if (this.searchText === '') {
+      this.getAllRabiesSubmission();
+      this.isLoadingButton.set(false);
+      return;
+    }
+    this.items = this.items.filter((item) =>
+      item.victimName.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    this.isLoadingButton.set(false);
   }
   ngOnInit(): void {
     this.getAllRabiesSubmission();

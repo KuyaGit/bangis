@@ -67,9 +67,16 @@ export class AddAnimalinjectionComponent implements OnInit{
         this.getAllAnimalVaccinated.emit(this.subscription)
       )
   }
-
+  isRequired : boolean = false;
   addAvacInjection() {
-    this.isLoading.set(true) ;
+
+    this.isLoading.set(true)
+    if(!this.animalInjectionForm.controls['ownerName'].value || !this.animalInjectionForm.controls['birthdate'].value || !this.animalInjectionForm.controls['contactNumber'].value || !this.animalInjectionForm.controls['ownerSex'].value || !this.animalInjectionForm.controls['barangay'].value || !this.animalInjectionForm.controls['petName'].value || !this.animalInjectionForm.controls['species'].value || !this.animalInjectionForm.controls['breed'].value || !this.animalInjectionForm.controls['petSex'].value || !this.animalInjectionForm.controls['age'].value || !this.animalInjectionForm.controls['color'].value || !this.animalInjectionForm.controls['registeredId'].value || !this.animalInjectionForm.controls['neutured'].value || !this.animalInjectionForm.controls['origin'].value || !this.animalInjectionForm.controls['remarks'].value || !this.animalInjectionForm.controls['vaccinator'].value) {
+      this._alert.handleError('All fields are required');
+      this.isRequired = true;
+      this.isLoading.set(false);
+      return;
+    }
     // Assuming this.animalInjectionForm.value contains the data for the animal vaccination
     this._avacVac.addAnimalVac(this.animalInjectionForm.value).pipe(
       catchError((err : HttpErrorResponse) => {

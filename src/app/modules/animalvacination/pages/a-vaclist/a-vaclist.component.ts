@@ -9,6 +9,9 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
 import { environment } from '../../../../../environments/environment.development';
+import { FormsModule } from '@angular/forms';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
+import { AVacsModel } from '../../models/avac.interface';
 
 @Component({
   selector: 'app-a-vaclist',
@@ -19,7 +22,9 @@ import { environment } from '../../../../../environments/environment.development
     ViewComponent,
     CommonModule,
     ExportexcelbtnComponent,
-    FullPageLoaderComponent
+    FullPageLoaderComponent,
+    FormsModule,
+    LoadingbuttonComponent
   ],
   templateUrl: './a-vaclist.component.html',
   styleUrl: './a-vaclist.component.scss',
@@ -29,7 +34,7 @@ export class AVaclistComponent implements OnInit {
   aVacModalEdit = signal(false);
   avacModalAdd = signal(false);
   avacModalView = signal(false);
-
+  isLoadingButton = signal(false);
   // Baryabols
   vacInfo: any;
   fileName: string = 'vaccineinventory.xlsx';
@@ -53,12 +58,14 @@ export class AVaclistComponent implements OnInit {
               return a.AiD - b.AiD;
             })
             this._avac.avacList.set(res);
+            this.items = this._avac.avacList();
           })
       );
     } else {
       this.subAvac.add(
         this._avac.getAllAvac().subscribe((res: any) => {
           this._avac.avacList.set(res);
+          this.items = this._avac.avacList();
         })
       );
     }
@@ -80,7 +87,20 @@ export class AVaclistComponent implements OnInit {
       })
     );
   }
-
+  searchText: string = '';
+  items: AVacsModel[] = [];
+  applyFilter() {
+    this.isLoadingButton.set(true)
+    if (this.searchText === '') {
+      this.getAllAvac();
+      this.isLoadingButton.set(false)
+      return;
+    }
+    this.items = this.items.filter((item) =>
+      item.vacName.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    this.isLoadingButton.set(false)
+  }
   ngOnInit(): void {
     this.getAllAvac();
   }

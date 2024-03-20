@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HumanvaccineService {
-  HVacs = signal<HVacModel[]| undefined>(undefined);
+  HVacs = signal<HVacModel[]>([]);
   HVacInfo= signal<HVacModel | undefined>(undefined);
   http  = inject(HttpClient);
   private url = environment.baseUrl

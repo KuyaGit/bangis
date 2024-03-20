@@ -17,6 +17,8 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
 import { environment } from '../../../../../environments/environment.development';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-h-listvac',
@@ -27,7 +29,9 @@ import { environment } from '../../../../../environments/environment.development
     ViewComponent,
     CommonModule,
     ExportexcelbtnComponent,
-    FullPageLoaderComponent
+    FullPageLoaderComponent,
+    LoadingbuttonComponent,
+    FormsModule,
   ],
   templateUrl: './h-listvac.component.html',
   styleUrl: './h-listvac.component.scss',
@@ -39,7 +43,7 @@ export class HListvacComponent implements OnInit {
   HVacAddModal = signal<boolean>(false);
   humanVac: Subscription = new Subscription();
   humanVacs: any;
-
+  isLoadingButton = signal<boolean>(false);
   // Baryabols
   fileName : string = 'humanvaccinationstocks.xlsx'
   themeColor = localStorage.getItem(environment.theme)?.toString();
@@ -82,10 +86,24 @@ export class HListvacComponent implements OnInit {
         .getAllHumanVaccineByAccount(this._auth.userInfo?.id)
         .subscribe((result: any) => {
           this._hvac.HVacs.set(result);
+          this.items = this._hvac.HVacs();
         })
     );
   }
-
+  searchText : string = '';
+  items: HVacModel[] = [];
+  applyFilter() {
+    this.isLoadingButton.set(true)
+    if (this.searchText === '') {
+      this.getAllHumanVacine();
+      this.isLoadingButton.set(false)
+      return;
+    }
+    this.items = this.items.filter((item) =>
+      item.vacName.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    this.isLoadingButton.set(false)
+  }
   ngOnInit(): void {
     this.getAllHumanVacine();
   }

@@ -15,7 +15,7 @@
         [ngClass]="themeColor"
         (click)="applyFilter()"
       >
-      <app-loadingbutton *ngIf="isLoadingButton()" />
+        <app-loadingbutton *ngIf="isLoadingButton()" />
         <i class="fa-solid fa-magnifying-glass" *ngIf="!isLoadingButton()"></i>
       </button>
       <ng-container *appHasRole="['abtc']">

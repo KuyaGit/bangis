@@ -12,7 +12,7 @@ export class UserService {
   http = inject(HttpClient);
   refreshTrigger$ = new BehaviorSubject<null>(null);
 
-  Users = signal<UserModel[] | undefined>(undefined);
+  Users = signal<UserModel[]>([]);
   userInfo = signal<UserModel | undefined>(undefined);
 
   private url = environment.baseUrl

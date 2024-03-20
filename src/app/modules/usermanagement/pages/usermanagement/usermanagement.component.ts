@@ -17,8 +17,9 @@ import { ExportexcelbtnComponent } from '../../../../core/components/exportexcel
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
 import { ColumnInterface } from '../../../../core/interface/table-data';
 import { TableDataComponent } from '../../../../core/components/table.data/table.data.component';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { environment } from '../../../../../environments/environment.development';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 
 @Component({
   selector: 'app-usermanagement',
@@ -30,7 +31,9 @@ import { environment } from '../../../../../environments/environment.development
     ViewUserComponent,
     ExportexcelbtnComponent,
     FullPageLoaderComponent,
-    TableDataComponent
+    TableDataComponent,
+    LoadingbuttonComponent,
+    FormsModule,
   ],
   templateUrl: './usermanagement.component.html',
   styleUrl: './usermanagement.component.scss',
@@ -169,12 +172,28 @@ export class UsermanagementComponent implements OnInit {
   searchKey = new FormControl();
   searchKey$ = this.searchKey.valueChanges;
   UsersData : UserModel[] = [];
+  items : UserModel[] = [];
   getAllUsers() {
     this.UserSubscription.add(
       this._user.getAllUsers().subscribe((result ) => {
         this._user.Users.set(result);
+        this.items = this._user.Users();
       })
     )
+  }
+  searchText: string = '';
+  isLoadingButton = signal<boolean>(false);
+  applyFilter() {
+    this.isLoadingButton.set(true);
+    if (this.searchText === '') {
+      this.getAllUsers();
+      this.isLoadingButton.set(false);
+      return;
+    }
+    this.items = this.items.filter((item) =>
+      item.name.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    this.isLoadingButton.set(false);
   }
 
   ngOnDestroy(): void {

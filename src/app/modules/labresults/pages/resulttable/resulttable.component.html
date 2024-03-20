@@ -2,6 +2,22 @@
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
+      <div class="search-input">
+        <input
+          type="text"
+          placeholder="Search Data"
+          class="input input-bordered w-full max-w-xs"
+          [(ngModel)]="searchText"
+        />
+      </div>
+      <button
+        class="btn btn-square border-none text-white ml-1"
+        [ngClass]="themeColor"
+        (click)="applyFilter()"
+      >
+      <app-loadingbutton *ngIf="isLoadingButton()" />
+        <i class="fa-solid fa-magnifying-glass" *ngIf="!isLoadingButton()"></i>
+      </button>
       <app-exportexcelbtn
         [data]="this._labservice.results()"
         [fileName]="fileName"
@@ -43,7 +59,7 @@
         </tr>
       </thead>
       <tbody class="table-body">
-        @for(user of _labservice.results(); track $index){
+        @for(user of items; track $index){
         <tr>
           <td>
             <div class="font-bold flex justify-center py-1">

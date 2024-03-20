@@ -9,6 +9,8 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { Labresult } from '../../models/labresult';
 import { Subscription } from 'rxjs';
 import { ViewlabresultComponent } from '../../component/viewlabresult/viewlabresult.component';
+import { FormsModule } from '@angular/forms';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 
 @Component({
   selector: 'app-resulttable',
@@ -19,6 +21,8 @@ import { ViewlabresultComponent } from '../../component/viewlabresult/viewlabres
     ExportexcelbtnComponent,
     ClinicallabresultComponent,
     ViewlabresultComponent,
+    FormsModule,
+    LoadingbuttonComponent,
   ],
   templateUrl: './resulttable.component.html',
   styleUrl: './resulttable.component.scss',
@@ -45,6 +49,7 @@ export class ResulttableComponent implements OnInit {
     if (this._authS.userInfo?.accountType === 'agri') {
       this._labservice.getAllLabResults().subscribe((res: any) => {
         this._labservice.results.set(res);
+        this.items = this._labservice.results();
       });
     } else {
       this.subcription.add(
@@ -52,9 +57,25 @@ export class ResulttableComponent implements OnInit {
           .getAllLabResultsByAccount(Number(this.accountID))
           .subscribe((res: Labresult[]) => {
             this._labservice.results.set(res);
+            this.items = this._labservice.results();
           })
       );
     }
+  }
+  searchText: string = '';
+  items: Labresult[] = [];
+  isLoadingButton = signal<boolean>(false);
+  applyFilter() {
+    this.isLoadingButton.set(true)
+    if (this.searchText === '') {
+      this.getAllLabResults();
+      this.isLoadingButton.set(false)
+      return;
+    }
+    this.items = this.items.filter((item) =>
+      item.owner.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    this.isLoadingButton.set(false)
   }
   ngOnInit(): void {
     this.getAllLabResults();

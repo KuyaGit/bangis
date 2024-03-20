@@ -26,12 +26,16 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Name</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['ownerName'].value">
+                        Required
+                      </span>
                     </div>
                     <input
                       type="text"
                       formControlName="ownerName"
                       placeholder="Enter Name"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['ownerName'].value}"
                     />
                   </label>
                 </div>
@@ -41,11 +45,14 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Birthdate</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['birthdate'].value">
+                        Required </span>
                     </div>
                     <input
                       type="date"
                       class="input input-bordered w-full"
                       formControlName="birthdate"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['birthdate'].value}"
                     />
                   </label>
                 </div>
@@ -55,11 +62,14 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Gender</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['ownerSex'].value">
+                        Required </span>
                     </div>
                     <select
                       placeholder="Select a Gender"
                       class="select select-bordered w-full"
                       formControlName="ownerSex"
+                      [ngClass]="{'select-error': isRequired && !this.animalInjectionForm.controls['ownerSex'].value}"
                     >
                       <option value="" disabled selected>
                         Please Select Gender
@@ -76,12 +86,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Contact #</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['contactNumber'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="contactNumber"
                       placeholder="Enter Contact Number"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['contactNumber'].value}"
                     />
                   </label>
                 </div>
@@ -91,12 +104,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Barangay</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['barangay'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="barangay"
                       placeholder="Enter Barangay"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['barangay'].value}"
                     />
                   </label>
                 </div>
@@ -113,12 +129,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Name of Pet</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['petName'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="petName"
                       placeholder="Name of Pet"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['petName'].value}"
                     />
                   </label>
                 </div>
@@ -128,12 +147,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Species</span>
+                      <span clas="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['species'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="species"
                       placeholder="Enter Species"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['species'].value}"
                     />
                   </label>
                 </div>
@@ -143,12 +165,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Breed</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['breed'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="breed"
                       placeholder="Enter Breed"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['breed'].value}"
                     />
                   </label>
                 </div>
@@ -160,10 +185,13 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Gender</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['petSex'].value">
+                        Required </span>
                     </div>
                     <select
                       class="select select-bordered w-full"
                       formControlName="petSex"
+                      [ngClass]="{'select-error': isRequired && !this.animalInjectionForm.controls['petSex'].value}"
                     >
                       <option value="" disabled selected>
                         Please Select Gender
@@ -180,12 +208,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Age</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['age'].value">
+                        Required </span>
                     </div>
                     <input
                       type="number"
                       formControlName="age"
                       placeholder="Enter Age"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['age'].value}"
                     />
                   </label>
                 </div>
@@ -195,12 +226,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Color</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['color'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="color"
                       placeholder="Enter Color"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['color'].value}"
                     />
                   </label>
                 </div>
@@ -210,12 +244,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Registered ID#</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['registeredId'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="registeredId"
                       placeholder="Enter Registered ID #"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['registeredId'].value}"
                     />
                   </label>
                 </div>
@@ -225,10 +262,13 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Neutered</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['neutured'].value">
+                        Required </span>
                     </div>
                     <select
                       class="select select-bordered w-full"
                       formControlName="neutured"
+                      [ngClass]="{'select-error': isRequired && !this.animalInjectionForm.controls['neutured'].value}"
                     >
                       <option value="" disabled selected>Please Select</option>
                       <option value="true">Yes</option>
@@ -244,12 +284,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Origin</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['origin'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="origin"
                       placeholder="Enter Origin"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['origin'].value}"
                     />
                   </label>
                 </div>
@@ -259,12 +302,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Remarks/Head of the Family</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['remarks'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="remarks"
                       placeholder="Enter Remarks/Head of the family"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['remarks'].value}"
                     />
                   </label>
                 </div>
@@ -274,12 +320,15 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Vaccinator</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['vaccinator'].value">
+                        Required </span>
                     </div>
                     <input
                       type="text"
                       formControlName="vaccinator"
                       placeholder="Enter Vaccinator"
                       class="input input-bordered w-full"
+                      [ngClass]="{'input-error': isRequired && !this.animalInjectionForm.controls['vaccinator'].value}"
                     />
                   </label>
                 </div>
@@ -289,11 +338,14 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">Vaccine Used</span>
+                      <span class="label-text text-error" *ngIf="isRequired && !this.animalInjectionForm.controls['animalVaccineUsedID'].value">
+                        Required </span>
                     </div>
                     <select
                       type="number"
                       class="select select-bordered w-full"
                       formControlName="animalVaccineUsedID"
+                      [ngClass]="{'select-error': isRequired && !this.animalInjectionForm.controls['animalVaccineUsedID'].value}"
                     >
                       <option value="" disabled selected>Please Select</option>
                       <option *ngFor="let item of _avac.avacList()" [value]="+item.Aid">{{item.vacName}}</option>
