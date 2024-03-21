@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://bangis.azurewebsites.net',
+  baseUrl: 'https://bangis-api.onrender.com',
   tokenName: 'bangis_authToken123',
   theme: 'themeColor',
 };
