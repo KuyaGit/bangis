@@ -28,4 +28,7 @@ export class HumanvaccineService {
   update(id : number, data: HVacModel): Observable<any> {
     return this.http.put(`${this.url}/humanvac/${id}`, data)
   }
+  delete(id:number, data: any): Observable<HVacModel> {
+    return this.http.put<HVacModel>(`${environment.baseUrl}/humanvac/archive/${id}`, data)
+  }
 }

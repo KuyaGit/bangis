@@ -1,5 +1,5 @@
 export interface Rabiessubmissioninterface {
-  id: number;
+  id: any;
   sampleIDFrom: number;
   residence: string;
   species: string;

@@ -114,4 +114,30 @@ export class RabiessubmissionlistComponent implements OnInit {
   ngOnInit(): void {
     this.getAllRabiesSubmission();
   }
+  delete(id: string) {
+    this._alertS.simpleAlert(
+      'warning',
+      'Warning',
+      'Are you sure you want to archived this Data?',
+      () => {
+        console.log(id);
+        this._rabiesS.delete(id, "Dummy").subscribe(
+          (result: any) => {
+            if (result["Hid"] == id) {
+              this._alertS.handleSuccess('Data archived successfully');
+              this.getAllRabiesSubmission();
+            } else {
+              this._alertS.handleError('Failed to archived Data');
+            }
+          },
+          (error) => {
+            this._alertS.handleError(
+              'An error occurred while arhiving Data'
+            );
+            console.error(error);
+          }
+        );
+      }
+    );
+  }
 }

@@ -21,7 +21,7 @@ export class RabiessubmissionserviceService {
         catchError(this.handleError)
       );
   }
-  
+
   getAllRabiesSampleSubmissionByAccount(id: number){
     return this.http.get(`${this.url}/rabiessample/${id}`)
       .pipe(
@@ -38,6 +38,12 @@ export class RabiessubmissionserviceService {
 
   getAllRabiesSampleSubmission(): Observable<any> {
     return this.http.get(`${this.url}/rabiessample`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  delete(id: any, data: any){
+    return this.http.put(`${this.url}/rabiessample/delete/${id}`, { data })
       .pipe(
         catchError(this.handleError)
       );

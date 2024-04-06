@@ -12,6 +12,7 @@ import { environment } from '../../../../../environments/environment.development
 import { FormsModule } from '@angular/forms';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { AVacsModel } from '../../models/avac.interface';
+import { AlertService } from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-a-vaclist',
@@ -46,6 +47,7 @@ export class AVaclistComponent implements OnInit {
   // Dependencies Injections
   _avac = inject(AvacService);
   _auth = inject(AuthService);
+  _alert = inject(AlertService);
 
   // Methods
   getAllAvac() {
@@ -103,5 +105,31 @@ export class AVaclistComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getAllAvac();
+  }
+  delete(id: number) {
+    this._alert.simpleAlert(
+      'warning',
+      'Warning',
+      'Are you sure you want to archived this Data?',
+      () => {
+        console.log(id);
+        this._avac.delete(id, "Dummy").subscribe(
+          (result: any) => {
+            if (result["Aid"] == id) {
+              this._alert.handleSuccess('Data archived successfully');
+              this.getAllAvac();
+            } else {
+              this._alert.handleError('Failed to archived Data');
+            }
+          },
+          (error) => {
+            this._alert.handleError(
+              'An error occurred while arhiving Data'
+            );
+            console.error(error);
+          }
+        );
+      }
+    );
   }
 }

@@ -19,6 +19,7 @@ import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoa
 import { environment } from '../../../../../environments/environment.development';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { FormsModule } from '@angular/forms';
+import { AlertService } from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-h-listvac',
@@ -51,6 +52,7 @@ export class HListvacComponent implements OnInit {
   // Dependensi Indyeksyon
   _hvac = inject(HumanvaccineService);
   _auth = inject(AuthService);
+  _alert = inject(AlertService);
   openHVacEditModal(Hid: number) {
     this.humanVac.add(
       this._hvac.getVaccineById(Hid).subscribe((response) => {
@@ -103,6 +105,32 @@ export class HListvacComponent implements OnInit {
       item.vacName.toLowerCase().includes(this.searchText.toLowerCase())
     );
     this.isLoadingButton.set(false)
+  }
+  delete(id: number) {
+    this._alert.simpleAlert(
+      'warning',
+      'Warning',
+      'Are you sure you want to archived this Data?',
+      () => {
+        console.log(id);
+        this._hvac.delete(id, "Dummy").subscribe(
+          (result: any) => {
+            if (result["Hid"] == id) {
+              this._alert.handleSuccess('Data archived successfully');
+              this.getAllHumanVacine();
+            } else {
+              this._alert.handleError('Failed to archived Data');
+            }
+          },
+          (error) => {
+            this._alert.handleError(
+              'An error occurred while arhiving Data'
+            );
+            console.error(error);
+          }
+        );
+      }
+    );
   }
   ngOnInit(): void {
     this.getAllHumanVacine();

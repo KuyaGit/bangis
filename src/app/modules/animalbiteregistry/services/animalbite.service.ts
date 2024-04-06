@@ -36,6 +36,9 @@ export class AnimalbiteService {
   update(id: number, data: AnimalbiteInterface) : Observable<AnimalbiteInterface> {
     return this.http.put<AnimalbiteInterface>(`${environment.baseUrl}/animalbite/update/${id}`, data)
   }
+  delete(id:number, data: any): Observable<AnimalbiteInterface> {
+    return this.http.put<AnimalbiteInterface>(`${environment.baseUrl}/animalbite/delete/${id}`, data)
+  }
   private handleError(error: HttpErrorResponse) {
     console.error(error);
     return throwError(() => error);

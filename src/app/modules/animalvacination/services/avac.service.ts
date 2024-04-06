@@ -30,4 +30,7 @@ export class AvacService {
   update(id : number, data: AVacsModel): Observable<any> {
     return this._http.put(`${this.url}/animalvac/${id}`, data)
   }
+  delete(id: any, data: any){
+    return this._http.put(`${this.url}/animalvac/delete/${id}`, { data })
+  }
 }

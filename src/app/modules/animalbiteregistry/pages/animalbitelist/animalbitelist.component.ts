@@ -20,6 +20,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { AnimalbiteInterface } from '../../models/animalbite';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
+import { AlertService } from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-animalbitelist',
@@ -50,6 +51,7 @@ export class AnimalbitelistComponent implements OnInit {
   // Dependency Injection
   _animalbite = inject(AnimalbiteService);
   _auth = inject(AuthService);
+  _alert = inject(AlertService);
   // Baryabols
   isVisiblePageLoader: boolean = false;
   fileName: string = 'animalbite.xlsx';
@@ -98,7 +100,29 @@ export class AnimalbitelistComponent implements OnInit {
     });
   }
   delete(id: number) {
-    console.log(id);
+    this._alert.simpleAlert(
+      'warning',
+      'Warning',
+      'Are you sure you want to archived this Data?',
+      () => {
+        this._animalbite.delete(id, "Dummy").subscribe(
+          (result: any) => {
+            if (result["AnimalBiteId"] == id) {
+              this._alert.handleSuccess('Data archived successfully');
+              this.getAllAnimalBite();
+            } else {
+              this._alert.handleError('Failed to archived Data');
+            }
+          },
+          (error) => {
+            this._alert.handleError(
+              'An error occurred while arhiving Data'
+            );
+            console.error(error);
+          }
+        );
+      }
+    );
   }
   searchText: string = '';
   applyFilter() {
