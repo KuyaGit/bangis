@@ -123,7 +123,7 @@ export class RabiessubmissionlistComponent implements OnInit {
         console.log(id);
         this._rabiesS.delete(id, "Dummy").subscribe(
           (result: any) => {
-            if (result["Hid"] == id) {
+            if (result["id"] == id) {
               this._alertS.handleSuccess('Data archived successfully');
               this.getAllRabiesSubmission();
             } else {
