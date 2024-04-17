@@ -35,7 +35,7 @@ export class DashboardService {
     return this.http.get(`${this.url}/animalbite/count/${id}`)
   }
   getVacinatedCount(id: number): Observable<any>  {
-    return this.http.get(`${this.url}/animalvacinated/vaccinated/count`)
+    return this.http.get(`${this.url}/animalvacinated/count/${id}`)
   }
 
   getAnimalVacCountExpired(id: number): Observable<any> {
