@@ -1,7 +1,4 @@
-@if (isArchivedTable()) {
-  <app-archive-avac-list (archivedTable)="this.isArchivedTable.set(false)" (getAllMethod)="triggerTable()"/>
-} @else {
-  <app-full-page-loader />
+<app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
@@ -21,32 +18,6 @@
       <app-loadingbutton *ngIf="isLoadingButton()" />
         <i class="fa-solid fa-magnifying-glass" *ngIf="!isLoadingButton()"></i>
       </button>
-      <button
-        class="btn border-none text-white ml-1"
-        [ngClass]="themeColor"
-        (click)="this.avacModalAdd.set(true)"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 6v12m6-6H6"
-          />
-        </svg>
-        Add Data
-      </button>
-      <app-exportexcelbtn
-        [data]="this._avac.avacList()"
-        [fileName]="fileName"
-        [themeColor]="themeColor"
-      />
       <button
         *ngIf="_auth.userInfo?.accountType == 'agri'"
         class="btn border-none text-white ml-3"
@@ -143,12 +114,7 @@
   </div>
 </div>
 
-@if (avacModalAdd()) {
-<app-add
-  (modalEvent)="this.avacModalAdd.set($event)"
-  (getAllMethod)="getAllAvac()"
-/>
-} @else if (avacModalView()) {
+@if (avacModalView()) {
 <app-view
   (modalEvent)="this.avacModalView.set($event)"
   (getAllMethod)="getAllAvac()"
@@ -160,6 +126,4 @@
   (getAllMethod)="getAllAvac()"
   [animalVacInfo]="vacInfo"
 />
-}
-
 }

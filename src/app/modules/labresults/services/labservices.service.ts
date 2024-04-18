@@ -26,8 +26,20 @@ export class LabservicesService {
         catchError(this.handleError)
       );
   }
+  getAllLabResultsArchived(): Observable<any> {
+    return this.http.get(`${this.url}/clinicallab/archived/all`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   getAllLabResultsByAccount(id: number): Observable<Labresult[] | any> {
     return this.http.get(`${this.url}/clinicallab/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  getAllLabResultsByAccountArchived(id: number): Observable<Labresult[] | any> {
+    return this.http.get(`${this.url}/clinicallab/archived/${id}`)
       .pipe(
         catchError(this.handleError)
       );
@@ -40,6 +52,12 @@ export class LabservicesService {
   }
   deleteRabiesResult(id: string): Observable<any> {
     return this.http.put(`${this.url}/clinicallab/archive/${id}` , null)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  restoreRabiesResult(id: string): Observable<any> {
+    return this.http.put(`${this.url}/clinicallab/restore/${id}` , null)
       .pipe(
         catchError(this.handleError)
       );

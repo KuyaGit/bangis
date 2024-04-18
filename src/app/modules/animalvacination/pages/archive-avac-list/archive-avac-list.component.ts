@@ -1,38 +1,36 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { AddComponent } from '../../components/add/add.component';
-import { EditComponent } from '../../components/edit/edit.component';
-import { ViewComponent } from '../../components/view/view.component';
-import { CommonModule } from '@angular/common';
-import { AvacService } from '../../services/avac.service';
+import { Component, EventEmitter, Output, inject, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../../../core/services/auth.service';
-import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
-import { environment } from '../../../../../environments/environment.development';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
-import { AVacsModel } from '../../models/avac.interface';
+import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
+import { ViewComponent } from '../../components/view/view.component';
+import { EditComponent } from '../../components/edit/edit.component';
+import { environment } from '../../../../../environments/environment.development';
 import { AlertService } from '../../../../core/services/alert.service';
-import { ArchiveAvacListComponent } from '../archive-avac-list/archive-avac-list.component';
+import { AuthService } from '../../../../core/services/auth.service';
+import { AVacsModel } from '../../models/avac.interface';
+import { AvacService } from '../../services/avac.service';
 
 @Component({
-  selector: 'app-a-vaclist',
+  selector: 'app-archive-avac-list',
   standalone: true,
   imports: [
-    AddComponent,
-    EditComponent,
-    ViewComponent,
-    CommonModule,
-    ExportexcelbtnComponent,
     FullPageLoaderComponent,
     FormsModule,
+    CommonModule,
     LoadingbuttonComponent,
-    ArchiveAvacListComponent
+    ExportexcelbtnComponent,
+    ViewComponent,
+    EditComponent
   ],
-  templateUrl: './a-vaclist.component.html',
-  styleUrl: './a-vaclist.component.scss',
+  templateUrl: './archive-avac-list.component.html',
+  styleUrl: './archive-avac-list.component.scss'
 })
-export class AVaclistComponent implements OnInit {
+export class ArchiveAvacListComponent {
+  @Output() archivedTable = new EventEmitter<boolean>();
+  @Output() getAllMethod = new EventEmitter<Subscription>();
   // Signals
   aVacModalEdit = signal(false);
   avacModalAdd = signal(false);

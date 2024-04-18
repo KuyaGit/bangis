@@ -12,6 +12,7 @@ import { ViewlabresultComponent } from '../../component/viewlabresult/viewlabres
 import { FormsModule } from '@angular/forms';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { AlertService } from '../../../../core/services/alert.service';
+import { ArchiveLabresultComponent } from '../archive-labresult/archive-labresult.component';
 
 @Component({
   selector: 'app-resulttable',
@@ -24,6 +25,7 @@ import { AlertService } from '../../../../core/services/alert.service';
     ViewlabresultComponent,
     FormsModule,
     LoadingbuttonComponent,
+    ArchiveLabresultComponent
   ],
   templateUrl: './resulttable.component.html',
   styleUrl: './resulttable.component.scss',
@@ -103,6 +105,16 @@ export class ResulttableComponent implements OnInit {
       item.owner.toLowerCase().includes(this.searchText.toLowerCase())
     );
     this.isLoadingButton.set(false)
+  }
+  isArchivedTable =signal<boolean>(false);
+  triggerTable(){
+    if(this.isArchivedTable() == true){
+      this.getAllLabResults();
+      this.isArchivedTable.set(false);
+    }
+    if(this.isArchivedTable() == false){
+      this.isArchivedTable.set(true);
+    }
   }
   ngOnInit(): void {
     this.getAllLabResults();

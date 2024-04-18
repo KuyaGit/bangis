@@ -23,6 +23,14 @@ export class AnimalbiteService {
         catchError(this.handleError)
         );
   }
+
+  getAllPatientsByAbtcArchived(id : number): Observable<AnimalbiteInterface[]> {
+    return this.http.get<AnimalbiteInterface[]>(`${environment.baseUrl}/animalbite/archived/${id}`)
+      .pipe(
+        map((users)=> users.sort((a, b) => b.animalBiteIDFrom  ? 1 : -1)),
+        catchError(this.handleError)
+        );
+  }
   getAllPatient(): Observable<AnimalbiteInterface[]> {
     return this.http.get<AnimalbiteInterface[]>(`${environment.baseUrl}/animalbite`)
       .pipe(

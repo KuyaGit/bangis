@@ -1,7 +1,4 @@
-@if(isArchivedTable()){
-  <app-archived-animal-bite (archivedTable)="this.isArchivedTable.set(false)" (getAllMethod)="triggerTable()" />
-} @else {
-  <app-full-page-loader />
+<app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start">
@@ -21,48 +18,18 @@
         <app-loadingbutton *ngIf="isLoadingButton()" />
         <i class="fa-solid fa-magnifying-glass" *ngIf="!isLoadingButton()"></i>
       </button>
-      <ng-container *appHasRole="['abtc']">
-        <button
-          [ngClass]="themeColor"
-          class="btn text-white border-none ml-1"
-          (click)="this.modalAdd.set(true)"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 6v12m6-6H6"
-            />
-          </svg>
-          Add
-        </button>
-      </ng-container>
-      <app-exportexcelbtn
-        [data]="this._animalbite.aniList()"
-        [fileName]="fileName"
-        [themeColor]="themeColor"
-      />
       <button
         *ngIf="_auth.userInfo?.accountType == 'abtc'"
         class="btn border-none text-white ml-3"
         [ngClass]="themeColor"
-        (click)="triggerTable()"
+        (click)="closeArchiveTable()"
       >
-        <i class="fa-solid fa-trash-can"></i>
-        View Archived Data
+        <i class="fa-solid fa-arrow-left"></i>
+        Back
       </button>
-      <ng-container *appHasRole="['abtc']"></ng-container>
     </div>
   </div>
   <div class="card overflow-auto">
-    <!-- <div class="relative"> -->
     <table class="table user-table">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
@@ -141,12 +108,7 @@
     </table>
   </div>
 </div>
-@if (modalAdd()) {
-<app-addanimalbite
-  (modalEvent)="this.modalAdd.set($event)"
-  (getAllMethod)="getAllAnimalBite()"
-/>
-} @else if (modalView()) {
+@if (modalView()) {
 <app-viewanimalbite
   (modalEvent)="this.modalView.set($event)"
   (getAllMethod)="getAllAnimalBite()"
@@ -158,5 +120,4 @@
   (getAllMethod)="getAllAnimalBite()"
   [animalBiteInfo]="animalBiteInfo"
 />
-}
 }

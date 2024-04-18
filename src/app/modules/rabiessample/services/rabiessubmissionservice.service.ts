@@ -42,8 +42,29 @@ export class RabiessubmissionserviceService {
         catchError(this.handleError)
       );
   }
+  getAllRabiesSampleSubmissionArchived(): Observable<any> {
+    return this.http.get(`${this.url}/rabiessample/archived`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  getAllRabiesSampleSubmissionByAccountArchived(id: number){
+    return this.http.get(`${this.url}/rabiessample/archived/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
+
   delete(id: any, data: any){
     return this.http.put(`${this.url}/rabiessample/delete/${id}`, { data })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  restore(id:any, data: any){
+    return this.http.put(`${this.url}/rabiessample/restore/${id}`, { data })
       .pipe(
         catchError(this.handleError)
       );

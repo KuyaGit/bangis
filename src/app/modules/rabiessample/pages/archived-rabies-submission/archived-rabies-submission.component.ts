@@ -1,41 +1,39 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Output, inject, signal } from '@angular/core';
 import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
-import { RabiessubmissionserviceService } from '../../services/rabiessubmissionservice.service';
-import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
-import { AddRabiesSubmissionComponent } from '../../components/add-rabies-submission/add-rabies-submission.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../../core/services/auth.service';
+import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
+import { ViewrabiessampleComponent } from '../../components/viewrabiessample/viewrabiessample.component';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { Subscription, catchError } from 'rxjs';
 import { environment } from '../../../../../environments/environment.development';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { AlertService } from '../../../../core/services/alert.service';
-import { ViewAnimalinjectionComponent } from '../../../animalinjection/components/view-animalinjection/view-animalinjection.component';
-import { ViewrabiessampleComponent } from '../../components/viewrabiessample/viewrabiessample.component';
-import { Rabiessubmissioninterface } from '../../models/rabiessubmissioninterface';
-import { ClinicallabresultComponent } from '../../../labresults/component/clinicallabresult/clinicallabresult.component';
+import { AuthService } from '../../../../core/services/auth.service';
+import { RabiessubmissionserviceService } from '../../services/rabiessubmissionservice.service';
 import { Labresultinterface } from '../../models/labresultinterface';
-import { FormsModule } from '@angular/forms';
-import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
-import { ArchivedRabiesSubmissionComponent } from '../archived-rabies-submission/archived-rabies-submission.component';
+import { Rabiessubmissioninterface } from '../../models/rabiessubmissioninterface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-rabiessubmissionlist',
+  selector: 'app-archived-rabies-submission',
   standalone: true,
   imports: [
     FullPageLoaderComponent,
-    ExportexcelbtnComponent,
-    AddRabiesSubmissionComponent,
-    CommonModule,
-    ViewrabiessampleComponent,
-    ClinicallabresultComponent,
+    ReactiveFormsModule,
     FormsModule,
+    CommonModule,
+    ExportexcelbtnComponent,
+    ViewrabiessampleComponent,
     LoadingbuttonComponent,
-    ArchivedRabiesSubmissionComponent
   ],
-  templateUrl: './rabiessubmissionlist.component.html',
-  styleUrl: './rabiessubmissionlist.component.scss',
+  templateUrl: './archived-rabies-submission.component.html',
+  styleUrl: './archived-rabies-submission.component.scss',
 })
-export class RabiessubmissionlistComponent implements OnInit {
+export class ArchivedRabiesSubmissionComponent {
+  @Output() archivedTable = new EventEmitter<boolean>();
+  @Output() getAllMethod = new EventEmitter<Subscription>();
+
+  searchText = '';
   modalAddRabiesSubmission = signal<boolean>(false);
   themeColor = localStorage.getItem(environment.theme);
   subscription = new Subscription();
@@ -44,10 +42,11 @@ export class RabiessubmissionlistComponent implements OnInit {
   _rabiesS = inject(RabiessubmissionserviceService);
   _alertS = inject(AlertService);
   accountID = this._authS.userInfo?.id;
-  isArchivedTable = signal<boolean>(false);
+
   modalViewRabiesSample = signal<boolean>(false);
   modalClinicalLabResult = signal<boolean>(false);
   information!: Rabiessubmissioninterface | Labresultinterface;
+
   openViewRabiesSampleModal(id: number) {
     this._rabiesS
       .getRabiesSampleSubmissionById(id)
@@ -63,6 +62,11 @@ export class RabiessubmissionlistComponent implements OnInit {
         this.information = res;
         this.modalViewRabiesSample.set(true);
       });
+  }
+
+  closeArchiveTable() {
+    this.getAllMethod.emit(this.subscription);
+    this.archivedTable.emit(false);
   }
   openClinicalLabUpdate(id: number) {
     this._rabiesS
@@ -80,25 +84,14 @@ export class RabiessubmissionlistComponent implements OnInit {
         this.modalClinicalLabResult.set(true);
       });
   }
-  openAddRabiesSubmissionModal() {
-    this.modalAddRabiesSubmission.set(true);
-  }
   getAllRabiesSubmission() {
-    if (this._authS.userInfo?.accountType === 'agri') {
-      this._rabiesS.getAllRabiesSampleSubmission().subscribe((res: any) => {
+    this._rabiesS
+      .getAllRabiesSampleSubmissionByAccountArchived(Number(this.accountID))
+      .subscribe((res: any) => {
         this._rabiesS.rabiesList.set(res);
         this.items = this._rabiesS.rabiesList();
       });
-    } else {
-      this._rabiesS
-        .getAllRabiesSampleSubmissionByAccount(Number(this.accountID))
-        .subscribe((res: any) => {
-          this._rabiesS.rabiesList.set(res);
-          this.items = this._rabiesS.rabiesList();
-        });
-    }
   }
-  searchText: string = '';
   items: Rabiessubmissioninterface[] = [];
   isLoadingButton = signal<boolean>(false);
   applyFilter() {
@@ -116,35 +109,24 @@ export class RabiessubmissionlistComponent implements OnInit {
   ngOnInit(): void {
     this.getAllRabiesSubmission();
   }
-  triggerTable(){
-    if(this.isArchivedTable() == true){
-      this.getAllRabiesSubmission();
-      this.isArchivedTable.set(false);
-    }
-    if(this.isArchivedTable() == false){
-      this.isArchivedTable.set(true);
-    }
-  }
-  delete(id: string) {
+  restore(id: string) {
     this._alertS.simpleAlert(
       'warning',
       'Warning',
-      'Are you sure you want to archived this Data?',
+      'Are you sure you want to restore this Data?',
       () => {
         console.log(id);
-        this._rabiesS.delete(id, "Dummy").subscribe(
+        this._rabiesS.restore(id, 'Dummy').subscribe(
           (result: any) => {
-            if (result["sampleId"] == id) {
-              this._alertS.handleSuccess('Data archived successfully');
+            if (result['sampleId'] == id) {
+              this._alertS.handleSuccess('Data restored successfully');
               this.getAllRabiesSubmission();
             } else {
-              this._alertS.handleError('Failed to archived Data');
+              this._alertS.handleError('Failed to restore Data');
             }
           },
           (error) => {
-            this._alertS.handleError(
-              'An error occurred while arhiving Data'
-            );
+            this._alertS.handleError('An error occurred while arhiving Data');
             console.error(error);
           }
         );

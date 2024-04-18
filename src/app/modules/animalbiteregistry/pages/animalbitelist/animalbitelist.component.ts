@@ -21,6 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { AnimalbiteInterface } from '../../models/animalbite';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { AlertService } from '../../../../core/services/alert.service';
+import { ArchiveLabresultComponent } from '../../../labresults/pages/archive-labresult/archive-labresult.component';
+import { ArchivedAnimalBiteComponent } from '../archived-animal-bite/archived-animal-bite.component';
 
 @Component({
   selector: 'app-animalbitelist',
@@ -34,7 +36,8 @@ import { AlertService } from '../../../../core/services/alert.service';
     ExportexcelbtnComponent,
     FullPageLoaderComponent,
     FormsModule,
-    LoadingbuttonComponent
+    LoadingbuttonComponent,
+    ArchivedAnimalBiteComponent
   ],
   templateUrl: './animalbitelist.component.html',
   styleUrl: './animalbitelist.component.scss',
@@ -140,5 +143,15 @@ export class AnimalbitelistComponent implements OnInit {
   ngOnInit(): void {
     this.getAllAnimalBite();
     this.loadingColor = this._auth.checkUser();
+  }
+  isArchivedTable = signal<boolean>(false);
+  triggerTable(){
+    if(this.isArchivedTable() == true){
+      this.getAllAnimalBite();
+      this.isArchivedTable.set(false);
+    }
+    if(this.isArchivedTable() == false){
+      this.isArchivedTable.set(true);
+    }
   }
 }

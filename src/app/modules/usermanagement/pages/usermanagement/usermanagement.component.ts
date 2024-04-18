@@ -42,6 +42,7 @@ export class UsermanagementComponent implements OnInit {
   modalAdd = signal<boolean>(false);
   modalView = signal<boolean>(false);
   modalEdit = signal<boolean>(false);
+  isShowArchived = signal<boolean>(false);
   userDetails: UserModel[] = [];
   _auth = inject(AuthService);
   dataExport : [] = [];

@@ -1,46 +1,34 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  inject,
-  signal,
-} from '@angular/core';
-import { AddComponent } from '../../components/add/add.component';
-import { EditComponent } from '../../components/edit/edit.component';
+import { Component, EventEmitter, Output, inject, signal } from '@angular/core';
+import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
+import { FormsModule } from '@angular/forms';
+import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { ViewComponent } from '../../components/view/view.component';
 import { Subscription } from 'rxjs';
-import { HumanvaccineService } from '../../services/humanvaccine.service';
-import { HVacModel } from '../../models/hvac.interface';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../../core/services/auth.service';
-import { ExportexcelbtnComponent } from '../../../../core/components/exportexcelbtn/exportexcelbtn.component';
-import { FullPageLoaderComponent } from '../../../../core/components/fullPageLoader/fullPageLoader.component';
 import { environment } from '../../../../../environments/environment.development';
-import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
-import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../../../core/services/alert.service';
-import { ArchivedHlistvacComponent } from '../archived-hlistvac/archived-hlistvac.component';
+import { AuthService } from '../../../../core/services/auth.service';
+import { HVacModel } from '../../models/hvac.interface';
+import { HumanvaccineService } from '../../services/humanvaccine.service';
+import { EditComponent } from '../../components/edit/edit.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-h-listvac',
+  selector: 'app-archived-hlistvac',
   standalone: true,
   imports: [
-    AddComponent,
-    EditComponent,
-    ViewComponent,
-    CommonModule,
-    ExportexcelbtnComponent,
     FullPageLoaderComponent,
-    LoadingbuttonComponent,
     FormsModule,
-    ArchivedHlistvacComponent
+    LoadingbuttonComponent,
+    ViewComponent,
+    EditComponent,
+    CommonModule
   ],
-  templateUrl: './h-listvac.component.html',
-  styleUrl: './h-listvac.component.scss',
+  templateUrl: './archived-hlistvac.component.html',
+  styleUrl: './archived-hlistvac.component.scss'
 })
-export class HListvacComponent implements OnInit {
-  @Output() getAllUsersMethod = new EventEmitter<Subscription>();
+export class ArchivedHlistvacComponent {
+  @Output() getAllMethod = new EventEmitter<Subscription>();
+  @Output() archivedTable = new EventEmitter<boolean>();
   HVacViewModal = signal<boolean>(false);
   HVacEditModal = signal<boolean>(false);
   HVacAddModal = signal<boolean>(false);
@@ -71,6 +59,11 @@ export class HListvacComponent implements OnInit {
       })
     );
   }
+  subscription: Subscription = new Subscription();
+  closeArchiveTable() {
+    this.getAllMethod.emit(this.subscription);
+    this.archivedTable.emit(false);
+  }
 
   closeHVacViewModal($event: any) {
     this.HVacViewModal = $event;
@@ -94,8 +87,8 @@ export class HListvacComponent implements OnInit {
         })
     );
   }
-  searchText : string = '';
-  items: HVacModel[] = [];
+  searchText : string = ''
+  items: HVacModel[] = []
   applyFilter() {
     this.isLoadingButton.set(true)
     if (this.searchText === '') {
@@ -133,16 +126,6 @@ export class HListvacComponent implements OnInit {
         );
       }
     );
-  }
-  isArchivedTable = signal<boolean>(false);
-  triggerTable(){
-    if(this.isArchivedTable() == true){
-      this.getAllHumanVacine();
-      this.isArchivedTable.set(false);
-    }
-    if(this.isArchivedTable() == false){
-      this.isArchivedTable.set(true);
-    }
   }
   ngOnInit(): void {
     this.getAllHumanVacine();

@@ -1,10 +1,7 @@
-@if (isArchivedTable()) {
-  <app-archive-avac-list (archivedTable)="this.isArchivedTable.set(false)" (getAllMethod)="triggerTable()"/>
-} @else {
-  <app-full-page-loader />
+<app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
-    <div class="search w-full flex items-center justify-start">
+    <div class="search w-full flex items-center justify-start gap-1">
       <div class="search-input">
         <input
           type="text"
@@ -22,60 +19,33 @@
         <i class="fa-solid fa-magnifying-glass" *ngIf="!isLoadingButton()"></i>
       </button>
       <button
-        class="btn border-none text-white ml-1"
-        [ngClass]="themeColor"
-        (click)="this.avacModalAdd.set(true)"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 6v12m6-6H6"
-          />
-        </svg>
-        Add Data
-      </button>
-      <app-exportexcelbtn
-        [data]="this._avac.avacList()"
-        [fileName]="fileName"
-        [themeColor]="themeColor"
-      />
-      <button
-        *ngIf="_auth.userInfo?.accountType == 'agri'"
         class="btn border-none text-white ml-3"
         [ngClass]="themeColor"
-        (click)="triggerTable()"
+        (click)="closeArchiveTable()"
       >
-        <i class="fa-solid fa-trash-can"></i>
-        View Archived Data
+        <i class="fa-solid fa-arrow-left"></i>
+        Back
       </button>
     </div>
   </div>
+
   <div class="card overflow-y-scroll overflow-x-hidden">
-    <!-- <div class="relative"> -->
-    <table class=" table user-table">
+    <table class="table user-table">
       <thead class="text-stone-600 text-center">
         <tr class="sticky top-0 bg-white">
           <th class="py-1">Vaccine Name</th>
-          <th class="py-2">Brand Name</th>
-          <th class="py-2">Dosage</th>
-          <th class="py-2">Stock Quantity</th>
-          <th class="py-2">Date Expired</th>
-          <th class="py-2">Action</th>
+          <th class="py-1">Brand Name</th>
+          <th class="py-1">Stock Quantity</th>
+          <th class="py-1">Dosage</th>
+          <th class="py-1">Date Expired</th>
+          <th class="py-1 sticky right-0 bg-white top">Action</th>
         </tr>
       </thead>
       <tbody>
         @for(vaccine of items; track $index){
         <tr>
           <td>
-            <div class="font-bold flex justify-center">
+            <div class="font-bold flex justify-center items-center">
               {{ vaccine.vacName }}
             </div>
           </td>
@@ -86,35 +56,35 @@
           </td>
           <td>
             <div class="flex justify-center">
-              {{ vaccine.dosage }}
+              {{ vaccine.stockQuantity }}
             </div>
           </td>
           <td>
-            <div class="flex justify-center">{{ vaccine.stockQuantity }}</div>
+            <div class="flex justify-center">{{ vaccine.dosage }}</div>
           </td>
           <td>
             <div class="flex flex-row justify-center items-center">
               {{ vaccine.expiryDate | date : "MMM, dd, yyyy" }}
             </div>
           </td>
-          @if (this._auth.userInfo?.accountType == 'agri') {
-          <td class="w-2 p-3">
+          @if (this._auth.userInfo?.accountType == 'abtc') {
+          <td class="w-2 p-3 sticky right-0">
             <div class="flex justify-center">
               <button
                 class="btn btn-square btn-sm ml-1"
-                (click)="openAvacViewModal(vaccine.Aid)"
+                (click)="openHVacViewModal(vaccine.Hid)"
               >
                 <i class="fa-solid fa-eye"></i>
               </button>
               <button
                 class="btn btn-square btn-sm ml-1"
-                (click)="openAvacEditModal(vaccine.Aid)"
+                (click)="openHVacEditModal(vaccine.Hid)"
               >
                 <i class="fa-solid fa-pen"></i>
               </button>
               <button
                 class="btn btn-square btn-sm ml-1 mr-1"
-                (click)="delete(vaccine.Aid)"
+                (click)="delete(vaccine.Hid)"
               >
                 <i class="fa-solid fa-trash"></i>
               </button>
@@ -122,10 +92,10 @@
           </td>
           } @else {
           <td class="w-2 p-3">
-            <div class="flex justify-center">
+            <div class="flex justify-center items-center">
               <button
                 class="btn btn-square btn-sm ml-1"
-                (click)="openAvacViewModal(vaccine.Aid)"
+                (click)="openHVacViewModal(vaccine.Hid)"
               >
                 <i class="fa-solid fa-eye"></i>
               </button>
@@ -142,24 +112,16 @@
     </table>
   </div>
 </div>
-
-@if (avacModalAdd()) {
-<app-add
-  (modalEvent)="this.avacModalAdd.set($event)"
-  (getAllMethod)="getAllAvac()"
-/>
-} @else if (avacModalView()) {
+@if (HVacViewModal()) {
 <app-view
-  (modalEvent)="this.avacModalView.set($event)"
-  (getAllMethod)="getAllAvac()"
-  [aVacInfo]="vacInfo"
+  (modalEvent)="this.HVacViewModal.set($event)"
+  (getAllHumanVaccine)="getAllHumanVacine()"
+  [hVacInfo]="humanVacs"
 />
-} @else if (aVacModalEdit()) {
+} @else if (HVacEditModal()) {
 <app-edit
-  (modalEvent)="this.aVacModalEdit.set($event)"
-  (getAllMethod)="getAllAvac()"
-  [animalVacInfo]="vacInfo"
+  (modalEvent)="this.HVacEditModal.set($event)"
+  (getAllHumanVaccineMethod)="getAllHumanVacine()"
+  [hVacInfo]="humanVacs"
 />
-}
-
 }

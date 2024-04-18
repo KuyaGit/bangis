@@ -1,4 +1,7 @@
-<app-full-page-loader />
+@if(isArchivedTable()){
+  <app-archived-hlistvac (archivedTable)="this.isArchivedTable.set(false)" (getAllUsersMethod)="triggerTable()" />
+} @else {
+  <app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
     <div class="search w-full flex items-center justify-start gap-1">
@@ -44,6 +47,15 @@
         [fileName]="fileName"
         [themeColor]="themeColor"
       />
+      <button
+        *ngIf="_auth.userInfo?.accountType == 'abtc'"
+        class="btn border-none text-white ml-3"
+        [ngClass]="themeColor"
+        (click)="triggerTable()"
+      >
+        <i class="fa-solid fa-trash-can"></i>
+        View Archived Data
+      </button>
     </div>
   </div>
 
@@ -147,4 +159,6 @@
   (getAllHumanVaccineMethod)="getAllHumanVacine()"
   [hVacInfo]="humanVacs"
 />
+}
+
 }

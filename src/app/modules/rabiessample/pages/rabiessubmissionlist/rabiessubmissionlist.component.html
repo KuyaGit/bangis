@@ -1,3 +1,9 @@
+@if ( isArchivedTable() ) {
+<app-archived-rabies-submission
+  (archivedTable)="this.isArchivedTable.set(false)"
+  (getAllMethod)="triggerTable()"
+/>
+} @else {
 <app-full-page-loader />
 <div class="table-container w-full">
   <div class="flex flex-row justify-between w-full">
@@ -15,7 +21,7 @@
         [ngClass]="themeColor"
         (click)="applyFilter()"
       >
-      <app-loadingbutton *ngIf="isLoadingButton()" />
+        <app-loadingbutton *ngIf="isLoadingButton()" />
         <i class="fa-solid fa-magnifying-glass" *ngIf="!isLoadingButton()"></i>
       </button>
       <app-exportexcelbtn
@@ -44,6 +50,15 @@
           />
         </svg>
         Add Data
+      </button>
+      <button
+        *ngIf="_authS.userInfo?.accountType == 'lab'"
+        class="btn border-none text-white ml-3"
+        [ngClass]="themeColor"
+        (click)="triggerTable()"
+      >
+        <i class="fa-solid fa-trash-can"></i>
+        View Archived Data
       </button>
     </div>
   </div>
@@ -147,4 +162,4 @@
   (getAllMethod)="this.getAllRabiesSubmission()"
   [information]="this.information"
 />
-}
+} }
