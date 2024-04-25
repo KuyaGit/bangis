@@ -63,7 +63,7 @@ export class AddanimalbiteComponent implements OnInit {
       siteOfBite: ['', Validators.required],
       category: ['', Validators.required],
       washAfterbite: ['', Validators.required],
-      dateRigGiven: ['', Validators.required],
+      dateRigGiven: [''],
       route: ['', Validators.required],
       dateOfFirstVaccine: ['', Validators.required],
       brandNameFirstVaccine: ['', Validators.required],
@@ -84,7 +84,7 @@ export class AddanimalbiteComponent implements OnInit {
 
   isLoadingButton = signal<boolean>(false);
   addAnimalBite() {
-    if(!this.animalBiteForm.controls['patientName'].value || !this.animalBiteForm.controls['Address'].value || !this.animalBiteForm.controls['age'].value || !this.animalBiteForm.controls['sex'].value || !this.animalBiteForm.controls['dateBitten'].value || !this.animalBiteForm.controls['bittenAt'].value || !this.animalBiteForm.controls['typeOfAnimal'].value || !this.animalBiteForm.controls['type'].value || !this.animalBiteForm.controls['siteOfBite'].value || !this.animalBiteForm.controls['category'].value || !this.animalBiteForm.controls['washAfterbite'].value || !this.animalBiteForm.controls['dateRigGiven'].value || !this.animalBiteForm.controls['route'].value || !this.animalBiteForm.controls['dateOfFirstVaccine'].value || !this.animalBiteForm.controls['brandNameFirstVaccine'].value) {
+    if(!this.animalBiteForm.controls['patientName'].value || !this.animalBiteForm.controls['Address'].value || !this.animalBiteForm.controls['age'].value || !this.animalBiteForm.controls['sex'].value || !this.animalBiteForm.controls['dateBitten'].value || !this.animalBiteForm.controls['bittenAt'].value || !this.animalBiteForm.controls['typeOfAnimal'].value || !this.animalBiteForm.controls['type'].value || !this.animalBiteForm.controls['siteOfBite'].value || !this.animalBiteForm.controls['category'].value || !this.animalBiteForm.controls['washAfterbite'].value || !this.animalBiteForm.controls['route'].value || !this.animalBiteForm.controls['dateOfFirstVaccine'].value || !this.animalBiteForm.controls['brandNameFirstVaccine'].value) {
       this._alert.handleError('Please fill up all required fields');
       this.isRequired = true;
       return;
