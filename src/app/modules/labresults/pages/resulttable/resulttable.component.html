@@ -26,7 +26,8 @@
         [fileName]="fileName"
         [themeColor]="themeColor"
       />
-      <button
+      <ng-container *appHasRole="['lab']">
+        <button
         [ngClass]="themeColor"
         class="btn text-white ml-3 border-none"
         (click)="this.modalAdd.set(true)"
@@ -47,6 +48,8 @@
         </svg>
         Add
       </button>
+      </ng-container>
+
       <button
         *ngIf="_authS.userInfo?.accountType == 'lab'"
         class="btn border-none text-white ml-3"
