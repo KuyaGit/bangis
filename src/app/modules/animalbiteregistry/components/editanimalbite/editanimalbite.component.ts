@@ -24,6 +24,8 @@ import { environment } from '../../../../../environments/environment.development
 import { CommonModule, DatePipe } from '@angular/common';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { WashafterbiteService } from '../../../animalinjection/services/washafterbite.service';
+import { Washafterbite } from '../../../animalinjection/models/washafterbite';
 
 @Component({
   selector: 'app-editanimalbite',
@@ -257,27 +259,24 @@ export class EditanimalbiteComponent implements OnInit {
     } else {
       this.hasFifthVaccine = false;
     }
-  }
 
+
+  }
+  wash = inject(WashafterbiteService)
+  washAfter : Washafterbite[] = []
   ngOnInit(): void {
     this.getFirstVaccine();
     this.getSecondVaccine();
     this.getThirdVaccine();
     this.getFourthVaccine();
     this.getFifthVac();
+    this.washAfter = this.wash.washafterbite;
     this.animalBiteForm.patchValue(this.animalBiteInfo);
     this.animalBiteId = this.animalBiteInfo.AnimalBiteId;
     this._hvac
       .getAllHumanVaccineByAccount(this._auth.userInfo?.id)
       .subscribe((res: any) => {
         this._hvac.HVacs.set(res);
-      });
-    console.log(
-      this.hasFirstVaccine,
-      this.hasSecondVaccine,
-      this.hasThirdVaccine,
-      this.hasFourthVaccine,
-      this.hasFifthVaccine
-    );
+      })
   }
 }

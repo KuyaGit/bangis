@@ -7,6 +7,8 @@ import { AlertService } from '../../../../core/services/alert.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { HumanvaccineService } from '../../../humanvacination/services/humanvaccine.service';
 import { AnimalbiteService } from '../../services/animalbite.service';
+import { WashafterbiteService } from '../../../animalinjection/services/washafterbite.service';
+import { Washafterbite } from '../../../animalinjection/models/washafterbite';
 
 @Component({
   selector: 'app-viewanimalbite',
@@ -62,7 +64,10 @@ export class ViewanimalbiteComponent implements OnInit{
       remarks: [{ value: '', disabled: true }],
     });
   }
+  wash = inject(WashafterbiteService)
+  washAfter : Washafterbite[] = []
   ngOnInit(): void {
+    this.washAfter = this.wash.washafterbite
     this._hvac
       .getAllHumanVaccineByAccount(this._auth.userInfo?.id)
       .subscribe((res: any) => {

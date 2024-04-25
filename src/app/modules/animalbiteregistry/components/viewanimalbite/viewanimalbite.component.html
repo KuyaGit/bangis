@@ -221,8 +221,8 @@
                       formControlName="washAfterbite"
                     >
                       <option value="" disabled selected>Yes or No</option>
-                      <option value="true">Yes</option>
-                      <option value="false">No</option>
+                      <option *ngFor="let item of washAfter" [value]="item.value">
+                        {{ item.name }}
                     </select>
                   </label>
                 </div>
