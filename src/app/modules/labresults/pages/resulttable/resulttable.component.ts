@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { LoadingbuttonComponent } from '../../../../core/components/loadingbutton/loadingbutton.component';
 import { AlertService } from '../../../../core/services/alert.service';
 import { ArchiveLabresultComponent } from '../archive-labresult/archive-labresult.component';
+import { HasRoleDirective } from '../../../../hasRole.directive';
 
 @Component({
   selector: 'app-resulttable',
@@ -25,7 +26,8 @@ import { ArchiveLabresultComponent } from '../archive-labresult/archive-labresul
     ViewlabresultComponent,
     FormsModule,
     LoadingbuttonComponent,
-    ArchiveLabresultComponent
+    ArchiveLabresultComponent,
+    HasRoleDirective
   ],
   templateUrl: './resulttable.component.html',
   styleUrl: './resulttable.component.scss',
