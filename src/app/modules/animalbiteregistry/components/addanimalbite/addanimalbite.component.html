@@ -247,14 +247,12 @@
                   <label class="form-control w-full">
                     <div class="label">
                       <span class="label-text">RIG Date Given</span>
-                      <span class="label-text text-error" *ngIf="isRequired && !this.animalBiteForm.controls['dateRigGiven'].value">Required</span>
                     </div>
                     <input
                       type="date"
                       formControlName="dateRigGiven"
                       placeholder="Enter Breed"
                       class="input input-bordered w-full"
-                      [ngClass]="{ 'input-error': isRequired && !this.animalBiteForm.controls['dateRigGiven'].value }"
                     />
                   </label>
                 </div>
