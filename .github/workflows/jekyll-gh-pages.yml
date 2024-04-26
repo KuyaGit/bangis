@@ -34,12 +34,6 @@ jobs:
           echo "# If the requested resource doesn't exist, use index.html" >> dist/bangis/.htaccess
           echo "RewriteRule ^ /index.html" >> dist/bangis/.htaccess
 
-      - name: Create prod branch if not exists
-        run: |
-          git branch -D prod || true
-          git checkout -b prod
-          git push -u origin prod
-
       - name: Clear prod branch
         run: |
           git rm -rf .
