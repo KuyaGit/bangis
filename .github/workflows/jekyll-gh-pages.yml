@@ -1,33 +1,67 @@
-name: GitHub Pages
+# name: GitHub Pages
+
+# on:
+#   push:
+#     branches:
+#     - master
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v2
+
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: '20.10'
+
+#     - name: Install dependencies
+#       run: npm install
+
+#     - name: Build
+#       run: npm run build:prod
+
+#     - name: Deploy
+#       if: success()
+#       uses: peaceiris/actions-gh-pages@v3
+#       with:
+#         github_token: ${{ secrets.GITHUB_TOKEN }}
+#         publish_dir: dist/bangis # Change this to your build directory
+#         enable_jekyll: true
+#         publish_branch: prod
+name: Generate a build and push to another branch
 
 on:
   push:
     branches:
-    - master
+      - master # The branch name your are commit the new changes
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+    name: Build and Push
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: git-checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.10'
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20.10'
+      - name: Install all dependencies
+        run: npm install
 
-    - name: Install dependencies
-      run: npm install
+      - name: Build
+        run: npm run build:prod # The build command of your project
 
-    - name: Build
-      run: npm run build:prod
-
-    - name: Deploy
-      if: success()
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: dist/bangis # Change this to your build directory
-        enable_jekyll: true
-        publish_branch: prod
+      - name: Push
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: prod # The branch name where you want to push the assets
+          FOLDER: dist/bangis # The directory where your assets are generated
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          MESSAGE: "Build: ({sha}) {msg}" # The commit message
