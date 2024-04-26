@@ -23,6 +23,17 @@ jobs:
     - name: Build
       run: npm run build:prod
 
+    - name: Add .htaccess
+      run: |
+        echo "RewriteEngine On" >> dist/bangis/.htaccess
+        echo "# If an existing asset or directory is requested go to it as it is" >> dist/bangis/.htaccess
+        echo "RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]" >> dist/bangis/.htaccess
+        echo "RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d" >> dist/bangis/.htaccess
+        echo "RewriteRule ^ - [L]" >> dist/bangis/.htaccess
+        echo "" >> dist/bangis/.htaccess
+        echo "# If the requested resource doesn't exist, use index.html" >> dist/bangis/.htaccess
+        echo "RewriteRule ^ /index.html" >> dist/bangis/.htaccess
+
     - name: Deploy
       if: success()
       uses: peaceiris/actions-gh-pages@v3
