@@ -297,65 +297,67 @@ export class AddRabiesSubmissionComponent implements OnInit {
       this.isRequired = true;
       this.isLoadingButton.set(false);
       return;
-    }
-    if(this.rabiesSampleForm.controls['causeOfDeathOther'].value){
-      this.rabiesSampleForm.controls['causeOfDeath'].setValue(this.rabiesSampleForm.controls['causeOfDeathOther'].value);
-    }
-    if(this.rabiesSampleForm.controls['whereContactOthers'].value){
-      this.rabiesSampleForm.controls['whereContact'].setValue(this.rabiesSampleForm.controls['whereContactOthers'].value);
-    }
-    if(this.rabiesSampleForm.controls['treatmentRecievedOther'].value){
-      this.rabiesSampleForm.controls['treatmentRecieved'].setValue(this.rabiesSampleForm.controls['treatmentRecievedOther'].value);
-    }
-    if(this.rabiesSampleForm.controls['otherVaccinationHistoryOther'].value){
-      this.rabiesSampleForm.controls['otherVaccinationHistory'].setValue(this.rabiesSampleForm.controls['otherVaccinationHistoryOther'].value);
-    }
-    if(this.rabiesSampleForm.controls['siteOfExposureOther'].value){
-      this.rabiesSampleForm.controls['siteOfBite'].setValue(this.rabiesSampleForm.controls['siteOfExposureOther'].value);
-    }
-    if(this.rabiesSampleForm.controls['locationofBiteOther'].value){
-      this.rabiesSampleForm.controls['locationofBite'].setValue(this.rabiesSampleForm.controls['locationofBiteOther'].value);
-    }
-    if (this.rabiesSampleForm.invalid) {
-      this._alertS.handleError('Please fill in all required fields');
-      this.isRequired = true;
-      this.isLoadingButton.set(false);
-    }
-    this.isLoadingButton.set(true);
-    if (this.arrayofDescription.length == 0) {
-      this.arrayofDescription.push('None');
-    }
-    if (this.arrayofIllness.length == 0) {
-      this.arrayofIllness.push('None');
-    }
-    this.subsciption.add(
-      this._rabiesSampleS
-        .addRabiesSampleSubmission(
-          this.rabiesSampleForm.value,
-          this.arrayofDescription,
-          this.arrayofIllness
-        )
-        .pipe(
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === 400) {
-              this.isLoadingButton.set(false);
-              this._alertS.handleError(error.error['message']);
-              this.closeModalAdd();
-            }
-            throw error; // rethrow the error to continue handling it in the subscribe block
-          })
-        )
-        .subscribe((res: any) => {
-          this.isLoadingButton.set(false);
-          if (res.id) {
-            this.rabiesSampleForm.reset();
+    } else{
+      if(this.rabiesSampleForm.controls['causeOfDeathOther'].value){
+        this.rabiesSampleForm.controls['causeOfDeath'].setValue(this.rabiesSampleForm.controls['causeOfDeathOther'].value);
+      }
+      if(this.rabiesSampleForm.controls['whereContactOthers'].value){
+        this.rabiesSampleForm.controls['whereContact'].setValue(this.rabiesSampleForm.controls['whereContactOthers'].value);
+      }
+      if(this.rabiesSampleForm.controls['treatmentRecievedOther'].value){
+        this.rabiesSampleForm.controls['treatmentRecieved'].setValue(this.rabiesSampleForm.controls['treatmentRecievedOther'].value);
+      }
+      if(this.rabiesSampleForm.controls['otherVaccinationHistoryOther'].value){
+        this.rabiesSampleForm.controls['otherVaccinationHistory'].setValue(this.rabiesSampleForm.controls['otherVaccinationHistoryOther'].value);
+      }
+      if(this.rabiesSampleForm.controls['siteOfExposureOther'].value){
+        this.rabiesSampleForm.controls['siteOfBite'].setValue(this.rabiesSampleForm.controls['siteOfExposureOther'].value);
+      }
+      if(this.rabiesSampleForm.controls['locationofBiteOther'].value){
+        this.rabiesSampleForm.controls['locationofBite'].setValue(this.rabiesSampleForm.controls['locationofBiteOther'].value);
+      }
+      if (this.rabiesSampleForm.invalid) {
+        this._alertS.handleError('Please fill in all required fields');
+        this.isRequired = true;
+        this.isLoadingButton.set(false);
+      }
+      this.isLoadingButton.set(true);
+      if (this.arrayofDescription.length == 0) {
+        this.arrayofDescription.push('None');
+      }
+      if (this.arrayofIllness.length == 0) {
+        this.arrayofIllness.push('None');
+      }
+      this.subsciption.add(
+        this._rabiesSampleS
+          .addRabiesSampleSubmission(
+            this.rabiesSampleForm.value,
+            this.arrayofDescription,
+            this.arrayofIllness
+          )
+          .pipe(
+            catchError((error: HttpErrorResponse) => {
+              if (error.status === 400) {
+                this.isLoadingButton.set(false);
+                this._alertS.handleError(error.error['message']);
+                this.closeModalAdd();
+              }
+              throw error; // rethrow the error to continue handling it in the subscribe block
+            })
+          )
+          .subscribe((res: any) => {
             this.isLoadingButton.set(false);
-            this.closeModalAdd();
-            this._alertS.handleSuccess('Successfully Added');
-            this.emitGetAll();
-          }
-        })
-    );
-  }
+            if (res.id) {
+              this.rabiesSampleForm.reset();
+              this.isLoadingButton.set(false);
+              this.closeModalAdd();
+              this._alertS.handleSuccess('Successfully Added');
+              this.emitGetAll();
+            }
+          })
+      );
+
+    }
+      }
   // Push the value changes
 }
