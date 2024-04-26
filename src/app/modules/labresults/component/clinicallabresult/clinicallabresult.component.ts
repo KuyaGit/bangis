@@ -73,7 +73,7 @@ export class ClinicallabresultComponent{
   addLabResult() {
     this.isLoadingButton.set(true);
     if(!this.labForm.get('specimen')?.value || !this.labForm.get('testMethod')?.value || !this.labForm.get('fat')?.value || !this.labForm.get('recommendation')?.value || !this.labForm.get('diagnosis')?.value || !this.labForm.get('remarks')?.value || !this.labForm.get('labAccession')?.value || !this.labForm.get('owner')?.value || !this.labForm.get('address')?.value || !this.labForm.get('sender')?.value || !this.labForm.get('senderAddress')?.value || !this.labForm.get('email')?.value || !this.labForm.get('contactNumber')?.value){
-      console.log('Error')
+      console.log('Error', this.labForm.value)
       this._alertS.handleError('Please fill in all required fields');
       this.isRequired = true;
       this.isLoadingButton.set(false);
