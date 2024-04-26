@@ -77,22 +77,23 @@ export class ClinicallabresultComponent{
       this._alertS.handleError('Please fill in all required fields');
       this.isRequired = true;
       this.isLoadingButton.set(false);
-    }
-    this._labS.addRabiesResult(this.labForm.value).pipe(
-      catchError((err: HttpErrorResponse) => {
-        if (err.status === 404) {
+    } else {
+      this._labS.addRabiesResult(this.labForm.value).pipe(
+        catchError((err: HttpErrorResponse) => {
+          if (err.status === 404) {
+            this.isLoadingButton.set(false);
+            this._alertS.handleError('An error occurred while deleting the user profile');
+          }
+          throw err;
+        })
+      ).subscribe((res: any) => {
+        if (res.labId) {
           this.isLoadingButton.set(false);
-          this._alertS.handleError('An error occurred while deleting the user profile');
+          this.modalEvent.emit(false);
+          this._alertS.handleSuccess('Lab result added successfully');
+          this.getAllMethod.emit(this.subscription);
         }
-        throw err;
-      })
-    ).subscribe((res: any) => {
-      if (res.labId) {
-        this.isLoadingButton.set(false);
-        this.modalEvent.emit(false);
-        this._alertS.handleSuccess('Lab result added successfully');
-        this.getAllMethod.emit(this.subscription);
-      }
-    });
+      });
+    }
   }
 }
