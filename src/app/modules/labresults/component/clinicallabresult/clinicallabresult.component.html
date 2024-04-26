@@ -56,35 +56,6 @@
                   />
                 </label>
               </div>
-              <div>
-                <div class="sm:flex sm:items-center w-full">
-                  <label class="form-control w-full">
-                    <div class="label">
-                      <span class="label-text">Date Recieved</span>
-                      <span
-                        class="label-text text-error"
-                        *ngIf="
-                          (labForm.controls['dateRecieved'].touched &&
-                            !labForm.controls['dateRecieved'].value) ||
-                          isRequired
-                        "
-                        >Required</span
-                      >
-                    </div>
-                    <input
-                      formControlName="dateRecieved"
-                      type="date"
-                      class="input input-bordered w-full"
-                      [ngClass]="{
-                        'input-error':
-                          (labForm.controls['dateRecieved'].touched &&
-                            !labForm.controls['dateRecieved'].value) ||
-                          isRequired
-                      }"
-                    />
-                  </label>
-                </div>
-              </div>
             </div>
             <h1
               class="text-2xl flex items-start font-extrabold text-slate-600 mb-2"
