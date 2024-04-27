@@ -244,6 +244,7 @@ export class AddRabiesSubmissionComponent implements OnInit {
       causeOfDeathOther: [''],
       whereContactOthers: [''],
     });
+    console.log('On init')
   }
 
   arrayofDescription: any[] = [];
@@ -341,6 +342,9 @@ export class AddRabiesSubmissionComponent implements OnInit {
                 this.isLoadingButton.set(false);
                 this._alertS.handleError(error.error['message']);
                 this.closeModalAdd();
+              }
+              if (error.status === 500) {
+                this._alertS.handleError(error.error['message'])
               }
               throw error; // rethrow the error to continue handling it in the subscribe block
             })
