@@ -53,8 +53,9 @@ export class EditAnimalinjectionComponent implements OnInit{
 
 
   edit() {
+    let id = this.aInjectionInfo.animalVaccinationId
     this.isLoadingButton.set(true)
-    this._avac.editAnimalInjection(this.aInjectionInfo?.animalVaccinationId,this.animalInjectionForm.value).pipe(
+    this._avac.editAnimalInjection(id ,this.animalInjectionForm.value).pipe(
       catchError((err : HttpErrorResponse) => {
         if (err.status === 400) {
           this._alert.handleError(err.error['message']);

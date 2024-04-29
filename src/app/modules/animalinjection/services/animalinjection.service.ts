@@ -35,7 +35,8 @@ export class AnimalinjectionService {
     return this._http.get(`${this.url}/animalvacinated/view/${id}`)
   }
 
-  editAnimalInjection(data: Animalinjection, id: number): Observable<any> {
+  editAnimalInjection(id: number, data: Animalinjection): Observable<any> {
+    console.log(data, id)
     return this._http.put(`${this.url}/animalvacinated/${id}`, data)
   }
   archivedAnimalInjection(id: number): Observable<any> {
