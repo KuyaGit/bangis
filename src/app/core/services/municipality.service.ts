@@ -24,7 +24,7 @@ export class MunicipalityService {
       },
       {
         id: 5,
-        municipalityName: "Batangas City Vet",
+        municipalityName: "Batangas City",
       },
       {
         id: 6,
