@@ -100,8 +100,8 @@ export class UsermanagementComponent implements OnInit {
         },
         {
           name: 'Delete',
-          method: (id: number) => {
-            this.deleteUser(id);
+          method: (id: string, role: string) => {
+            this.deleteUser(id, role);
           },
         }
       ]
@@ -144,13 +144,13 @@ export class UsermanagementComponent implements OnInit {
   _user = inject(UserService);
   _alert = inject(AlertService);
 
-  deleteUser(id: number) {
+  deleteUser(id: string, role: string) {
     this._alert.simpleAlert(
       'warning',
       'Warning',
       'Are you sure you want to archived this Account User?',
       () => {
-        this._user.deleteUser(id).subscribe(
+        this._user.archiveUser(id, role).subscribe(
           (result) => {
             if (result["id"] == id) {
               this._alert.handleSuccess('User deleted successfully');

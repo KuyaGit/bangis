@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  baseUrl: 'https://bangis-de62b707cdd6.herokuapp.com',
+  baseUrl: 'http://localhost:4000',
   tokenName: 'bangis_authToken123',
   theme: 'themeColor',
 

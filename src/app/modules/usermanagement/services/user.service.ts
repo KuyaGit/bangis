@@ -28,8 +28,8 @@ export class UserService {
         );
   }
 
-  archiveUser(id: number): Observable<any> {
-    return this.http.put(`${this.url}/users/${id}`, id)
+  archiveUser(id: string, role : string): Observable<any> {
+    return this.http.put(this.url+ '/archived/user/'+id, role)
   }
 
   deleteUser(id: number): Observable<any>  {
