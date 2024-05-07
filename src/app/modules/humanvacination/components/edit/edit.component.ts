@@ -5,6 +5,7 @@ import { DatePickerComponent } from '../../../../core/components/date-picker/dat
 import { CommonModule, DatePipe } from '@angular/common';
 import { HumanvaccineService } from '../../services/humanvaccine.service';
 import { AlertService } from '../../../../core/services/alert.service';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-edit',
@@ -23,6 +24,7 @@ export class EditComponent {
   datePipe = inject(DatePipe)
   hvac = inject(HumanvaccineService)
   _alert = inject(AlertService)
+  themeColor = localStorage.getItem(environment.theme)
   constructor() {
     this.HVacineForm = this._form.group({
       Hid: [''],
