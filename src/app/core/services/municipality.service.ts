@@ -142,6 +142,10 @@ export class MunicipalityService {
         id: 33,
         municipalityName: "Provincial Veterinary Office",
       },
+      {
+        id: 34,
+        municipalityName: "San Jose"
+      }
     ]
     getmunicipalityNames() {
       return this._districtList;
